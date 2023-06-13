@@ -18,7 +18,7 @@ importlib.reload(Evaluation_metrics)
 import matplotlib.pyplot as plt
 
 
-def data_preparation(X_in_sample, X_test, y_in_sample, y_test, X_train, X_val, y_train, y_val, time_steps, b_sentiment_score):
+def data_preparation(X_in_sample, X_test, y_in_sample, y_test, X_train, X_val, y_train, y_val, time_steps, b_sentiment_score, n_past_returns):
 
     def create_lstm_data(stock_df, time_steps):
         
@@ -30,17 +30,26 @@ def data_preparation(X_in_sample, X_test, y_in_sample, y_test, X_train, X_val, y
             seq.append(v)
         # print("seq length: ", len(seq))
         return pd.concat(seq, keys=range(len(seq)))
-            
-    if b_sentiment_score == True:
-        X_in_sample_lstm_grouped = X_in_sample.groupby("Ticker")[["BarDate", "Ticker", "PreviousdayReturn", "SESI"]]
-        X_test_lstm_grouped = X_test.groupby("Ticker")[["BarDate", "Ticker", "PreviousdayReturn", "SESI"]]
-        X_train_lstm_grouped = X_train.groupby("Ticker")[["BarDate", "Ticker", "PreviousdayReturn", "SESI"]]
-        X_val_lstm_grouped = X_val.groupby("Ticker")[["BarDate", "Ticker", "PreviousdayReturn", "SESI"]]
-    elif b_sentiment_score == False:
-        X_in_sample_lstm_grouped = X_in_sample.groupby("Ticker")[["BarDate", "Ticker", "PreviousdayReturn"]]
-        X_test_lstm_grouped = X_test.groupby("Ticker")[["BarDate", "Ticker", "PreviousdayReturn"]]
-        X_train_lstm_grouped = X_train.groupby("Ticker")[["BarDate", "Ticker", "PreviousdayReturn"]]
-        X_val_lstm_grouped = X_val.groupby("Ticker")[["BarDate", "Ticker", "PreviousdayReturn"]]
+
+    if b_sentiment_score == True and n_past_returns == 1:
+        X_columns = ["BarDate", "Ticker", "PreviousdayReturn", "SESI"]
+    elif b_sentiment_score == False and n_past_returns == 1:
+        X_columns = ["BarDate", "Ticker", "PreviousdayReturn"]
+    elif b_sentiment_score == True and n_past_returns == 3:
+        X_columns = ["BarDate", "Ticker", "PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3", "SESI"]
+    elif b_sentiment_score == False and n_past_returns == 3:
+        X_columns = ["BarDate", "Ticker", "PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3"]
+
+    # if b_sentiment_score == True:
+    X_in_sample_lstm_grouped = X_in_sample.groupby("Ticker")[X_columns]
+    X_test_lstm_grouped = X_test.groupby("Ticker")[X_columns]
+    X_train_lstm_grouped = X_train.groupby("Ticker")[X_columns]
+    X_val_lstm_grouped = X_val.groupby("Ticker")[X_columns]
+    # elif b_sentiment_score == False:
+    #     X_in_sample_lstm_grouped = X_in_sample.groupby("Ticker")[["BarDate", "Ticker", "PreviousdayReturn"]]
+    #     X_test_lstm_grouped = X_test.groupby("Ticker")[["BarDate", "Ticker", "PreviousdayReturn"]]
+    #     X_train_lstm_grouped = X_train.groupby("Ticker")[["BarDate", "Ticker", "PreviousdayReturn"]]
+    #     X_val_lstm_grouped = X_val.groupby("Ticker")[["BarDate", "Ticker", "PreviousdayReturn"]]
 
     y_in_sample_lstm_grouped = y_in_sample.groupby("Ticker")[["BarDate", "Ticker", "Target"]]
     y_test_lstm_grouped = y_test.groupby("Ticker")[["BarDate", "Ticker", "Target"]]
@@ -49,12 +58,12 @@ def data_preparation(X_in_sample, X_test, y_in_sample, y_test, X_train, X_val, y
 
 
     X_in_sample_lstm_seq = [create_lstm_data(group, time_steps) for _, group in X_in_sample_lstm_grouped]
+    print(X_in_sample_lstm_seq)
     X_in_sample_lstm_seq = [seq for seq in X_in_sample_lstm_seq if len(seq) > 0]
     X_in_sample_lstm = pd.concat(X_in_sample_lstm_seq) if X_in_sample_lstm_seq else pd.DataFrame()
     print("first is done")
 
     X_test_lstm_seq = [create_lstm_data(group, time_steps) for _, group in X_test_lstm_grouped]
-    print(X_test_lstm_seq)
     X_test_lstm_seq = [seq for seq in X_test_lstm_seq if len(seq) > 0]
     X_test_lstm = pd.concat(X_test_lstm_seq) if X_test_lstm_seq else pd.DataFrame()
     print("second is done")
@@ -88,16 +97,26 @@ def data_preparation(X_in_sample, X_test, y_in_sample, y_test, X_train, X_val, y
         return data.reshape(num_samples, time_steps, num_features)
 
     # Convert and reshape
-    if b_sentiment_score == True:
+    if b_sentiment_score == True and n_past_returns == 1:
         X_in_sample_lstm = to_3d_numpy(X_in_sample_lstm[["PreviousdayReturn", "SESI"]], time_steps, 2)
         X_test_lstm = to_3d_numpy(X_test_lstm[["PreviousdayReturn", "SESI"]], time_steps, 2)
         X_train_lstm = to_3d_numpy(X_train_lstm[["PreviousdayReturn", "SESI"]], time_steps, 2)
         X_val_lstm = to_3d_numpy(X_val_lstm[["PreviousdayReturn", "SESI"]], time_steps, 2)
-    elif b_sentiment_score == False:
+    elif b_sentiment_score == False and n_past_returns == 1:
         X_in_sample_lstm = to_3d_numpy(X_in_sample_lstm[["PreviousdayReturn"]], time_steps, 1)
         X_test_lstm = to_3d_numpy(X_test_lstm[["PreviousdayReturn"]], time_steps, 1)
         X_train_lstm = to_3d_numpy(X_train_lstm[["PreviousdayReturn"]], time_steps, 1)
         X_val_lstm = to_3d_numpy(X_val_lstm[["PreviousdayReturn"]], time_steps, 1)
+    elif b_sentiment_score == True and n_past_returns == 3:
+        X_in_sample_lstm = to_3d_numpy(X_in_sample_lstm[["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3", "SESI"]], time_steps, 4)
+        X_test_lstm = to_3d_numpy(X_test_lstm[["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3", "SESI"]], time_steps, 4)
+        X_train_lstm = to_3d_numpy(X_train_lstm[["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3", "SESI"]], time_steps, 4)
+        X_val_lstm = to_3d_numpy(X_val_lstm[["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3", "SESI"]], time_steps, 4)
+    elif b_sentiment_score == False and n_past_returns == 3:
+        X_in_sample_lstm = to_3d_numpy(X_in_sample_lstm[["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3"]], time_steps, 3)
+        X_test_lstm = to_3d_numpy(X_test_lstm[["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3"]], time_steps, 3)
+        X_train_lstm = to_3d_numpy(X_train_lstm[["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3"]], time_steps, 3)
+        X_val_lstm = to_3d_numpy(X_val_lstm[["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3"]], time_steps, 3)
 
     y_in_sample_lstm = y_in_sample_lstm[["Target"]].values
     y_test_lstm = y_test_lstm[["Target"]].values
@@ -106,14 +125,14 @@ def data_preparation(X_in_sample, X_test, y_in_sample, y_test, X_train, X_val, y
 
     return X_in_sample_lstm, X_test_lstm, y_in_sample_lstm, y_test_lstm, X_train_lstm, X_val_lstm, y_train_lstm, y_val_lstm 
 
-def LSTM_test(best_model, window_size, y_in_sample, X_in_sample, y_test, X_test, b_sentiment_score):
+def LSTM_test(best_model, window_size, y_in_sample, X_in_sample, y_test, X_test, b_sentiment_score, n_past_returns):
 
     # Initialize model, choose best hyperparameters from tuned model
     model = LSTM_model_1(dropout = best_model["dropout"].iloc[0], 
                                        recurrent_dropout = best_model["recurrent_dropout"].iloc[0], 
                                        learning_rate = best_model["learning_rate"].iloc[0],
                                         optimizer = best_model["optimizer"].iloc[0],
-                                        sequence_length = best_model["sequence_length"].iloc[0], b_sentiment_score=b_sentiment_score)
+                                        sequence_length = best_model["sequence_length"].iloc[0], b_sentiment_score=b_sentiment_score, n_past_returns=n_past_returns)
     
     # Initialize array which will be filled with predictions and classifications
     ar_predictions = []
@@ -162,7 +181,7 @@ def LSTM_test(best_model, window_size, y_in_sample, X_in_sample, y_test, X_test,
 
     return ar_predictions, ar_classifications, model
 
-def LSTM_tune(X_train, y_train, X_val, y_val, grid, b_sentiment_score):
+def LSTM_tune(X_train, y_train, X_val, y_val, grid, b_sentiment_score, n_past_returns):
     """
     Function which performs an LSTM and returns the predictions and the model.
 
@@ -195,7 +214,7 @@ def LSTM_tune(X_train, y_train, X_val, y_val, grid, b_sentiment_score):
                 for batch_size in tqdm(list(grid.values())[3]):
                     for optimizer in tqdm(list(grid.values())[4]):
                         for sequence_length in tqdm(list(grid.values())[5]):
-                                model = LSTM_model_1(dropout, recurrent_dropout, learning_rate, optimizer, sequence_length, b_sentiment_score)
+                                model = LSTM_model_1(dropout, recurrent_dropout, learning_rate, optimizer, sequence_length, b_sentiment_score, n_past_returns)
 
                                 # Define an EarlyStopping callback
                                 early_stopping = EarlyStopping(monitor='val_loss', patience=10) # this is the number of epochs with no improvement after which training will be stopped
@@ -226,12 +245,13 @@ def LSTM_tune(X_train, y_train, X_val, y_val, grid, b_sentiment_score):
 
     return(gridsearch_results, best_model)
 
-def LSTM_model_1(dropout, recurrent_dropout, learning_rate, optimizer, sequence_length, b_sentiment_score):
+def LSTM_model_1(dropout, recurrent_dropout, learning_rate, optimizer, sequence_length, b_sentiment_score, n_past_returns):
 
     if b_sentiment_score == True:
-        n_features = 2
-    elif b_sentiment_score == False:
-        n_features = 1
+        n_features = n_past_returns + 1
+    else:
+        n_features = n_past_returns
+
 
     # Create a Sequential model
     model = Sequential()
