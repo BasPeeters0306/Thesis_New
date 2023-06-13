@@ -39,7 +39,7 @@ def data_preparation(X_in_sample, X_test, y_in_sample, y_test, X_train, X_val, y
         X_columns = ["BarDate", "Ticker", "PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3", "SESI"]
     elif b_sentiment_score == False and n_past_returns == 3:
         X_columns = ["BarDate", "Ticker", "PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3"]
-
+ 
     # if b_sentiment_score == True:
     X_in_sample_lstm_grouped = X_in_sample.groupby("Ticker")[X_columns]
     X_test_lstm_grouped = X_test.groupby("Ticker")[X_columns]
@@ -152,7 +152,7 @@ def LSTM_test(best_model, window_size, y_in_sample, X_in_sample, y_test, X_test,
             X_train_window = np.concatenate([X_train_window, X_test[(i-window_size):i]])   #pd.concat
         
         # Fit model
-        model.fit(X_train_window, y_train_window.squeeze(), epochs=best_model["epochs_min_val_loss"].iloc[0], batch_size=best_model["batch_size"].iloc[0])      #epochs=best_model["epochs_min_val_loss"].iloc[0]
+        model.fit(X_train_window, y_train_window.squeeze(), epochs=best_model["epochs_min_val_loss"].iloc[0], batch_size=best_model["batch_size"].iloc[0], verbose = 2)      #epochs=best_model["epochs_min_val_loss"].iloc[0]
 
         # Get current test target window and feature window
         if (i+window_size <= len(y_test)):
@@ -226,7 +226,7 @@ def LSTM_tune(X_train, y_train, X_val, y_val, grid, b_sentiment_score, n_past_re
                                                         epochs=100,             # 1000 in Fischer
                                                         batch_size=batch_size,             
                                                         validation_data=(X_val, y_val), 
-                                                        callbacks=[early_stopping])
+                                                        callbacks=[early_stopping], verbose = 2)
                                 except:
                                     print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  Error: fitting failed using grid: dropout = ", dropout, "recurrent_dropout = ", recurrent_dropout, "learning_rate = ", learning_rate, "batch_size = ", batch_size, "optimizer = ", optimizer, "sequence_length = ", sequence_length)
                                      
@@ -342,7 +342,7 @@ def plot_train_val_loss(performances_LSTM):
 #     early_stopping = EarlyStopping(monitor='val_loss', patience=10)
 
 #     # Train the model
-#     history = model.fit([X_train_feature_1, X_train_feature_2], y_train, epochs=1000, validation_data=([X_val_feature_1, X_val_feature_2], y_val), callbacks=[early_stopping])
+#     history = model.fit([X_train_feature_1, X_train_feature_2], y_train, epochs=1000, validation_data=([X_val_feature_1, X_val_feature_2], y_val), callbacks=[early_stopping], verbose = 2)
 
 #     # Evaluate the model on the test data
 #     scores = model.evaluate([X_test_feature_1, X_test_feature_2], y_test, verbose=0)
