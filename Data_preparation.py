@@ -58,7 +58,7 @@ def feature_scaling(df, b_MinMaxScaler, b_standardizer, percentage_test_set):
         print("SESI is not in df_dayly")
         # Scales features
         if b_MinMaxScaler == True:
-            scaler = MinMaxScaler((0,1)) #MinMaxScaler((-1,1))
+            scaler = MinMaxScaler((-1,1)) #MinMaxScaler((-1,1))
             scaler.fit(df[["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3"]])
             df[["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3"]] = scaler.transform(df[["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3"]])
         elif b_standardizer == True:
@@ -70,7 +70,7 @@ def feature_scaling(df, b_MinMaxScaler, b_standardizer, percentage_test_set):
         print("SESI is in df_dayly and will also be scaled")
         # Scales features
         if b_MinMaxScaler == True:
-            scaler = MinMaxScaler((0,1))   #MinMaxScaler((-1,1))
+            scaler = MinMaxScaler((-1,1))   #MinMaxScaler((-1,1))
             # We scale based on values in the training set
             scaler.fit(df.iloc[:split_number][["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3", "SESI"]])
             df[["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3", "SESI"]] = scaler.transform(df[["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3", "SESI"]])
@@ -184,46 +184,4 @@ def create_splits(df, percentage_test_set, model, b_sentiment_score):
 
     return X_in_sample, X_test, y_in_sample, y_test, X_train, X_val, y_train, y_val
 
-# # This function creates new variables based on historical stock price data
-# Not used?
-# def load_new_variables(df):
-    
-#     # Count NaN values per column of df
-#     print("Number of NaN values = ", df.isna().sum())
-#     print("Number of null values = ", df.isnull().sum())
-
-#     # Drop rows with NaN values 
-#     df = df.dropna().reset_index(drop=True)
-
-#     # Drops rows with NaN and checks if all rows with NaN are deleted
-#     df = df.dropna()
-#     df = df.sort_values("BarDate")
-   
-#     # Past day stock growth is added
-#     df["PastdayGrowth"] = (df["AdjustedClose"] - df["PreviousAdjustedClose"]) / df["PreviousAdjustedClose"] 
-#     #df["Past2dayGrowth"] = (df["AdjustedClose"] - df["Previous2AdjustedClose"]) / df["Previous2AdjustedClose"] 
-#     df["Past3dayGrowth"] = (df["AdjustedClose"] - df["Previous3AdjustedClose"]) / df["Previous3AdjustedClose"]
-#     df["Past5dayGrowth"] = (df["AdjustedClose"] - df["Previous5AdjustedClose"]) / df["Previous5AdjustedClose"]
-#     # df["Past7dayGrowth"] = (df["AdjustedClose"] - df["Previous7AdjustedClose"]) / df["Previous7AdjustedClose"]
-#     # df["Past30dayGrowth"] = (df["AdjustedClose"] - df["Previous30AdjustedClose"]) / df["Previous30AdjustedClose"]
-#     # df["Past90dayGrowth"] = (df["AdjustedClose"] - df["Previous90AdjustedClose"]) / df["Previous90AdjustedClose"]
-#     df["Past21dayGrowth"] = (df["AdjustedClose"] - df["Previous21AdjustedClose"]) / df["Previous21AdjustedClose"]
-    
-#     # Next day stock growth is added
-#     df["NextdayGrowth"] = (df["NextAdjustedClose"] - df["AdjustedClose"]) / df["AdjustedClose"]
-#     #df["Next2dayGrowth"] = (df["Next2AdjustedClose"] - df["AdjustedClose"]) / df["AdjustedClose"]
-#     df["Next3dayGrowth"] = (df["Next3AdjustedClose"] - df["AdjustedClose"]) / df["AdjustedClose"]
-#     df["Next5dayGrowth"] = (df["Next5AdjustedClose"] - df["AdjustedClose"]) / df["AdjustedClose"]
-#     # df["Next7dayGrowth"] = (df["Next7AdjustedClose"] - df["AdjustedClose"]) / df["AdjustedClose"]
-#     # df["Next30dayGrowth"] = (df["Next30AdjustedClose"] - df["AdjustedClose"]) / df["AdjustedClose"]
-#     # df["Next90dayGrowth"] = (df["Next90AdjustedClose"] - df["AdjustedClose"]) / df["AdjustedClose"]
-#     df["Next21dayGrowth"] = (df["Next21AdjustedClose"] - df["AdjustedClose"]) / df["AdjustedClose"]
-
-#     # Previous day direction is added
-#     df["PreviousdayDirection"] = (df["AdjustedClose"] > df["PreviousAdjustedClose"]).astype(int)
-
-#     # Next day direction is added 
-#     df["NextdayDirection"] = (df["NextAdjustedClose"] > df["AdjustedClose"]).astype(int)
-    
-#     return df
 
