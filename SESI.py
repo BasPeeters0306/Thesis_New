@@ -7,6 +7,7 @@ tqdm_notebook.pandas()
 
 # Creates a daily SESI Score from raw RavenPack data. 
 def SESI(df):
+    df = df.copy()	
 
     # Turn time to a daily frequency
     df['TIMESTAMP_TZ'] = df['TIMESTAMP_TZ'].astype(str).str[:10]
@@ -38,7 +39,7 @@ def SESI(df):
 # Adds Ticker to df_SESI
 def add_ticker(df_SESI):
     
-    del df_SESI['Unnamed: 0']
+    # del df_SESI['Unnamed: 0']
     df_SESI_ticker = df_SESI.reset_index()
     df_SESI_ticker['Ticker'] = ""
 
