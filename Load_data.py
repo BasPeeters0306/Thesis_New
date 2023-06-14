@@ -68,9 +68,11 @@ def load_EOD(ar_index):
 # This function creates the correct historical SP500 index
 def create_historical_SP_Index_deliver(df):
     # Needed to not change original
+    print("len(df) = ", len(df))
     df = df.copy()
-    
+    print("len(df) = ", len(df))
     df.drop(columns=['open', 'high', 'low', 'close', 'volume'], inplace=True)
+    print("len(df) = ", len(df))
 
     # Creates string with the URL of the API
     str_url = "https://eodhistoricaldata.com/api/fundamentals/GSPC.INDX?api_token=5ffd9842655256.72432671&historical=1"
@@ -89,6 +91,7 @@ def create_historical_SP_Index_deliver(df):
                 'SymbolExchangeCode': component['Code']
             })
     df3 = pd.DataFrame(data)
+    print("len(df3) = ", len(df3))
 
     # Ensure that BarDate columns in both dataframes are of datetime type
     df['BarDate'] = pd.to_datetime(df['BarDate'])
@@ -100,9 +103,12 @@ def create_historical_SP_Index_deliver(df):
     df = df[(df["BarDate"] >= "2000-01-01") & (df["BarDate"] <= "2023-04-21")]
     df = df.reset_index(drop=True)
 
+    print("len(df3) = ", len(df3))  
+    print("len(df) = ", len(df))    
+
     # Plot the number of unique elements of SymbolExchangeCode for every BarDate
-    df3.groupby("BarDate")["SymbolExchangeCode"].nunique().plot()
-    plt.title("Number of unique elements of SymbolExchangeCode for every BarDate")
+    # df3.groupby("BarDate")["SymbolExchangeCode"].nunique().plot()
+    # plt.title("Number of unique elements of SymbolExchangeCode for every BarDate")
 
     # Resample and forward fill within each group of "SymbolExchangeCode"
     df3_daily_list = []
@@ -114,11 +120,14 @@ def create_historical_SP_Index_deliver(df):
 
     # Concatenate all the resampled dataframes back together
     df3_daily = pd.concat(df3_daily_list)
+    print("len(df3_daily) = ", len(df3_daily))
 
     # Rename column to Ticker so they match
     df3_daily = df3_daily.rename(columns={"SymbolExchangeCode":"Ticker"}) 
+    print("len(df3_daily) = ", len(df3_daily))
     # Merge df and df3_daily, keeping only rows where 'Ticker' and 'BarDate' match
     df_final = pd.merge(df, df3_daily, how='inner', on=['BarDate', 'Ticker'])
+    print("len(df_final) = ", len(df_final))    
 
     # Plot the number of unique elements of Ticker for every BarDate
     df_final.groupby("BarDate")["Ticker"].nunique().plot()
@@ -295,9 +304,14 @@ def load_csv(file_name):
 def add_SESI(df, df_SESI):
     df = df.copy()
     df_SESI = df_SESI.copy()
+    # drop columns RP_ENTITY_ID	ENTITY_NAME	EVENT_SENTIMENT	EVENT_RELEVANCE	EVENT_SIMILARITY_DAYS from df_SESI
+    df_SESI.drop(columns=['RP_ENTITY_ID', 'ENTITY_NAME', 'EVENT_SENTIMENT', 'EVENT_RELEVANCE', 'EVENT_SIMILARITY_DAYS'], inplace=True)
     # Rename TimeStamp_TZ to BarDate for df_SESI
     df_SESI = df_SESI.rename(columns = {"TIMESTAMP_TZ": "BarDate"})
 
+    # Merge and make sure the columns are both in datetime
+    df_SESI["BarDate"] = pd.to_datetime(df_SESI["BarDate"])
+    df["BarDate"] = pd.to_datetime(df["BarDate"])
     df = df.merge(df_SESI, how = "left", on = ["BarDate", "Ticker"])
 
     # Count all NaN value of every column in df_weekly
@@ -320,72 +334,72 @@ def add_SESI(df, df_SESI):
 # These functions can be deleted later
 
 
-# def create_historical_SP_Index():
+def create_historical_SP_Index():
     
-#     # Creating the directory name
-#     directory = r"C:\Users\BasPeeters\OneDrive - FactorOrange.capital\Master Thesis\Dataframes and output"
-#     ar_index = load(os.path.join(directory, "stock_universe_new.joblib"))
+    # Creating the directory name
+    directory = r"C:\Users\BasPeeters\OneDrive - FactorOrange.capital\Master Thesis\Dataframes and output"
+    ar_index = load(os.path.join(directory, "stock_universe_new.joblib"))
 
-#     df = load_EOD(ar_index)
-#     print("Loading df worked, delete this line if it worked")
-#     del df[["open", "high", "low", "volume"]]
+    df = load_EOD(ar_index)
+    print("Loading df worked, delete this line if it worked")
+    del df[["open", "high", "low", "volume"]]
 
-#     # Creates string with the URL of the API
-#     str_url = "https://eodhistoricaldata.com/api/fundamentals/GSPC.INDX?api_token=5ffd9842655256.72432671&historical=1"
-#     # Creates DF from JSON file
-#     json_SP = pd.read_json(str_url)
-#     # This is a dataframe with at each row, a date containing +- 500 dictionaries of the S&P500 constituents
-#     df2 = json_SP.iloc[870:, 3:]
-#     data = []
-#     for date, components in tqdm(df2['HistoricalComponents'].items()):
-#         # print("date: ", date)
-#         # print("components: ", components)
-#         for component in components.values():
-#             # print("component: ", component)
-#             data.append({
-#                 'BarDate': pd.to_datetime(component['Date']), 
-#                 'SymbolExchangeCode': component['Code']
-#             })
-#     df3 = pd.DataFrame(data)
+    # Creates string with the URL of the API
+    str_url = "https://eodhistoricaldata.com/api/fundamentals/GSPC.INDX?api_token=5ffd9842655256.72432671&historical=1"
+    # Creates DF from JSON file
+    json_SP = pd.read_json(str_url)
+    # This is a dataframe with at each row, a date containing +- 500 dictionaries of the S&P500 constituents
+    df2 = json_SP.iloc[870:, 3:]
+    data = []
+    for date, components in tqdm(df2['HistoricalComponents'].items()):
+        # print("date: ", date)
+        # print("components: ", components)
+        for component in components.values():
+            # print("component: ", component)
+            data.append({
+                'BarDate': pd.to_datetime(component['Date']), 
+                'SymbolExchangeCode': component['Code']
+            })
+    df3 = pd.DataFrame(data)
 
-#     # Ensure that BarDate columns in both dataframes are of datetime type
-#     df['BarDate'] = pd.to_datetime(df['BarDate'])
-#     df3['BarDate'] = pd.to_datetime(df3['BarDate'])
+    # Ensure that BarDate columns in both dataframes are of datetime type
+    df['BarDate'] = pd.to_datetime(df['BarDate'])
+    df3['BarDate'] = pd.to_datetime(df3['BarDate'])
 
-#     # delete all rows of df3 and df with BarDate before 2000-01-01 and after 2023-04-21
-#     df3 = df3[(df3["BarDate"] >= "2000-01-01") & (df3["BarDate"] <= "2023-04-21")]
-#     df3 = df3.reset_index(drop=True)
-#     df = df[(df["BarDate"] >= "2000-01-01") & (df["BarDate"] <= "2023-04-21")]
-#     df = df.reset_index(drop=True)
+    # delete all rows of df3 and df with BarDate before 2000-01-01 and after 2023-04-21
+    df3 = df3[(df3["BarDate"] >= "2000-01-01") & (df3["BarDate"] <= "2023-04-21")]
+    df3 = df3.reset_index(drop=True)
+    df = df[(df["BarDate"] >= "2000-01-01") & (df["BarDate"] <= "2023-04-21")]
+    df = df.reset_index(drop=True)
 
-#     # Plot the number of unique elements of SymbolExchangeCode for every BarDate
-#     df3.groupby("BarDate")["SymbolExchangeCode"].nunique().plot()
-#     plt.title("Number of unique elements of SymbolExchangeCode for every BarDate")
+    # Plot the number of unique elements of SymbolExchangeCode for every BarDate
+    df3.groupby("BarDate")["SymbolExchangeCode"].nunique().plot()
+    plt.title("Number of unique elements of SymbolExchangeCode for every BarDate")
 
-#     # Resample and forward fill within each group of "SymbolExchangeCode"
-#     df3_daily_list = []
-#     for symbol in df3['SymbolExchangeCode'].unique():
-#         df3_symbol = df3[df3['SymbolExchangeCode'] == symbol]
-#         df3_symbol.set_index('BarDate', inplace=True)  # move set_index operation inside the loop
-#         df3_daily_symbol = df3_symbol.resample('D').ffill()
-#         df3_daily_list.append(df3_daily_symbol.reset_index())  # reset index before appending
+    # Resample and forward fill within each group of "SymbolExchangeCode"
+    df3_daily_list = []
+    for symbol in df3['SymbolExchangeCode'].unique():
+        df3_symbol = df3[df3['SymbolExchangeCode'] == symbol]
+        df3_symbol.set_index('BarDate', inplace=True)  # move set_index operation inside the loop
+        df3_daily_symbol = df3_symbol.resample('D').ffill()
+        df3_daily_list.append(df3_daily_symbol.reset_index())  # reset index before appending
 
-#     # Concatenate all the resampled dataframes back together
-#     df3_daily = pd.concat(df3_daily_list)
+    # Concatenate all the resampled dataframes back together
+    df3_daily = pd.concat(df3_daily_list)
 
-#     # Merge df and df3_daily, keeping only rows where 'SymbolExchangeCode' and 'BarDate' match
-#     df_final = pd.merge(df, df3_daily, how='inner', on=['BarDate', 'SymbolExchangeCode'])
+    # Merge df and df3_daily, keeping only rows where 'SymbolExchangeCode' and 'BarDate' match
+    df_final = pd.merge(df, df3_daily, how='inner', on=['BarDate', 'SymbolExchangeCode'])
 
-#     # Plot the number of unique elements of SymbolExchangeCode for every BarDate
-#     df_final.groupby("BarDate")["SymbolExchangeCode"].nunique().plot()
+    # Plot the number of unique elements of SymbolExchangeCode for every BarDate
+    df_final.groupby("BarDate")["SymbolExchangeCode"].nunique().plot()
 
-#     # Add title to the plot of the number of unique elements of SymbolExchangeCode for every BarDate
-#     plt.title("Number of unique elements of SymbolExchangeCode for every BarDate")
+    # Add title to the plot of the number of unique elements of SymbolExchangeCode for every BarDate
+    plt.title("Number of unique elements of SymbolExchangeCode for every BarDate")
 
-#     df_final = df_final.sort_values(by=["BarDate", "SymbolExchangeCode"])
-#     df_final = df_final.reset_index(drop=True)
+    df_final = df_final.sort_values(by=["BarDate", "SymbolExchangeCode"])
+    df_final = df_final.reset_index(drop=True)
 
-#     return df_final
+    return df_final
 
 
 # # This function creates and returns a list with the names of a stock index 

@@ -57,25 +57,6 @@ def add_ticker(df_SESI):
     return df_SESI_ticker
 
 
-def add_lag(df):
-
-    # Count NaN values per column of df
-    print("Number of NaN values per column = \n", df.isna().sum())
-    # Drop rows with NaN values 
-    df = df.dropna().reset_index(drop=True)
-    print("NaN value dropped")
-
-    # Create lag
-    df["SESI_lagged"] = df.groupby('Ticker')['SESI'].shift(1)
-
-    # Count NaN values per column of df
-    print("Number of NaN values per column = \n", df.isna().sum())
-    # Drop rows with NaN values 
-    df = df.dropna().reset_index(drop=True)
-    print("NaN value dropped")
-
-    return df
-
     
     
 
