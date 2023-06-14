@@ -31,31 +31,31 @@ def feature_scaling(df, b_MinMaxScaler, b_standardizer, percentage_test_set):
     # Show the histogram
     plt.show()
 
-    if "SESI" in df.columns:
+    if "SESI_lagged" in df.columns:
         # Check the distribution of the following columns of features
-        print("The distribution of SESI before scaling is is: \n")
+        print("The distribution of SESI_lagged before scaling is is: \n")
         # Create histogram
         plt.figure(figsize=(10, 6))
-        plt.hist(df[["SESI"]], bins=200, edgecolor='k', alpha=0.7, color='steelblue')
+        plt.hist(df[["SESI_lagged"]], bins=200, edgecolor='k', alpha=0.7, color='steelblue')
         # Add grid lines
         plt.grid(axis='y', linestyle='--', alpha=0.7)
         # Add title and labels
-        plt.title("Distribution of SESI")
+        plt.title("Distribution of SESI_lagged")
         plt.xlabel("Variable")
         plt.ylabel("Frequency")
         # Add a vertical line to indicate the mean
-        mean = df["SESI"].mean()
+        mean = df["SESI_lagged"].mean()
         plt.axvline(mean, color='red', linestyle='dashed', linewidth=2)
         plt.text(mean+0.05, plt.ylim()[1]*0.9, f'Mean: {mean:.2f}', color='red')
         # Add a vertical line to indicate the median
-        median = df["SESI"].median()
+        median = df["SESI_lagged"].median()
         plt.axvline(median, color='green', linestyle='dashed', linewidth=2)
         plt.text(median-0.45, plt.ylim()[1]*0.8, f'Median: {median:.2f}', color='green')
         # Show the histogram
         plt.show()
 
-    if "SESI" not in df.columns:
-        print("SESI is not in df_dayly")
+    if "SESI_lagged" not in df.columns:
+        print("SESI_lagged is not in df_dayly")
         # Scales features
         if b_MinMaxScaler == True:
             scaler = MinMaxScaler((-1,1)) #MinMaxScaler((-1,1))
@@ -66,19 +66,19 @@ def feature_scaling(df, b_MinMaxScaler, b_standardizer, percentage_test_set):
             scaler_std.fit(df[["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3"]])
             df[["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3"]] = scaler_std.transform(df[["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3"]])
     
-    if "SESI" in df.columns:
-        print("SESI is in df_dayly and will also be scaled")
+    if "SESI_lagged" in df.columns:
+        print("SESI_lagged is in df_dayly and will also be scaled")
         # Scales features
         if b_MinMaxScaler == True:
             scaler = MinMaxScaler((-1,1))   #MinMaxScaler((-1,1))
             # We scale based on values in the training set
-            scaler.fit(df.iloc[:split_number][["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3", "SESI"]])
-            df[["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3", "SESI"]] = scaler.transform(df[["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3", "SESI"]])
+            scaler.fit(df.iloc[:split_number][["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3", "SESI_lagged"]])
+            df[["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3", "SESI_lagged"]] = scaler.transform(df[["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3", "SESI_lagged"]])
         elif b_standardizer == True:
             scaler_std = StandardScaler()
             # We scale based on values in the training set
-            scaler_std.fit(df.iloc[:split_number][["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3", "SESI"]])
-            df[["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3", "SESI"]] = scaler_std.transform(df[["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3", "SESI"]])
+            scaler_std.fit(df.iloc[:split_number][["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3", "SESI_lagged"]])
+            df[["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3", "SESI_lagged"]] = scaler_std.transform(df[["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3", "SESI_lagged"]])
 
     # Check the distribution of the following columns of features
     print("The distribution PreviousdayReturn is: \n")
@@ -102,24 +102,24 @@ def feature_scaling(df, b_MinMaxScaler, b_standardizer, percentage_test_set):
     # Show the histogram
     plt.show()
 
-    if "SESI" in df.columns:
+    if "SESI_lagged" in df.columns:
         # Check the distribution of the following columns of features
-        print("The distribution of SESI is: \n")
+        print("The distribution of SESI_lagged is: \n")
         # Create histogram
         plt.figure(figsize=(10, 6))
-        plt.hist(df[["SESI"]], bins=200, edgecolor='k', alpha=0.7, color='steelblue')
+        plt.hist(df[["SESI_lagged"]], bins=200, edgecolor='k', alpha=0.7, color='steelblue')
         # Add grid lines
         plt.grid(axis='y', linestyle='--', alpha=0.7)
         # Add title and labels
-        plt.title("Distribution of SESI")
+        plt.title("Distribution of SESI_lagged")
         plt.xlabel("Variable")
         plt.ylabel("Frequency")
         # Add a vertical line to indicate the mean
-        mean = df["SESI"].mean()
+        mean = df["SESI_lagged"].mean()
         plt.axvline(mean, color='red', linestyle='dashed', linewidth=2)
         plt.text(mean+0.05, plt.ylim()[1]*0.9, f'Mean: {mean:.2f}', color='red')
         # Add a vertical line to indicate the median
-        median = df["SESI"].median()
+        median = df["SESI_lagged"].median()
         plt.axvline(median, color='green', linestyle='dashed', linewidth=2)
         plt.text(median-0.45, plt.ylim()[1]*0.8, f'Median: {median:.2f}', color='green')
         # Show the histogram
@@ -132,9 +132,9 @@ def create_splits(df, percentage_test_set, model, b_sentiment_score):
 
     if model == "lstm":
         if b_sentiment_score == True:
-            if "SESI" in df.columns:
+            if "SESI_lagged" in df.columns:
                 # Creates feature dataframe
-                X = df.loc[:, df.columns.isin(["BarDate", "Ticker", "PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3", "SESI"])] #"BarDate", "Ticker", 
+                X = df.loc[:, df.columns.isin(["BarDate", "Ticker", "PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3", "SESI_lagged"])] #"BarDate", "Ticker", 
         else:
             # Creates feature dataframe
             X = df.loc[:, df.columns.isin(["BarDate", "Ticker", "PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3"])] #"BarDate", "Ticker", 
@@ -144,9 +144,9 @@ def create_splits(df, percentage_test_set, model, b_sentiment_score):
 
     if model == "not_lstm":
         if b_sentiment_score == True:
-            if "SESI" in df.columns:
+            if "SESI_lagged" in df.columns:
                 # Creates feature dataframe
-                X = df.loc[:, df.columns.isin(["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3", "SESI"])] #"BarDate", "Ticker", 
+                X = df.loc[:, df.columns.isin(["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3", "SESI_lagged"])] #"BarDate", "Ticker", 
         else:
             # Creates feature dataframe
             X = df.loc[:, df.columns.isin(["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3"])] #"BarDate", "Ticker", 

@@ -1,0 +1,863 @@
+,Name,Code,RP_ENTITY_ID,ENTITY_NAME,ENTITY_TYPE
+0,21st Century Fox Class B,FOX,A13375,TFCF Corp.,comp
+1,21st Century Fox	,FOXA,A13375,TFCF Corp.,comp
+2,3M Company,MMM,03B8CF,3M Co.,comp
+3,A.O. Smith Corp,AOS,B4703C,A.O. Smith Corp.,comp
+4,Abbott Laboratories,ABT,520632,Abbott Laboratories Inc.,comp
+5,Abbvie Inc.,ABBV,665D7D,AbbVie Inc.,comp
+6,Abercrombie & Fitch,ANF,0624BE,Abercrombie & Fitch Co.,comp
+7,Abiomed Inc,ABMD,D65A13,ABIOMED Inc.,comp
+8,Accenture plc,ACN,91B8B1,Accenture PLC,comp
+9,Activision Blizzard,ATVI,048590,Activision Blizzard Inc.,comp
+10,Acuity Brands,AYI,66A667,Acuity Brands Inc.,comp
+11,Adobe Systems Inc,ADBE,C9881C,Adobe Inc.,comp
+12,ADT Inc,ADT,97644E,ADT Inc.,comp
+13,Advance Auto Parts,AAP,F39E1E,Advance Auto Parts Inc.,comp
+14,Advanced Micro Devices,AMD,69345C,Advanced Micro Devices Inc.,comp
+15,AES Corp,AES,9C8BC3,AES Corp.,comp
+16,Aetna Inc,AET,B8C294,Aetna Inc.,comp
+17,Affiliated Managers Group,AMG,30E01D,Affiliated Managers Group Inc.,comp
+18,Aflac Inc,AFL,AD3C93,AFLAC Inc.,comp
+19,Agilent Technologies Inc,A,ED79D9,Agilent Technologies Inc.,comp
+20,AGL Resources,GAS,87EAB7,Southern Co. Gas,comp
+21,Air Products & Chemicals Inc,APD,DA48E4,Air Products & Chemicals Inc.,comp
+22,Airgas Inc,ARG,BFC3CB,Airgas Inc.,comp
+23,AK Steel Holding Corporation,AKS,41588B,AK Steel Holding Corp.,comp
+24,Akamai Technologies Inc,AKAM,BB5271,Akamai Technologies Inc.,comp
+25,Alaska Air Group Inc,ALK,CF6A5A,Alaska Air Group Inc.,comp
+26,Albemarle Corp,ALB,8E82A6,Albemarle Corp.,comp
+27,Albertsons,ABS,228924,Albertsons Companies Inc.,comp
+28,Alcoa Corporation,AA,D93A25,Alcoa Corp.,comp
+29,Alexandria Real Estate Equities,ARE,56EA2B,Alexandria Real Estate Equities Inc.,comp
+30,Alexion Pharmaceuticals,ALXN,27A356,Alexion Pharmaceuticals Inc.,comp
+31,Align Technology,ALGN,221AD7,Align Technology Inc.,comp
+32,Allegheny Energy Inc.,AYE,B25172,Allegheny Energy Inc.,comp
+33,Allegheny Technologies Incorporated,ATI,D1173F,ATI Inc.,comp
+34,Allegion,ALLE,9A3FF4,Allegion PLC,comp
+35,Allergan,AGN,9C512F,Allergan PLC,comp
+36,Alliance Data Systems,ADS,EF1AD9,Bread Financial Holdings Inc.,comp
+37,Alliant Energy Corp,LNT,F93C8A,Alliant Energy Corp.,comp
+38,AllianzGI Convertible & Income 2024 Target Term Fund,CBH,36AC57,Virtus Convertible & Income 2024 Target Term Fund,comp
+39,Allstate Corp,ALL,E1C16B,Allstate Corp.,comp
+40,Alpha Natural Resources,ANR,F43D3F,Alpha Natural Resources Inc.,comp
+41,Alphabet Inc. (Class A),GOOGL,4A6F00,Alphabet Inc.,comp
+42,Alphabet Inc. (Class C),GOOG,4A6F01,Alphabet Inc.,comp
+43,Altaba Corporation,AABA,D91D4E,Altaba Inc.,comp
+44,Altera Corp,ALTR,BFB833,Altera Corp.,comp
+45,Altria Group Inc,MO,2BA977,Altria Group Inc.,comp
+46,Amazon.com Inc,AMZN,0157B1,Amazon.com Inc.,comp
+47,Ambac Financial Group Inc,ABK,966DBE,Ambac Financial Group Inc.,comp
+48,Amcor plc,AMCR,DF8855,Amcor PLC,comp
+49,Ameren Corp,AEE,789A7D,Ameren Corp.,comp
+50,American Airlines Group,AAL,13C3E0,American Airlines Group Inc.,comp
+51,American Capital,ACAS,D1SJA5,American Capital Inc.,comp
+52,American Electric Power,AEP,D9B1C9,American Electric Power Co. Inc.,comp
+53,American Express Co,AXP,4C37C5,American Express Co.,comp
+54,American International Group,AIG,0BC29E,American International Group Inc.,comp
+55,American Tower Corp,AMT,A80FE0,American Tower REIT Inc.,comp
+56,American Water Works Company Inc,AWK,6DBBBC,American Water Works Co. Inc.,comp
+57,Ameriprise Financial,AMP,9A02C4,Ameriprise Financial Inc.,comp
+58,AmerisourceBergen Corp	,ABC,7D85A9,AmerisourceBergen Corp.,comp
+59,Ametek Inc,AME,35F4B5,Ametek Inc.,comp
+60,Amgen Inc,AMGN,76F067,Amgen Inc.,comp
+61,Amphenol Corp,APH,BB07E4,Amphenol Corp.,comp
+62,Amylin Pharmaceuticals  Inc,AMLN,E5A337,Amylin Pharmaceuticals Inc.,comp
+63,Anadarko Petroleum Corp,APC,3279AD,Anadarko Petroleum Corp.,comp
+64,Analog Devices,ADI,OVUL3U,Analog Devices Ltd.,comp
+65,Andeavor,ANDV,75560C,Andeavor Corp.,comp
+66,Anheuser-Busch InBev SA/NV,BUD,C8FAC7,Anheuser-Busch InBev S.A. N.V.,comp
+67,ANSYS,ANSS,2158DF,Ansys Inc.,comp
+68,Anthem Inc,ANTM,7AB859,Elevance Health Inc.,comp
+69,Aon plc,AON,C5EF8D,Aon PLC,comp
+70,Apache Corporation,APA,16B183,Apache Corp.,comp
+71,Apartment Investment & Management,AIV,250BEE,Apartment Investment & Management Co.,comp
+72,Apollo Group Inc.,APOL,F2C233,Apollo Education Group Inc.,comp
+73,Apollo Investment Corp,AINV,A09134,MidCap Financial Investment Corp.,comp
+74,Apple Inc.,AAPL,D8442A,Apple Inc.,comp
+75,Applied Materials Inc,AMAT,A4BCDE,Applied Materials Inc.,comp
+76,Aptiv plc,APTV,64CEBB,Aptiv PLC,comp
+77,Archer-Daniels-Midland Co,ADM,2B7A40,Archer-Daniels-Midland Co.,comp
+78,Arconic Inc,ARNC,EC821B,Howmet Aerospace Inc.,comp
+79,Arista Networks,ANET,3DC887,Arista Networks Inc.,comp
+80,Arthur J. Gallagher & Co.,AJG,AADE0B,Arthur J. Gallagher & Co.,comp
+81,Ashland Global Holdings Inc,ASH,E6A53A,Ashland Inc.,comp
+82,Assurant,AIZ,DD682D,Assurant Inc.,comp
+83,AT&T Inc.	,T,251988,AT&T Inc.,comp
+84,Atlantic Power Corporation,AT,8F6F71,Atlantic Power Corp.,comp
+85,Atmos Energy Corp,ATO,B2E6B5,Atmos Energy Corp.,comp
+86,Autodesk Inc,ADSK,64E346,Autodesk Inc.,comp
+87,Automatic Data Processing,ADP,66ECFD,Automatic Data Processing Inc.,comp
+88,AutoNation,AN,88350F,AutoNation Inc.,comp
+89,AutoZone Inc,AZO,ECF709,AutoZone Inc.,comp
+90,Avago Technologies,AVGO,BL1VLH,Avago Technologies GmbH,comp
+91,AvalonBay Communities,AVB,2FEA66,AvalonBay Communities Inc.,comp
+92,Avaya Inc.,AV,5350A5,Avaya Inc.,comp
+93,Avery Dennison Corp,AVY,662682,Avery Dennison Corp.,comp
+94,Avon Products,AVP,E29770,The Avon Co.,comp
+95,Baker Hughes Co,BKR,940C3D,Baker Hughes Co.,comp
+96,Baker Hughes Co.,BHGE,940C3D,Baker Hughes Co.,comp
+97,Baker Hughes Inc.,BHI,940C3D,Baker Hughes Co.,comp
+98,BALL,BALL,87F877,Ballingslov International AB,comp
+99,Ball Corp,BLL,FEE4B0,Ball Corp.,comp
+100,Bank of America Corp,BAC,990AD0,Bank of America Corp.,comp
+101,"Bath & Body Works, Inc.",BBWI,45CF4C,Bath & Body Works Inc.,comp
+102,Baxalta	,BXLT,02631C,Baxalta Inc.,comp
+103,Baxter International Inc.,BAX,1FAF22,Baxter International Inc.,comp
+104,BB&T Corporation,BBT,1A3E1B,Truist Financial Corp.,comp
+105,Beam Inc.	,BEAM,A20989,Beam Suntory Inc.,comp
+106,Becton Dickinson,BDX,0XV8Q2,Becton Dickinson A/S,comp
+107,Bed Bath & Beyond,BBBY,9B71A7,Bed Bath & Beyond Inc.,comp
+108,Bemis Co Inc.,BMS,628CF6,Bemis Co. Inc.,comp
+109,Berkshire Hathaway	,BRK,168A5D,Berkshire Hathaway Inc.,comp
+110,"Berkshire Hathaway, Inc.",BRK-B,168A5D,Berkshire Hathaway Inc.,comp
+111,Best Buy Co. Inc.,BBY,5E7E82,Best Buy Co. Inc.,comp
+112,Bethlehem Steel,BS,288383,Bethlehem Steel Corp.,comp
+113,Big Lots Inc.,BIG,1FCC00,Big Lots Inc.,comp
+114,Biogen Inc.,BIIB,CEDFD5,Biogen Inc.,comp
+115,Biomarin Pharmaceutical Inc.,BMRN,830BDB,BioMarin Pharmaceutical Inc.,comp
+116,Bio-Rad Laboratories,BIO,FWV8FD,BIO-Rad Laboratories ApS,comp
+117,Bio-Techne Corporation,TECH,85DE00,Bio-Techne Corp.,comp
+118,BJ Services Company,BJS,4B74EE,American Cementing LLC,comp
+119,BlackRock,BLK,V7VRRA,BlackRock Ltd.,comp
+120,BMC Software,BMC,BC6055,BMC Software Inc.,comp
+121,Boeing Company,BA,77KYTX,Boeing Co.,comp
+122,Booking Holdings Inc,BKNG,034B61,Booking Holdings Inc.,comp
+123,BorgWarner Inc.	,BWA,1791E7,BorgWarner Inc.,comp
+124,Boston Properties	,BXP,420168,Boston Properties Inc.,comp
+125,Boston Scientific	,BSX,VB4WTS,Boston Scientific BV,comp
+126,Brighthouse Financial,BHF,7A51FE,Brighthouse Financial Inc.,comp
+127,Bristol-Myers Squibb	,BMY,94637C,Bristol-Myers Squibb Co.,comp
+128,Broadcom Corp.,BRCM,A3902D,Broadcom Corp.,comp
+129,Broadridge Financial Solutions	,BR,24C48B,Broadridge Financial Solutions Inc.,comp
+130,Brown & Brown Inc,BRO,C598D7,Brown & Brown Inc.,comp
+131,Brown-Forman Corp.,BF-B,859D62,Brown-Forman Corp.,comp
+132,Brunswick Corporation,BC,07CA6A,Brunswick Corp.,comp
+133,C. H. Robinson Worldwide	,CHRW,C659EB,C.H. Robinson Worldwide Inc.,comp
+134,CA Inc.	,CA,AGRB0J,CA Inc.,comp
+135,Cablevision Systems,CVC,388C29,Cablevision Systems Corp.,comp
+136,Cabot Oil & Gas	,COG,388E00,Coterra Energy Inc.,comp
+137,Cadence Design Systems	,CDNS,CC6FF5,Cadence Design Systems Inc.,comp
+138,Caesars Entertainment Corporation,CZR,ACBAA1,Caesars Entertainment Corp.,comp
+139,Camden Property Trust,CPT,DC5299,Camden Property Trust,comp
+140,Cameron International	,CAM,A1JSF1,Cameron International Inc.,comp
+141,Campbell Soup	,CPB,543900,Campbell Soup Co.,comp
+142,Capital One Financial	,COF,055018,Capital One Financial Corp.,comp
+143,Capri Holdings	,CPRI,467C65,Capri Holdings Ltd.,comp
+144,Cardinal Health Inc.	,CAH,3587B4,Cardinal Health Inc.,comp
+145,Carefusion,CFN,4AAF4A,CareFusion Corp.,comp
+146,Carmax Inc,KMX,AA7FE0,CarMax Inc.,comp
+147,Carnival Corp.	,CCL,067779,Carnival Corp.,comp
+148,Carrier Global	,CARR,32BBAA,Carrier Global Corp.,comp
+149,Catalent	,CTLT,44A4FC,Catalent Inc.,comp
+150,Catamaran Corporation,CTRX,45BE94,Catamaran Corp.,comp
+151,Caterpillar Inc.	,CAT,767F86,Caterpillar Inc.,comp
+152,Cboe Global Markets	,CBOE,F1529C,Cboe Global Markets Inc.,comp
+153,CBRE Group,CBG,51D876,CBRE Group Inc.,comp
+154,CBRE Group	,CBRE,51D876,CBRE Group Inc.,comp
+155,CDW,CDW,87B81A,CDW Corp.,comp
+156,Celanese	,CE,RUYRYO,Celanese GmbH,comp
+157,Celgene	,CELG,70E789,Celgene Corp.,comp
+158,Centene Corporation	,CNC,F5D410,Centene Corp.,comp
+159,CenterPoint Energy	,CNP,58B46F,CenterPoint Energy Inc.,comp
+160,Centex Corp,CTX,606A93,Centex Corp.,comp
+161,CenturyLink Inc,CTL,E08AF3,Lumen Technologies Inc.,comp
+162,Cephalon Inc.,CEPH,500B7F,Cephalon Inc.,comp
+163,Ceridian HCM Holding Inc,CDAY,94208D,Ceridian HCM Holding Inc.,comp
+164,Cerner Corp.	,CERN,9743E5,Cerner Corp.,comp
+165,CF Industries Holdings Inc	,CF,61E975,CF Industries Holdings Inc.,comp
+166,"Charles River Laboratories International, Inc.",CRL,B13B68,Charles River Laboratories International Inc.,comp
+167,Charles Schwab Corporation	,SCHW,D33D8C,The Charles Schwab Corp.,comp
+168,Charter Communications	,CHTR,D88EF3,Charter Communications Inc.,comp
+169,Check Point Software Technologies Ltd,CHKP,531EF1,Check Point Software Technologies Ltd.,comp
+170,Chemours Company,CC,73A71F,The Chemours Co.,comp
+171,Chesapeake Energy	,CHK,66CB62,Chesapeake Energy Corp.,comp
+172,Chevron Corp.,CVX,D54E62,Chevron Corp.,comp
+173,Chipotle Mexican Grill	,CMG,A63820,Chipotle Mexican Grill Inc.,comp
+174,Chubb Corp,CB,D1B2E3,Chubb Corp.,comp
+175,Church & Dwight	,CHD,789ADD,Church & Dwight Co. Inc.,comp
+176,Ciena Corporation,CIEN,0E431C,Ciena Corp.,comp
+177,CIGNA Corp.	,CI,86A1B9,Cigna Holdings Co.,comp
+178,Cimarex Energy,XEC,90D6A5,Cimarex Energy Co.,comp
+179,Cincinnati Financial	,CINF,51E682,Cincinnati Financial Corp.,comp
+180,Cintas Corporation,CTAS,BFAEB4,Cintas Corp.,comp
+181,Cisco systems,CSCO,12DE76,Cisco Systems Inc.,comp
+182,CIT Group Inc,CIT,1E9A6D,CIT Group Inc.,comp
+183,Citigroup Inc.	,C,58CA9A,Citigroup Inc.,comp
+184,Citizens Financial Group	,CFG,BFE02C,Citizens Financial Group Inc.,comp
+185,Citrix Systems,CTXS,071860,Citrix Systems Inc.,comp
+186,Cliffs Natural Resources	,CLF,4C7DB5,Cleveland-Cliffs Inc.,comp
+187,CME Group Inc.	,CME,5DD486,CME Group Inc.,comp
+188,CMS Energy	,CMS,7BAAE7,CMS Energy Corp.,comp
+189,Coach Inc.,COH,BB0787,Tapestry Inc.,comp
+190,Coca-Cola Company	,KO,EEA6B3,Coca-Cola Co.,comp
+191,Coca-Cola Enterprises,CCE,DST0SQ,Coca Cola Enterprises UK Ltd.,comp
+192,Cognizant Technology Solutions,CTSH,07EC43,Cognizant Technology Solutions Corp.,comp
+193,Colgate-Palmolive	,CL,6VA6GF,Colgate-Palmolive Ltda.,comp
+194,Columbia Pipeline Group	,CPGX,70C9F1,Columbia Pipeline Group Inc.,comp
+195,Comcast Corp.	,CMCSA,C83B88,Comcast Corp.,comp
+196,Comcast K Corp,CMCSK,C83B88,Comcast Corp.,comp
+197,Comerica Inc.	,CMA,8CF6DD,Comerica Inc.,comp
+198,Compania Cervecerias Unidas S. A.,CCU,180B87,Compania Cervecerias Unidas S.A.,comp
+199,Computer Sciences Corp,CSC,095294,DXC Technology Co.,comp
+200,Compuware,CPWR,7E2BC2,Compuware Corp.,comp
+201,Conagra Brands	,CAG,FA40E2,Conagra Brands Inc.,comp
+202,Concho Resources	,CXO,154B78,Concho Resources Inc.,comp
+203,ConocoPhillips	,COP,FE89E0,ConocoPhillips Co.,comp
+204,Consol Energy	,CNX,CED4D0,Consol Energy Inc.,comp
+205,Consolidated Edison,ED,97AAF6,Consolidated Edison Inc.,comp
+206,Constellation Brands,STZ,1D1B07,Constellation Brands Inc.,comp
+207,Constellation Energy Group	,CEG_old,D9593D,Constellation Energy Group Inc.,comp
+208,Constellation Energy	,CEG,HTA3J9,Constellation Energy Corp.,comp
+209,Convergys Corporation,CVG,914819,Convergys Corp.,comp
+210,Cooper Industries	,CBE,1874CF,Cooper Industries PLC,comp
+211,Copart Inc	,CPRT,8B4A45,Copart Inc.,comp
+212,Corning Inc.,GLW,F40EE2,Corning Inc.,comp
+213,Corteva,CTVA,3FB145,Corteva Inc.,comp
+214,Costco Wholesale Corp.	,COST,B8EF97,Costco Wholesale Corp.,comp
+215,Coterra Energy Inc,CTRA,388E00,Coterra Energy Inc.,comp
+216,"Coty, Inc	",COTY,F18844,Coty Inc.,comp
+217,Coventry Health Care,CVH,73A701,Coventry Health Care Inc.,comp
+218,Covidien,COV,2A4449,Covidien PLC,comp
+219,CR Bard Inc,BCR,7794D5,C.R. Bard Inc.,comp
+220,Crown Castle International Corp.,CCI,275300,Crown Castle Inc.,comp
+221,Crown Holdings	,CCK,92B047,Crown Holdings Inc.,comp
+222,CSRA Inc.,CSRA,F762FF,CSRA Inc.,comp
+223,CSX Corp.,CSX,E26FC3,CSX Corp.,comp
+224,Ctrip.com International Ltd.,CTRP,LUTYLJ,Ctrip.com International Ltd.,comp
+225,Cummins Inc.	,CMI,131443,Cummins Inc.,comp
+226,CVS Health,CVS,69CE71,CVS Health Corp.,comp
+227,D. R. Horton,DHI,06EF42,D.R. Horton Inc.,comp
+228,Danaher Corp.,DHR,E124EB,Danaher Corp.,comp
+229,Darden Restaurants,DRI,9BBFA5,Darden Restaurants Inc.,comp
+230,DaVita Inc.,DVA,EFD406,DaVita Inc.,comp
+231,DDR Corp.,DDR,CDAF5B,SITE Centers Corp.,comp
+232,Dean Foods,DF,F97C81,Dean Foods Co.,comp
+233,Deere & Co.,DE,431B74,Deere & Co.,comp
+234,"Dell, Inc.",DELL,33AD83,Dell Technologies Inc.,comp
+235,Delphi Automotive,DLPH,USC99G,Korea Delphi Automotive Systems Corp.,comp
+236,Delta Air Lines,DAL,5F2FF7,Delta Air Lines Inc.,comp
+237,Denbury Resources,DNR,94D8C8,Denbury Inc.,comp
+238,Dentsply Sirona,XRAY,2BF36E,Dentsply Sirona Inc.,comp
+239,Devon Energy,DVN,14BA06,Devon Energy Corp.,comp
+240,"DeVry, Inc.",DV,7B492C,Adtalem Global Education Inc.,comp
+241,DexCom,DXCM,B840EF,DexCom Inc.,comp
+242,Diamond Offshore Drilling,DO,QNJRRM,Diamond Offshore Drilling Ltd.,comp
+243,Diamondback Energy,FANG,E15736,Diamondback Energy Inc.,comp
+244,Digital Realty Trust Inc,DLR,1490F3,Digital Realty Trust Inc.,comp
+245,"Dillard's, Inc",DDS,4ECD1A,Dillard's Inc.,comp
+246,DirecTV,DTV,6C4313,DIRECTV Inc.,comp
+247,Discover Financial Services,DFS,A8CBDA,Discover Financial Services Inc.,comp
+248,"Discovery, Inc. (Class A)",DISCA,ADF092,Warner Bros Discovery Inc.,comp
+249,"Discovery, Inc. (Class C)",DISCK,ADF093,Warner Bros Discovery Inc.,comp
+250,Dish Network,DISH,7FDE1C,DISH Network Corp.,comp
+251,Dollar General,DG,DC2B00,Dollar General Corp.,comp
+252,Dollar Tree,DLTR,143C52,Dollar Tree Inc.,comp
+253,Dominion Energy,D,977A1E,Dominion Energy Inc.,comp
+254,Domino's Pizza,DPZ,24D81E,Domino's Pizza Inc.,comp
+255,Dover Corporation,DOV,636639,Dover Corp.,comp
+256,Dow Inc.,DOW,BA2D83,Dow Inc.,comp
+257,Dow Jones,DJ,CV8IZB,Dow Jones LP,comp
+258,DowduPont,DWDP,C8A248,Dupont De Nemours Inc.,comp
+259,Dr Pepper Snapple Group,DPS,14C7B2,Keurig Dr. Pepper Inc.,comp
+260,DTE Energy Co.,DTE,7AC86E,DTE Energy Co.,comp
+261,Duke Energy,DUK,DB5CA5,Duke Energy Corp.,comp
+262,Duke Realty Corp,DRE,F50BAB,Duke Realty Corp.,comp
+263,Dun & Bradstreet,DNB,3I4LNZ,Dun & Bradstreet Inc.,comp
+264,DuPont de Nemours Inc,DD,C8A248,Dupont De Nemours Inc.,comp
+265,DXC Technology,DXC,095294,DXC Technology Co.,comp
+266,Dynegy Inc. (Delaware),DYN,V94ILF,Dynergy Inc.,comp
+267,E*Trade,ETFC,1CGKZ6,E*TRADE Insurance Services Inc.,comp
+268,Eastman Chemical,EMN,D4070C,Eastman Chemical Co.,comp
+269,Eastman Kodak Co.,EK,96BFF4,Eastman Kodak Co.,comp
+270,Eaton Corporation,ETN,C4073B,Eaton Corp. PLC,comp
+271,eBay Inc.,EBAY,972356,eBay Inc.,comp
+272,Ecolab Inc.,ECL,9A602D,Ecolab Inc.,comp
+273,Edison International	,EIX,E10D31,Edison International Co.,comp
+274,Edwards Lifesciences,EW,6137BF,Edwards Lifesciences Corp.,comp
+275,El Paso Corp.,EP,36841E,El Paso Corp.,comp
+276,Electronic Arts,EA,DB06B0,Electronic Arts Inc.,comp
+277,Elevance Health Inc,ELV,7AB859,Elevance Health Inc.,comp
+278,EMC Corporation,EMC,BA5900,EMC Corp.,comp
+279,Emerson Electric Company,EMR,4030E2,Emerson Electric Co.,comp
+280,Endo International,ENDP,B09F19,Endo International PLC,comp
+281,"Enphase Energy, Inc.",ENPH,C44D01,Enphase Energy Inc.,comp
+282,Ensco plc,ESV,E4DCB7,Valaris Ltd.,comp
+283,Entergy Corp.,ETR,6E7060,Entergy Corp.,comp
+284,Envision Healthcare,EVHC,97371E,Envision Healthcare Corp.,comp
+285,EOG Resources,EOG,A43906,EOG Resources Inc.,comp
+286,EPAM Systems Inc,EPAM,88923D,EPAM Systems Inc.,comp
+287,EQT,EQT,2848F1,EQTEC PLC,comp
+288,EQT Corp,EQT_old,366A08,EQT Corp.,comp
+289,Equifax Inc.,EFX,AD23DE,Equifax Inc.,comp
+290,Equillium,EQ,62471F,Equillium Inc.,comp
+291,Equinix,EQIX,315EB0,Equinix Inc.,comp
+292,Equity Residential,EQR,AE4EEB,Equity Residential Corp.,comp
+293,Essex Property Trust Inc,ESS,F67165,Essex Property Trust Inc.,comp
+294,Estée Lauder Companies,EL,14ED2B,Estee Lauder Cos. Inc.,comp
+295,Etsy,ETSY,FF4C20,Etsy Inc.,comp
+296,Everest Re Group Ltd.,RE,F1FA25,Everest Re Group Ltd.,comp
+297,Evergy,EVRG,AFD7DD,Evergy Inc.,comp
+298,Eversource Energy,ES,2BAE5F,Eversource Energy Co.,comp
+299,Exceed Company Ltd.,EDS,66087F,Exceed Co. Ltd.,comp
+300,Exelon Corp.,EXC,B303A6,Exelon Corp.,comp
+301,Expedia Group,EXPE,LXOFQP,Expedia Group,comp
+302,Expeditors,EXPD,I6B9R3,Expeditors Inc.,comp
+303,Express Scripts	,ESRX,5DBC7A,Express Scripts Inc.,comp
+304,Extra Space Storage,EXR,4FB770,Extra Space Storage Inc.,comp
+305,Exxon Mobil Corp.,XOM,E70531,Exxon Mobil Corp.,comp
+306,F5 Networks Inc.,FFIV,41B0E2,F5 Inc.,comp
+307,"Facebook, Inc.",FB,12E454,Meta Platforms Inc.,comp
+308,FactSet Research Systems Inc,FDS,12A3A3,FactSet Research Systems Inc.,comp
+309,Family Dollar Stores Inc.,FDO,06E74C,Family Dollar Stores Inc.,comp
+310,Fannie Mae,FNM,450647,Federal National Mortgage Association Co.,comp
+311,Fastenal Co,FAST,92D3A0,Fastenal Co.,comp
+312,Federal Realty Investment Trust,FRT,DB7014,Federal Realty Interim Real Estate Investment Trust Co.,comp
+313,Federated Investors,FII,73C9E2,Federated Hermes Inc.,comp
+314,FedEx Corporation,FDX,6844D2,FedEx Corp.,comp
+315,Fidelity National Information Services,FIS,7B0BA6,Fidelity National Information Services Inc.,comp
+316,Fifth Third Bancorp,FITB,8377DB,Fifth Third Bancorp Co.,comp
+317,First Data Corp,FDC,460774,First Data Corp.,comp
+318,First Horizon,FHN,WTO720,First Horizon Insurance Services Inc.,comp
+319,First Republic Bank,FRC,C7859D,First Republic Bank (California),comp
+320,First Solar,FSLR,061366,First Solar Inc.,comp
+321,First Trust New Opportunities MLP & Energy Fund,FPL,7F37DE,First Trust New Opportunities MLP & Energy Fund,comp
+322,FirstEnergy Corp,FE,7B1E50,FirstEnergy Corp.,comp
+323,Fiserv Inc,FISV,190B91,Fiserv Inc.,comp
+324,FleetCor Technologies,FLT,D29B44,FleetCor Technologies Inc.,comp
+325,Flex Ltd,FLEX,B4E00D,Flex Ltd.,comp
+326,"FLIR Systems, Inc.",FLIR,C1B0D2,Teledyne FLIR LLC,comp
+327,Flowserve Corporation,FLS,4017AD,Flowserve Corp.,comp
+328,Fluor Corporation,FLR,D6853F,Fluor Corp.,comp
+329,FMC Corporation,FMC,188394,FMC Corp.,comp
+330,Foot Locker Inc,FL,0CE7F6,Foot Locker Inc.,comp
+331,Ford Motor Company,F,A6213D,Ford Motor Co.,comp
+332,Forest Laboratories	,FRX,3660F1,Forest Laboratories Inc.,comp
+333,Fortinet,FTNT,63F892,Fortinet Inc.,comp
+334,Fortive Corp,FTV,567F3D,Fortive Corp.,comp
+335,Fortune Brands Home & Security,FBHS,21DED4,Fortune Brands Home & Security Inc.,comp
+336,Fossil Group,FOSL,C9E04B,Fossil Group Inc.,comp
+337,Foster Wheeler AG,FWLT,DFE564,Foster Wheeler AG,comp
+338,Franklin Resources,BEN,5B6C11,Franklin Resources Inc.,comp
+339,Freddie Mac,FRE,CD4203,Federal Home Loan Mortgage Corp.,comp
+340,Freeport-McMoRan Inc.,FCX,D4463B,Freeport-McMoRan Inc.,comp
+341,Frontier Communications,FTR,E7CF49,Frontier Communications Parent Inc.,comp
+342,GameStop	,GME,D42DBA,GameStop Corp.,comp
+343,Gannett Co.,GCI,CEC08B,Gannett Co. Inc.,comp
+344,Gap Inc.,GPS,817ED9,Gap Inc.,comp
+345,Gardner Denver,GDI,EEEA9F,Ingersoll-Rand Inc.,comp
+346,Garmin Ltd.,GRMN,D21EF3,Garmin Ltd.,comp
+347,Gartner Inc,IT,F57F6F,Gartner Inc.,comp
+348,Generac Holdings Inc,GNRC,304C94,Generac Holdings Inc.,comp
+349,General Dynamics,GD,DCD97F,General Dynamics Corp.,comp
+350,General Electric,GE,1921DD,General Electric Co.,comp
+351,General Mills,GIS,9CA619,General Mills Inc.,comp
+352,General Motors,GM,1BC12C,General Motors Co.,comp
+353,Genuine Parts,GPC,C15DB3,Genuine Parts Co.,comp
+354,Genworth Financial,GNW,EB36DE,Genworth Financial Inc.,comp
+355,Genzyme Corp.,GENZ,249208,Genzyme Corp.,comp
+356,GGP Inc.,GGP,300303,GGP Inc.,comp
+357,Gilead Sciences,GILD,F6E248,Gilead Sciences Inc.,comp
+358,Global Payments Inc.	,GPN,1D9E55,Global Payments Inc.,comp
+359,Globe Life Inc.,GL,E90C84,Globe Life Inc.,comp
+360,Goldman Sachs Group,GS,50070E,The Goldman Sachs Group Inc.,comp
+361,Goodrich Corporation,GR,C35C7D,Goodrich Corp.,comp
+362,Graham Holdings	,GHC,1B637E,Graham Holdings Co.,comp
+363,Grainger (W.W.) Inc.,GWW,6EB9DA,W.W. Grainger Inc.,comp
+364,Great Lakes Chemical,GLK,C9E636,Great Lakes Chemical Corp.,comp
+365,H&R Block,HRB,56EFC7,H&R Block Inc.,comp
+366,H. J. Heinz Company,HNZ,C356AC,The Kraft Heinz Co.,comp
+367,Halliburton Co.,HAL,2B49F4,Halliburton Co.,comp
+368,Hanesbrands Inc,HBI,3F6A9C,Hanesbrands Inc.,comp
+369,Harley-Davidson,HOG,DC486E,Harley-Davidson Inc.,comp
+370,Harman International Industries,HAR,3CA28D,Harman International Industries Inc.,comp
+371,Harris Corporation,HRS,EE6F1C,L3Harris Technologies Inc.,comp
+372,Hartford Financial Svc. Gp.,HIG,766047,Hartford Financial Services Group Inc.,comp
+373,Hasbro Inc.,HAS,AA98ED,Hasbro Inc.,comp
+374,HCA Holdings,HCA,34B97A,HCA Healthcare Inc.,comp
+375,HCP Inc.,HCP,A4386C,Healthpeak Properties Inc.,comp
+376,Health Care REIT Inc.,HCN,CE4FD9,Welltower Inc.,comp
+377,Healthpeak Properties,PEAK,A4386C,Healthpeak Properties Inc.,comp
+378,Helmerich & Payne,HP,1DE526,Helmerich & Payne Inc.,comp
+379,Henry Schein,HSIC,A7102F,Henry Schein Inc.,comp
+380,Hess Corporation,HES,D0909F,Hess Corp.,comp
+381,Hewlett Packard Enterprise,HPE,DBB28E,Hewlett Packard Enterprise Co.,comp
+382,Hi-Crush Inc.,HCR,B1B2C8,Hi-Crush Inc.,comp
+383,Hillshire Brands Company,HSH,CEF5B9,Hillshire Brands Co.,comp
+384,Hilton Worldwide Holdings Inc.,HLT,66E04A,Hilton Worldwide Holdings Inc.,comp
+385,HollyFrontier Corp,HFC,68E6E9,HollyFrontier Corp.,comp
+386,Hologic Inc,HOLX,C951A2,Hologic Inc.,comp
+387,Home Depot,HD,ACDF88,The Home Depot Inc.,comp
+388,Honeywell Int'l Inc.,HON,FF6644,Honeywell International Inc.,comp
+389,Hormel Foods Corp.,HRL,C4A432,Hormel Foods Corp.,comp
+390,Hospira Inc,HSP,A4E5E6,Hospira Inc.,comp
+391,Host Hotels & Resorts,HST,6BF593,Host Hotels & Resorts Inc.,comp
+392,Howmet Aerospace,HWM,EC821B,Howmet Aerospace Inc.,comp
+393,HP Inc.,HPQ,4AC91D,HP Inc.,comp
+394,Hudson City Bancorp Inc,HCBK,4410E7,Hudson City Bancorp Inc.,comp
+395,Humana Inc.,HUM,00067A,Humana Inc.,comp
+396,Huntington Bancshares,HBAN,C9E107,Huntington Bancshares Inc.,comp
+397,Huntington Ingalls Industries,HII,A1EAC8,Huntington Ingalls Industries Inc.,comp
+398,IAC / Interactive Corp.,IAC,4B3676,IAC/InterActiveCorp.,comp
+399,IDEX Corporation,IEX,E8B21D,IDEX Corp.,comp
+400,IDEXX Laboratories,IDXX,B7EB38,IDEXX Laboratories Inc.,comp
+401,IHS Markit Ltd.,INFO,8FEF3B,IHS Markit Ltd.,comp
+402,Illinois Tool Works,ITW,353DBB,Illinois Tool Works Inc.,comp
+403,Illumina Inc,ILMN,E6D89E,Illumina Inc.,comp
+404,IMS Health,RX,F13C0C,IMS Health Holdings Inc.,comp
+405,Incyte,INCY,6CC55E,Incyte Corp.,comp
+406,Infosys Ltd ADR,INFY,C2AEC9,Infosys Ltd.,comp
+407,Ingersoll-Rand plc,IR,5A6336,Trane Technologies PLC,comp
+408,Integrys Energy Group Inc.,TEG,AF4207,Integrys Energy Group Inc.,comp
+409,Intel Corp.	,INTC,17EDA5,Intel Corp.,comp
+410,Intercontinental Exchange,ICE,9F71E5,Intercontinental Exchange Inc.,comp
+411,International Business Machines,IBM,8D4486,International Business Machines Corp.,comp
+412,International Game Technology,IGT,F33B3C,International Game Technology PLC,comp
+413,International Paper,IP,C69PVJ,International Paper Inc.,comp
+414,Interpublic Group,IPG,E30B34,Interpublic Group Of Cos. Inc.,comp
+415,Intl Flavors & Fragrances,IFF,485445,International Flavors and Fragrances Inc.,comp
+416,Intuit Inc.,INTU,F11638,Intuit Inc.,comp
+417,Intuitive Surgical Inc.,ISRG,18EC17,Intuitive Surgical Inc.,comp
+418,Invesco Ltd.,IVZ,0BF4BA,Invesco Ltd.,comp
+419,Invitation Homes,INVH,6B236C,Invitation Homes Inc.,comp
+420,IPG Photonics Corp.	,IPGP,A23747,IPG Photonics Corp.,comp
+421,IQVIA Holdings Inc.,IQV,7E3F8F,IQVIA Holdings Inc.,comp
+422,Iron Mountain Incorporated,IRM,6284B5,Iron Mountain Inc.,comp
+423,ITT Corp.,ITT,726EEA,ITT Inc.,comp
+424,J. B. Hunt Transport Services,JBHT,72DF04,J.B. Hunt Transport Services Inc.,comp
+425,J. C. Penney	,JCP,OTQ4TI,J. C. Penney International Inc.,comp
+426,Jabil Circuit,JBL,26CC63,Jabil Inc.,comp
+427,Jack Henry & Associates,JKHY,D60BB2,Jack Henry & Associates Inc.,comp
+428,Jacobs Engineering Group,J,7F4603,Jacobs Engineering Group Inc.,comp
+429,Jacobs Engineering Group,JEC,7F4603,Jacobs Engineering Group Inc.,comp
+430,Janus Capital Group,JNS,1458C5,Janus Capital Group Inc.,comp
+431,"JD.com, Inc",JD,3188EC,JD.com Inc.,comp
+432,JDS Uniphase,JDSU,E592F0,Viavi Solutions Inc.,comp
+433,Jefferies Financial Group Inc,JEF,DA199F,Jefferies Financial Group Inc.,comp
+434,JM Smucker,SJM,2F98A5,J.M. Smucker Co.,comp
+435,Johnson & Johnson,JNJ,A6828A,Johnson & Johnson Co.,comp
+436,Johnson Controls International,JCI,99333F,Johnson Controls International PLC,comp
+437,Jones Apparel Group	,JNY,525C7F,Premier Brands Group Holdings LLC,comp
+438,Joy Global Inc.,JOY,3A7767,Komatsu Mining Corp.,comp
+439,Joy Global Inc.,JOYG,3A7767,Komatsu Mining Corp.,comp
+440,JPMorgan Chase & Co.,JPM,619882,JPMorgan Chase & Co.,comp
+441,Juniper Networks,JNPR,EC99D0,Juniper Networks Inc.,comp
+442,Kansas City Southern	,KSU,F82D37,Kansas City Southern Inc.,comp
+443,KB Home,KBH,72FCA3,KB Home Corp.,comp
+444,Kellogg Co.,K,9AF3DC,Kellogg Co.,comp
+445,Keurig Dr Pepper Inc,KDP,14C7B2,Keurig Dr. Pepper Inc.,comp
+446,Keurig Green Mountain,GMCR,1AFD04,Keurig Green Mountain Inc.,comp
+447,KeyCorp,KEY,24CB56,KeyCorp.,comp
+448,Keysight Technologies,KEYS,E4CE73,Keysight Technologies Inc.,comp
+449,KeySpan,KSE,E5F309,KeySpan Corp.,comp
+450,Kimberly-Clark,KMB,3DE4D1,Kimberly-Clark Corp.,comp
+451,Kimco Realty,KIM,159AE4,Kimco Realty Corp.,comp
+452,Kinder Morgan,KMI,AA5C8E,Kinder Morgan Inc.,comp
+453,King Pharmaceuticals Inc.,KG,25BFA9,King Pharmaceuticals Inc.,comp
+454,KLA Corporation,KLAC,507AE7,KLA Corp.,comp
+455,Kohl's Corp.,KSS,0F0440,Kohl's Corp.,comp
+456,Kraft Foods,KFT,7A10FF,Mondelez International Inc.,comp
+457,Kraft Foods Group,KRFT,EABF99,Kraft Foods Group Inc.,comp
+458,Kraft Heinz Co,KHC,C356AC,The Kraft Heinz Co.,comp
+459,Kroger Co.,KR,95DC1F,Kroger Co.,comp
+460,L Brands Inc.,LB,45CF4C,Bath & Body Works Inc.,comp
+461,L3 Technologies,LLL,E97B04,L3 Technologies Inc.,comp
+462,L3Harris Technologies,LHX,EE6F1C,L3Harris Technologies Inc.,comp
+463,Laboratory Corp. of America Holding,LH,9F6B1A,Laboratory Corp. of America Holdings Co.,comp
+464,Lam Research,LRCX,0B57D7,Lam Research Corp.,comp
+465,Lamb Weston Holdings Inc,LW,5CC29D,Lamb Weston Holdings Inc.,comp
+466,Las Vegas Sands,LVS,C9B932,Las Vegas Sands Corp.,comp
+467,Legg Mason,LM,BE4F2F,Legg Mason Inc.,comp
+468,Leggett & Platt,LEG,9D4EC7,Leggett & Platt Inc.,comp
+469,Lehman Brothers,LEH,9X9TBT,Lehman Brothers International Inc.,comp
+470,Leidos Holdings,LDOS,504FE2,Leidos Holdings Inc.,comp
+471,Lennar Corp.,LEN,91C82E,Lennar Corp.,comp
+472,Leucadia National,LUK,DA199F,Jefferies Financial Group Inc.,comp
+473,Level 3 Communications,LVLT,836F48,Level 3 Parent LLC,comp
+474,Lexmark International Inc,LXK,58E293,Lexmark International Inc.,comp
+475,Liberty Global plc,LBTYK,60778B,Liberty Global PLC,comp
+476,Liberty Interactive Corporation,QVCA,0C6861,Qurate Retail Group Inc.,comp
+477,Liberty Media Corp - Liberty Formula One,LMCK,B803B1,Liberty Media Corp.,comp
+478,Liberty Media Corporation,LMCA,B803B1,Liberty Media Corp.,comp
+479,Liberty Ventures,LVNTA,R275AE,Liberty Group Ventures Inc.,comp
+480,Life Technologies,LIFE,8CEV5D,Life-Tech Inc.,comp
+481,Lilly (Eli) & Co.,LLY,F30508,Eli Lilly & Co.,comp
+482,Lincoln National,LNC,5C7601,Lincoln National Corp.,comp
+483,Linde plc,LIN,285175,Linde PLC,comp
+484,Linear Technology,LLTC,1256D8,Linear Technology Corp.,comp
+485,Live Nation Entertainment,LYV,9C25FF,Live Nation Entertainment Inc.,comp
+486,LKQ Corporation,LKQ,A5151E,LKQ Corp.,comp
+487,Lockheed Martin Corp.,LMT,96F126,Lockheed Martin Corp.,comp
+488,Loews Corp.,L,968B00,Loews Corp.,comp
+489,Logitech International S. A.,LOGI,33649B,Logitech International S.A.,comp
+490,Lorillard Inc.,LO,4B6CB2,Lorillard Inc.,comp
+491,Lowe's Cos.,LOW,76E80F,Lowe's Cos. Inc.,comp
+492,LSI Corporation,LSI,FA7CCE,LSI Corp.,comp
+493,"Lumen Technologies, Inc",LUMN,E08AF3,Lumen Technologies Inc.,comp
+494,LyondellBasell,LYB,TGPV7E,LyondellBasell Industries Holdings BV,comp
+495,M&T Bank Corp.,MTB,D1AE3B,M&T Bank Corp.,comp
+496,Macerich,MAC,A806FA,Macerich Co.,comp
+497,"Macy's, Inc.",M,C5C137,Macy's Inc.,comp
+498,Mallinckrodt,MNK,527B11,Mallinckrodt Group Inc.,comp
+499,Marathon Oil Corp.,MRO,902670,Marathon Oil Corp.,comp
+500,Marathon Petroleum Corp,MPC,2D2D43,Marathon Petroleum Corp.,comp
+501,MarketAxess,MKTX,0UU081,MarketAxess Technologies Inc.,comp
+502,Marriott Int'l,MAR,385DD4,Marriott International Inc.,comp
+503,Marsh & McLennan,MMC,9B5968,Marsh & McLennan Cos. Inc.,comp
+504,Marshall & Iisley Corp.,MI,E6C221,Marshall & Ilsley Corp.,comp
+505,Martin Marietta Materials,MLM,D6534D,Martin Marietta Materials Inc.,comp
+506,Marvell Technology Group Ltd.,MRVL,08169A,Marvell Technology Group Ltd.,comp
+507,Masco Corp.,MAS,3F4497,Masco Corp.,comp
+508,Massey Energy Company,MEE,3BC4D8,Massey Energy Co.,comp
+509,Mastercard Inc.,MA,55C9B5,Mastercard Inc.,comp
+510,Match Group Inc,MTCH,622DBE,Match Group Inc.,comp
+511,Mattel Inc,MAT,F4E882,Mattel Inc.,comp
+512,Maxim Integrated Products Inc,MXIM,22C58E,Maxim Integrated Products Inc.,comp
+513,Mbia,MBI,1CB9D3,MBIA Inc.,comp
+514,McAfee Inc.,MFE,2B76B6,McAfee Corp.,comp
+515,McCormick & Co.,MKC,9D56F2,McCormick & Co. Inc.,comp
+516,McDonald's Corp.,MCD,954E30,McDonald's Corp.,comp
+517,McKesson Corp.,MCK,4A5C8D,McKesson Corp.,comp
+518,Mead Johnson,MJN,IJQ9CJ,Mead Johnson International Ltd.,comp
+519,Meadwestvaco Corporation,MWV,FB9D27,MeadWestvaco Corp.,comp
+520,Medco Health Solutions Inc.,MHS,E60E69,Medco Health Solutions Inc.,comp
+521,Medtronic plc,MDT,E68733,Medtronic PLC,comp
+522,MEMC Electronic Materials Inc.,WFR,788AC4,SunEdison Inc.,comp
+523,Merck & Co.,MRK,1EBF8D,Merck & Co. Inc.,comp
+524,Meredith Corporation,MDP,92D757,Meredith Corp.,comp
+525,"Meta Platforms, Inc.",META,12E454,Meta Platforms Inc.,comp
+526,MetLife Inc.,MET,810E30,MetLife Inc.,comp
+527,MetroPCS,PCS,6HW9QZ,MetroPCS Inc.,comp
+528,Mettler Toledo,MTD,NKFOYO,Mettler-Toledo Holding Inc.,comp
+529,MFC Bancorp,MFCB,CEDFAA,Scully Royalty Ltd.,comp
+530,MGM Resorts International,MGM,8E8E6E,MGM Resorts International Co.,comp
+531,Michael Kors,KORS,1EOT09,Michael Kors LLC,comp
+532,Microchip Technology,MCHP,CDFCC9,Microchip Technology Inc.,comp
+533,Micron Technology,MU,49BBBC,Micron Technology Inc.,comp
+534,Microsoft Corp.,MSFT,228D42,Microsoft Corp.,comp
+535,Mid-America Apartments,MAA,01ZSGJ,Mid-America Apartments LP,comp
+536,Millipore Inc.,MIL,1248BA,Millipore Corp.,comp
+537,Moderna Inc,MRNA,8EA478,Moderna Inc.,comp
+538,Mohawk Industries,MHK,69E8E1,Mohawk Industries Inc.,comp
+539,Molex Inc.,MOLX,539A78,Molex Inc.,comp
+540,Molina Healthcare Inc,MOH,1F716B,Molina Healthcare Inc.,comp
+541,Molson Coors Brewing Company,TAP,78F9ED,Molson Coors Beverage Co.,comp
+542,Mondelez International,MDLZ,7A10FF,Mondelez International Inc.,comp
+543,Monolithic Power Systems Inc,MPWR,6ABCB8,Monolithic Power Systems Inc.,comp
+544,Monsanto,MON,912DC9,Monsanto Co.,comp
+545,Monster Beverage,MNST,D09938,Monster Beverage Corp.,comp
+546,Monster Worldwide Inc.,MWW,D065AE,Monster Worldwide Inc.,comp
+547,Moody's Corp,MCO,3461CF,Moody's Corp.,comp
+548,Morgan Stanley,MS,9196A2,Morgan Stanley Co.,comp
+549,Motorola Mobility,MMI,KRJOUO,Motorola Mobility LLC,comp
+550,Motorola Solutions Inc.,MSI,E49AA3,Motorola Solutions Inc.,comp
+551,MSCI Inc,MSCI,3ED92D,MSCI Inc.,comp
+552,Murphy Oil,MUR,949625,Murphy Oil Corp.,comp
+553,Mylan N.V.,MYL,508CFD,Viatris Inc.,comp
+554,Nabors Industries,NBR,E4E3B7,Nabors Industries Ltd.,comp
+555,"Nasdaq, Inc.",NDAQ,25102A,Nasdaq Inc.,comp
+556,National Oilwell Varco Inc.,NOV,5D02B7,NOV Inc.,comp
+557,National Semiconductor Corp.,NSM,6DA1EE,National Semiconductor Corp.,comp
+558,Navient Corp	,NAVI,41785E,Navient Corp.,comp
+559,NDSN,NDSN,D56D6D,Nordson Corp.,comp
+560,Nektar Therapeutics	,NKTR,649CBD,Nektar Therapeutics Co.,comp
+561,NetApp,NTAP,934CC3,NetApp Inc.,comp
+562,"NetEase, Inc.
+",NTES,800F03,NetEase Inc.,comp
+563,Netflix Inc.,NFLX,ECD263,Netflix Inc.,comp
+564,Newell Brands,NWL,C3BCD5,Newell Brands Inc.,comp
+565,Newfield Exploration,NFX,9C1A1F,Newfield Exploration Co.,comp
+566,Newmont Corporation,NEM,911AB8,Newmont Corp.,comp
+567,News Corp. Class A,NWSA,DD1BA1,News Corp.,comp
+568,News Corp. Class B,NWS,DD1BA2,News Corp.,comp
+569,NextEra Energy,NEE,2CB4C9,NextEra Energy Inc.,comp
+570,Nielsen Holdings,NLSN,90E378,Nielsen Holdings PLC,comp
+571,Nii Holdings Inc.,NIHD,F7C6FE,NII Holdings Inc.,comp
+572,Nike,NKE,D64C6D,NIKE Inc.,comp
+573,NiSource Inc.,NI,6ED519,NiSource Inc.,comp
+574,Noble Corporation plc,NE,UXEPLU,Noble Corp. PLC,comp
+575,Noble Energy Inc,NBL,704DAE,Noble Energy Inc.,comp
+576,Nordstrom,JWN,422CE3,Nordstrom Inc.,comp
+577,Norfolk southern corp.,NSC,2D643C,Norfolk Southern Corp.,comp
+578,Northern Trust Corp.,NTRS,3CCC90,Northern Trust Corp.,comp
+579,Northrop Grumman,NOC,FC1B7B,Northrop Grumman Corp.,comp
+580,NortonLifeLock,NLOK,89F693,NortonLifeLock Inc.,comp
+581,Norwegian Cruise Line Holdings,NCLH,56CC0A,Norwegian Cruise Line Holdings Ltd.,comp
+582,"Novell, Inc.",NOVL,D14977,Micro Focus Software Inc.,comp
+583,Novellus Systems,NVLS,7ABE86,Novellus Systems Inc.,comp
+584,NRG Energy,NRG,FD39EB,NRG Energy Inc.,comp
+585,Nucor Corp.,NUE,986AF6,NuCor Corp.,comp
+586,Nvidia Corporation,NVDA,E09E2B,NVIDIA Corp.,comp
+587,NVR Inc,NVR,C29715,NVR Inc.,comp
+588,NXP Semiconductors N.V.,NXPI,351EC3,NXP Semiconductors N.V.,comp
+589,NXP Semiconductors N.V.,NXPI_old,351EC3,NXP Semiconductors N.V.,comp
+590,NYSE Euronext,NYX,A0D8E6,NYSE Euronext Inc.,comp
+591,Occidental Petroleum,OXY,CA212F,Occidental Petroleum Corp.,comp
+592,Office Depot Inc.,ODP,B66928,ODP Corp.,comp
+593,Old Dominion Freight Line,ODFL,119CB6,Old Dominion Freight Line Inc.,comp
+594,Omnicom Group,OMC,C8257F,Omnicom Group Inc.,comp
+595,ON Semiconductor Corporation,ON,790C34,ON Semiconductor Corp.,comp
+596,ONEOK,OKE,09F623,ONEOK Inc.,comp
+597,Oracle Corp.,ORCL,D6489C,Oracle Corp.,comp
+598,O'Reilly Automotive,ORLY,6E1E61,O'Reilly Automotive Inc.,comp
+599,Organon & Co,OGN,VUA3RK,Organon & Co.,comp
+600,Otis Worldwide,OTIS,C20B75,Otis Worldwide Corp.,comp
+601,Owens-Illinois,OI,A62FD6,O-I Glass Inc.,comp
+602,PACCAR Inc.,PCAR,ACF77B,Paccar Inc.,comp
+603,Packaging Corporation of America,PKG,B6082A,Packaging Corp. of America Co.,comp
+604,Pactiv Corp.,PTV,A5375D,Pactiv LLC,comp
+605,Pall Corp,PLL,544390,Pall Corp.,comp
+606,Paramount Global,PARA,3C7F5F,Paramount Global Co.,comp
+607,Parker-Hannifin,PH,6B5379,Parker Hannifin Corp.,comp
+608,Patterson Companies,PDCO,4E4E75,Patterson Cos. Inc.,comp
+609,Paychex Inc.,PAYX,6F6559,Paychex Inc.,comp
+610,Paycom,PAYC,FPOOKJ,Paycom SARL,comp
+611,PayPal,PYPL,03CF95,PayPal Holdings Inc.,comp
+612,Peabody Energy	,BTU,D17F7E,Peabody Energy Corp.,comp
+613,Penn National Gaming,PENN,2EB88B,PENN Entertainment Inc.,comp
+614,Pentair plc,PNR,322A44,Pentair PLC,comp
+615,People's United Financial,PBCT,449A26,People's United Financial Inc.,comp
+616,Pepco Holdings Inc,POM,4226A5,Pepco Holdings Inc.,comp
+617,PepsiCo Inc.,PEP,013528,PepsiCo Inc.,comp
+618,PerkinElmer,PKI,C062D4,PerkinElmer Inc.,comp
+619,Perrigo Co.,PRGO,0A9D0A,Perrigo Co. PLC,comp
+620,Petsmart Inc.,PETM,B4C794,PetSmart Inc.,comp
+621,Pfizer Inc.,PFE,267718,Pfizer Inc.,comp
+622,PG&E Corp,PCG,652E62,PG&E Corp.,comp
+623,Pharmaceutical Product Development Inc,PPDI,90A359,Pharmaceutical Product Development LLC,comp
+624,Philip Morris International,PM,CA1620,Philip Morris International Inc.,comp
+625,Phillips 66,PSX,3FACA7,Phillips 66 Co.,comp
+626,Pinnacle West Capital,PNW,342218,Pinnacle West Capital Corp.,comp
+627,Pioneer Natural Resources,PXD,2920D5,Pioneer Natural Resources Co.,comp
+628,Pitney Bowes Inc,PBI,968966,Pitney Bowes Inc.,comp
+629,Plum Creek Timber,PCL,12B027,Plum Creek Timber Co. Inc.,comp
+630,PNC Financial Services,PNC,61B81B,PNC Financial Services Group Inc.,comp
+631,Pool Corporation,POOL,5DE5A5,Pool Corp.,comp
+632,PPG Industries,PPG,39FB23,PPG Industries Inc.,comp
+633,PPL Corp.,PPL,5A9A82,PPL Corp.,comp
+634,Praxair Inc.,PX,285175,Linde PLC,comp
+635,Precision Castparts Corp.,PCP,47F938,Precision Castparts Corp.,comp
+636,Priceline.com,PCLN,3OJX3U,Priceline.com LLC,comp
+637,Principal Financial Group,PFG,59B229,Principal Financial Group Inc.,comp
+638,Procter & Gamble,PG,2E61CC,Procter & Gamble Co.,comp
+639,Progress Energy Inc,PGN,4D06FE,Progress Energy Inc.,comp
+640,Progressive Corp.,PGR,8FF2EF,Progressive Corp.,comp
+641,Prologis,PLD,8C5519,ProLogis Inc.,comp
+642,Prudential Financial,PRU,FEC475,Prudential Financial Inc.,comp
+643,PTC Inc.,PTC,D437C3,PTC Inc.,comp
+644,Public Serv. Enterprise Inc.,PEG,B560AF,Public Service Enterprise Group Inc.,comp
+645,Public Storage,PSA,AFEC35,Public Storage Inc.,comp
+646,PulteGroup,PHM,7D5FD6,PulteGroup Inc.,comp
+647,PVH Corp.	,PVH,414FFF,PVH Corp.,comp
+648,QEP Resources	,QEP,5E91C5,QEP Resources Inc.,comp
+649,Qiagen NV,QGEN,78798F,Qiagen N.V.,comp
+650,QLogic Corporation,QLGC,72F37A,QLogic Corp.,comp
+651,"Qorvo, Inc",QRVO,7C62A3,Qorvo Inc.,comp
+652,QUALCOMM Inc.,QCOM,CFF15D,Qualcomm Inc.,comp
+653,Quanta Services Inc.,PWR,253B2F,Quanta Services Inc.,comp
+654,Quest Diagnostics	,DGX,5F9CE3,Quest Diagnostics Inc.,comp
+655,Questar Corp.,STR,63BB7B,Questar Corp.,comp
+656,Quintiles Transnational,QTRN,7E3F8F,IQVIA Holdings Inc.,comp
+657,Qwest Communications,Q,D76A42,Qwest Communications International Inc.,comp
+658,R.R. Donnelley,RRD,I6VW8J,R.R. Donnelley Financial Inc.,comp
+659,RadioShack Corp.,RSH,1E1C4E,RS Legacy Corp.,comp
+660,Ralph Lauren Corporation,RL,D69D42,Ralph Lauren Corp.,comp
+661,Range Resources,RRC,1782D5,Range Resources Corp.,comp
+662,Raymond James Financial Inc.,RJF,B3CB74,Raymond James Financial Inc.,comp
+663,Raytheon Company,RTN,1981BF,Raytheon Co.,comp
+664,Raytheon Technologies,RTX,2667B6,Raytheon Technologies Corp.,comp
+665,Realty Income Corporation,O,003B70,Realty Income Corp.,comp
+666,Red Hat,RHT,B8C039,Red Hat Inc.,comp
+667,Regency Centers Corporation,REG,B5DE80,Regency Centers Corp.,comp
+668,Regeneron Pharmaceuticals,REGN,589803,Regeneron Pharmaceuticals Inc.,comp
+669,Regions Financial Corp.,RF,73C521,Regions Financial Corp.,comp
+670,Republic Services Inc	,RSG,D96202,Republic Services Inc.,comp
+671,ResMed,RMD,434F38,ResMed Inc.,comp
+672,Reynolds American	,RAI,3B23F5,Reynolds American Inc.,comp
+673,RiteAid,RAD,CAC8D0,Rite Aid Corp.,comp
+674,Robert Half International,RHI,A4D173,Robert Half International Inc.,comp
+675,Rockwell Automation Inc.,ROK,416C55,Rockwell Automation Inc.,comp
+676,Rockwell Collins,COL,8B4C82,Rockwell Collins Inc.,comp
+677,Rollins Inc.,ROL,CBA33B,Rollins Inc.,comp
+678,Roper Technologies,ROP,5E6959,Roper Technologies Inc.,comp
+679,Ross Stores,ROST,8C6C1B,Ross Stores Inc.,comp
+680,Rowan Companies plc,RDC,3FFA00,Rowan Cos. Inc.,comp
+681,Royal Caribbean Cruises Ltd,RCL,751A74,Royal Caribbean Group Co.,comp
+682,Ryanair Holdings plc,RYAAY,EB5D45,Ryanair Holdings PLC,comp
+683,Ryder Systems Inc.,R,AD9F1D,Ryder System Inc.,comp
+684,"S&P Global, Inc.",SPGI,CFF97C,S&P Global Inc.,comp
+685,Sabre Holdings,TSG,865539,Sabre Holding Corp.,comp
+686,Safety First Trust Series 2009-,ABI,D3TA59,Safety First Trust Series 2009-1,comp
+687,Safeway Inc,SWY,0B4D07,Safeway Inc.,comp
+688,Salesforce.com,CRM,BB127B,Salesforce Inc.,comp
+689,SanDisk Corporation,SNDK,E5AAB0,SanDisk Corp.,comp
+690,Sara Lee Corp.,SLE,CEF5B9,Hillshire Brands Co.,comp
+691,SBA Communications,SBAC,1E169E,SBA Communications Corp.,comp
+692,SCANA	,SCG,869BFB,Scana ASA,comp
+693,Schering-Plough Corp.,SGP,5D7051,Schering-Plough Corp.,comp
+694,Schlumberger Ltd.,SLB,164D72,Schlumberger N.V.,comp
+695,Science Applications International Corporation,SAIC,2E360C,Science Applications International Corp.,comp
+696,Scripps Networks Interactive,SNI,D235F0,Scripps Networks Interactive Inc.,comp
+697,Seagate Technology,STX,808319,Seagate Technology Holdings PLC,comp
+698,Sealed Air,SEE,D8DA3D,Sealed Air Corp.,comp
+699,Sempra Energy,SRE,B642E8,Sempra Co.,comp
+700,ServiceNow,NOW,BB88B6,ServiceNow Inc.,comp
+701,Sherwin-Williams,SHW,408089,Sherwin-Williams Co.,comp
+702,Sigma-Aldrich Corp,SIAL,84162B,Sigma-Aldrich Corp.,comp
+703,Signature Bank,SBNY,5225A4,Signature Bank,comp
+704,Signet Jewelers,SIG,RCG5E1,Signet Jewelers Inc.,comp
+705,Simon Property Group Inc,SPG,900356,Simon Property Group Inc.,comp
+706,Sirius XM Holdings Inc,SIRI,4C6C63,Sirius XM Holdings Inc.,comp
+707,Skyworks Solutions,SWKS,EB5E78,Skyworks Solutions Inc.,comp
+708,SL Green Realty,SLG,53F491,SL Green Realty Corp.,comp
+709,SLM Corporation,SLM,9CE4C7,SLM Corp.,comp
+710,Smith International Inc.,SII,806B61,Smith International Inc.,comp
+711,Snap-on,SNA,E94704,Snap-On Inc.,comp
+712,SolarEdge Technologies Inc,SEDG,73F28D,SolarEdge Technologies Inc.,comp
+713,Southern Company,SO,147C38,Southern Co.,comp
+714,Southwest Airlines,LUV,E866D2,Southwest Airlines Co.,comp
+715,Southwestern Energy	,SWN,73529F,Southwestern Energy Co.,comp
+716,Spectra Energy Corp,SE,1ED465,Spectra Energy Corp.,comp
+717,Sprint Nextel Corp.,S,047E26,Sprint Corp.,comp
+718,St. Jude Medical,STJ,385DD5,St. Jude Medical Inc.,comp
+719,Stanley Black & Decker,SWK,CE1002,Stanley Black & Decker Inc.,comp
+720,Staples Inc.,SPLS,A3D6F0,Staples Inc.,comp
+721,Starbucks Corp.,SBUX,3CBA2A,Starbucks Corp.,comp
+722,Starwood Hotels & Resorts Worldwide Inc,HOT,0F7B72,Starwood Hotels & Resorts Worldwide LLC,comp
+723,State Street Corp.,STT,5BC2F4,State Street Corp.,comp
+724,Stericycle,SRCL,C9A96E,Stericycle Inc.,comp
+725,STERIS plc	,STE,LIVBLM,Steris PLC,comp
+726,Stryker Corp.,SYK,C81E00,Stryker Corp.,comp
+727,SunEdison,SUNE,788AC4,SunEdison Inc.,comp
+728,Sunoco Inc.,SUN,CEB009,ETC Sunoco Holdings LLC,comp
+729,SunTrust Banks,STI,1D3EEA,SunTrust Banks Inc.,comp
+730,Supervalu Inc.,SVU,0E128A,Supervalu Inc.,comp
+731,SVB Financial,SIVB,DBCA3F,SVB Financial Group Co.,comp
+732,Symantec Corp.,SYMC,89F693,NortonLifeLock Inc.,comp
+733,Symbol Technologies,SBL,B32585,Symbol Technologies Inc.,comp
+734,Synchrony Financial,SYF,3D9999,Synchrony Financial Inc.,comp
+735,Synopsys Inc.,SNPS,7E1D5D,Synopsys Inc.,comp
+736,Sysco Corp.,SYY,9D2790,Sysco Corp.,comp
+737,T. Rowe Price Group,TROW,2F94A5,T. Rowe Price Group Inc.,comp
+738,Take-Two Interactive	,TTWO,A01664,Take-Two Interactive Software Inc.,comp
+739,"Tapestry, Inc.",TPR,BB0787,Tapestry Inc.,comp
+740,Targa Resources,TRGP,EAEBF3,Targa Resources Corp.,comp
+741,Target Corp.,TGT,F6DCE4,Target Corp.,comp
+742,TE Connectivity Ltd.,TEL,60F8A4,TE Connectivity Ltd.,comp
+743,TechnipFMC,FTI,890C4E,TechnipFMC PLC,comp
+744,TECO Energy,TE,0665EF,TECO Energy Inc.,comp
+745,"Tegna, Inc.",TGNA,D6EAA3,TEGNA Inc.,comp
+746,Teledyne Technologies,TDY,9D30A8,Teledyne Technologies Inc.,comp
+747,Teleflex,TFX,FD6926,Teleflex Inc.,comp
+748,Tellabs Inc.,TLAB,FC4031,Tellabs Inc.,comp
+749,Tenet Healthcare,THC,43A74A,Tenet Healthcare Corp.,comp
+750,Teradata Corp.,TDC,793C11,Teradata Corp.,comp
+751,Teradyne,TER,93F143,Teradyne Inc.,comp
+752,"Tesla, Inc.",TSLA,DD3BB1,Tesla Inc.,comp
+753,Tesoro Corporation,TSO,75560C,Andeavor Corp.,comp
+754,Teva Pharmaceutical Industries Ltd.,TEVA,90F0CE,Teva Pharmaceutical Industries Ltd.,comp
+755,Texas Instruments,TXN,39BFF6,Texas Instruments Inc.,comp
+756,Textron Inc.,TXT,E0339F,Textron Inc.,comp
+757,The Bank of New York Mellon,BK,EF5BED,Bank of New York Mellon Corp.,comp
+758,The Clorox Company	,CLX,719477,The Clorox Co.,comp
+759,The Cooper Companies	,COO,CD2DA4,The Cooper Companies Inc.,comp
+760,The Goodyear Tire & Rubber Company,GT,A666C8,Goodyear Tire & Rubber Co.,comp
+761,The Hershey Company,HSY,9F03CF,Hershey Co.,comp
+762,"The Manitowoc Company, Inc.",MTW,7B1156,Manitowoc Co. Inc.,comp
+763,The Mosaic Company,MOS,JERTX2,The Mosaic Co. (Washington),comp
+764,The New York Times Co.,NYT,KJ06ID,The New York Times Co. Pty Ltd.,comp
+765,The Travelers Companies Inc.,TRV,E206B0,The Travelers Companies Inc.,comp
+766,The Walt Disney Company,DIS,6CGTFN,The Walt Disney Co.,comp
+767,Thermo Fisher Scientific,TMO,8665BA,Thermo Fisher Scientific Inc.,comp
+768,Tiffany & Co.,TIF,FD5C77,Tiffany & Co.,comp
+769,Time Warner,TWX,QXPY2P,Time Warner CV,comp
+770,Time Warner Cable,TWC,96B4C5,Time Warner Cable Inc.,comp
+771,Titanium Metals,TIE,661F72,Titanium Metals Corp.,comp
+772,TJX Companies Inc.,TJX,40B903,TJX Companies Inc.,comp
+773,T-Mobile US,TMUS,57DDB9,T-Mobile US Inc.,comp
+774,Torchmark Corp.,TMK,E90C84,Globe Life Inc.,comp
+775,Tractor Supply Company,TSCO,FC1F9D,Tractor Supply Co.,comp
+776,Trane Technologies plc,TT,5A6336,Trane Technologies PLC,comp
+777,TransDigm Group,TDG,9F18FA,TransDigm Group Inc.,comp
+778,Transocean Ltd.,RIG,2DBC3B,Transocean Ltd.,comp
+779,Tribune Co.,TRB,C5D8A0,Tribune Media Co.,comp
+780,Trimble Inc.,TRMB,D4AC65,Trimble Inc.,comp
+781,TripAdvisor,TRIP,D82EF3,TripAdvisor Inc.,comp
+782,Truist Financial,TFC,1A3E1B,Truist Financial Corp.,comp
+783,TSYS,TSS,7E217E,TeleCommunication Systems Inc.,comp
+784,"Twitter, Inc.",TWTR,2491BC,Twitter Inc.,comp
+785,Tyler Technologies,TYL,442769,Tyler Technologies Inc.,comp
+786,Tyson Foods,TSN,AD1ACF,Tyson Foods Inc.,comp
+787,U.S. Bancorp,USB,6166D1,U.S. Bancorp,comp
+788,"UDR, Inc.",UDR,37727A,UDR Inc.,comp
+789,Ulta Beauty,ULTA,CF7292,Ulta Beauty Inc.,comp
+790,Under Armour (Class A),UAA,41EC04,Under Armour Inc.,comp
+791,Under Armour (Class C),UA,41EC04,Under Armour Inc.,comp
+792,Union Pacific Corp,UNP,D8F347,Union Pacific Corp.,comp
+793,United Airlines Holdings,UAL,6E705B,United Airlines Holdings Inc.,comp
+794,United Health Group Inc.,UNH,LBADXT,United Health Group Ltd.,comp
+795,United Parcel Service,UPS,6KZEQA,United Parcel Service Co.,comp
+796,United Rentals,URI,32CB22,United Rentals Inc.,comp
+797,United States Steel Corporation,X,4E2D94,United States Steel Corp.,comp
+798,United Technologies,UTX,2667B6,Raytheon Technologies Corp.,comp
+799,"Universal Health Services, Inc.",UHS,7448A3,Universal Health Services Inc.,comp
+800,Unum Group,UNM,AFF7B4,Unum Group Co.,comp
+801,Urban Outfitters,URBN,E20BFE,Urban Outfitters Inc.,comp
+802,V.F. Corp.,VFC,D78CCD,VF Corp.,comp
+803,Valero Energy,VLO,641F17,Valero Energy Corp.,comp
+804,Varian Medical Systems,VAR,4E7C1F,Varian Medical Systems Inc.,comp
+805,Ventas Inc,VTR,7999F3,Ventas Inc.,comp
+806,Verisign Inc.,VRSN,A5B913,VeriSign Inc.,comp
+807,Verisk Analytics,VRSK,2E0496,Verisk Analytics Inc.,comp
+808,Verizon Communications,VZ,8A8E41,Verizon Communications Inc.,comp
+809,Vertex Pharmaceuticals Inc,VRTX,57CAAB,Vertex Pharmaceuticals Inc.,comp
+810,Viacom,VIAB,266DD5,Viacom Inc.,comp
+811,ViacomCBS,VIAC,3C7F5F,Paramount Global Co.,comp
+812,Viatris Inc.,VTRS,508CFD,Viatris Inc.,comp
+813,Viavi Solutions Inc.,VIAV,E592F0,Viavi Solutions Inc.,comp
+814,VICI Properties Inc,VICI,106394,VICI Properties Inc.,comp
+815,Vimpelcom Ltd.,VIP,50523F,VEON Ltd.,comp
+816,Virgin Media Inc.,VMED,DD743F,Virgin Media Inc.,comp
+817,Visa Inc.,V,93D207,Visa Inc.,comp
+818,Vontier,VNT,6B613D,Vontier Corp.,comp
+819,Vornado Realty Trust	,VNO,860AB6,Vornado Realty Trust Co.,comp
+820,Vulcan Materials,VMC,57B174,Vulcan Materials Co.,comp
+821,W. R. Berkley Corporation,WRB,B8F71F,W.R. Berkley Corp.,comp
+822,W.R. Grace,GRA,TAHKZH,W. R. Grace International LLC,comp
+823,Wabtec Corporation,WAB,945DE6,Westinghouse Air Brake Technologies Corp.,comp
+824,Wachovia Bank,WB,E7D328,Wachovia Corp. /Old,comp
+825,Walgreens Boots Alliance,WBA,FACF19,Walgreens Boots Alliance Inc.,comp
+826,Walmart,WMT,713810,Walmart Inc.,comp
+827,Warner Bros. Discovery,WBD,ADF092,Warner Bros Discovery Inc.,comp
+828,Warner Chilcott plc,WCRX,031B03,Warner Chilcott Ltd.,comp
+829,Waste Management Inc.,WM,616E3B,Waste Management Inc.,comp
+830,Waters Corporation,WAT,1F9D90,Waters Corp.,comp
+831,WEC Energy Group,WEC,343996,WEC Energy Group Inc.,comp
+832,WellCare,WCG,98WKYU,WellCare Inc.,comp
+833,Wells Fargo,WFC,FN3CP4,Wells Fargo Insurance Inc.,comp
+834,Welltower Inc.,WELL,CE4FD9,Welltower Inc.,comp
+835,West Pharmaceutical Services,WST,BF79F5,West Pharmaceutical Services Inc.,comp
+836,Western Digital,WDC,CE96E7,Western Digital Corp.,comp
+837,Western Union Co,WU,A16DEA,Western Union Co.,comp
+838,WestRock,WRK,WY9R07,Westrock Co. Inc.,comp
+839,Weyerhaeuser,WY,FF4BA4,Weyerhaeuser Co.,comp
+840,Whirlpool Corp.,WHR,BDD12C,Whirlpool Corp.,comp
+841,Whole Foods Market,WFM,319E7D,Whole Foods Market Inc.,comp
+842,Williams Cos.,WMB,E21871,Williams Cos. Inc.,comp
+843,Willis Towers Watson,WLTW,2DBF98,Willis Towers Watson PLC,comp
+844,Willis Towers Watson,WTW,2DBF98,Willis Towers Watson PLC,comp
+845,Windstream Holdings Inc,WIN,8D4B8F,Windstream Holdings Inc.,comp
+846,"WPX Energy, Inc.",WPX,BDE462,WPX Energy Inc.,comp
+847,Wyndham Worldwide Corp,WYN,0F90E1,Travel + Leisure Co.,comp
+848,Wynn Resorts Ltd,WYNN,9E91C6,Wynn Resorts Ltd.,comp
+849,Xcel Energy Inc,XEL,1151F4,Xcel Energy Inc.,comp
+850,Xerox,XRX,225CA2,Xerox Holdings Corp.,comp
+851,Xilinx,XLNX,373E85,Xilinx Inc.,comp
+852,XL Group plc,XL,65A0E8,XL Group Ltd.,comp
+853,XTO Energy Inc.,XTO,EB76B5,XTO Energy Inc.,comp
+854,Xylem Inc.	,XYL,F46EC9,Xylem Inc.,comp
+855,Yahoo! Inc.,YHOO,H5C4V5,Yahoo Inc.,comp
+856,Yum! Brands Inc,YUM,B4C673,Yum! Brands Inc.,comp
+857,Zebra Technologies,ZBRA,070B45,Zebra Technologies Corp.,comp
+858,Zimmer Biomet Holdings,ZBH,56277A,Zimmer Biomet Holdings Inc.,comp
+859,Zions Bancorp,ZION,4D371E,Zions Bancorporation N.A.,comp
+860,Zoetis,ZTS,C03C8B,Zoetis Inc.,comp

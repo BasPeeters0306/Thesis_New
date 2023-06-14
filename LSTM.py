@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-
+#
 import tensorflow
 # from tensorflow import keras
 from tensorflow.keras.models import Sequential 
@@ -32,11 +32,11 @@ def data_preparation(X_in_sample, X_test, y_in_sample, y_test, X_train, X_val, y
         return pd.concat(seq, keys=range(len(seq)))
 
     if b_sentiment_score == True and n_past_returns == 1:
-        X_columns = ["BarDate", "Ticker", "PreviousdayReturn", "SESI"]
+        X_columns = ["BarDate", "Ticker", "PreviousdayReturn", "SESI_lagged"]
     elif b_sentiment_score == False and n_past_returns == 1:
         X_columns = ["BarDate", "Ticker", "PreviousdayReturn"]
     elif b_sentiment_score == True and n_past_returns == 3:
-        X_columns = ["BarDate", "Ticker", "PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3", "SESI"]
+        X_columns = ["BarDate", "Ticker", "PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3", "SESI_lagged"]
     elif b_sentiment_score == False and n_past_returns == 3:
         X_columns = ["BarDate", "Ticker", "PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3"]
  
@@ -92,20 +92,20 @@ def data_preparation(X_in_sample, X_test, y_in_sample, y_test, X_train, X_val, y
 
     # Convert and reshape
     if b_sentiment_score == True and n_past_returns == 1:
-        X_in_sample_lstm = to_3d_numpy(X_in_sample_lstm[["PreviousdayReturn", "SESI"]], time_steps, 2)
-        X_test_lstm = to_3d_numpy(X_test_lstm[["PreviousdayReturn", "SESI"]], time_steps, 2)
-        X_train_lstm = to_3d_numpy(X_train_lstm[["PreviousdayReturn", "SESI"]], time_steps, 2)
-        X_val_lstm = to_3d_numpy(X_val_lstm[["PreviousdayReturn", "SESI"]], time_steps, 2)
+        X_in_sample_lstm = to_3d_numpy(X_in_sample_lstm[["PreviousdayReturn", "SESI_lagged"]], time_steps, 2)
+        X_test_lstm = to_3d_numpy(X_test_lstm[["PreviousdayReturn", "SESI_lagged"]], time_steps, 2)
+        X_train_lstm = to_3d_numpy(X_train_lstm[["PreviousdayReturn", "SESI_lagged"]], time_steps, 2)
+        X_val_lstm = to_3d_numpy(X_val_lstm[["PreviousdayReturn", "SESI_lagged"]], time_steps, 2)
     elif b_sentiment_score == False and n_past_returns == 1:
         X_in_sample_lstm = to_3d_numpy(X_in_sample_lstm[["PreviousdayReturn"]], time_steps, 1)
         X_test_lstm = to_3d_numpy(X_test_lstm[["PreviousdayReturn"]], time_steps, 1)
         X_train_lstm = to_3d_numpy(X_train_lstm[["PreviousdayReturn"]], time_steps, 1)
         X_val_lstm = to_3d_numpy(X_val_lstm[["PreviousdayReturn"]], time_steps, 1)
     elif b_sentiment_score == True and n_past_returns == 3:
-        X_in_sample_lstm = to_3d_numpy(X_in_sample_lstm[["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3", "SESI"]], time_steps, 4)
-        X_test_lstm = to_3d_numpy(X_test_lstm[["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3", "SESI"]], time_steps, 4)
-        X_train_lstm = to_3d_numpy(X_train_lstm[["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3", "SESI"]], time_steps, 4)
-        X_val_lstm = to_3d_numpy(X_val_lstm[["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3", "SESI"]], time_steps, 4)
+        X_in_sample_lstm = to_3d_numpy(X_in_sample_lstm[["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3", "SESI_lagged"]], time_steps, 4)
+        X_test_lstm = to_3d_numpy(X_test_lstm[["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3", "SESI_lagged"]], time_steps, 4)
+        X_train_lstm = to_3d_numpy(X_train_lstm[["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3", "SESI_lagged"]], time_steps, 4)
+        X_val_lstm = to_3d_numpy(X_val_lstm[["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3", "SESI_lagged"]], time_steps, 4)
     elif b_sentiment_score == False and n_past_returns == 3:
         X_in_sample_lstm = to_3d_numpy(X_in_sample_lstm[["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3"]], time_steps, 3)
         X_test_lstm = to_3d_numpy(X_test_lstm[["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3"]], time_steps, 3)
@@ -338,7 +338,7 @@ def plot_train_val_loss(performances_LSTM):
 
 #     # Specify first and second feature
 #     X_train_feature_1 = X_train["PreviousdayReturn"]
-#     X_train_feature_2 = X_train["SESI"]
+#     X_train_feature_2 = X_train["SESI_lagged"]
 #     # Define the LSTM for the first feature
 #     input1 = Input(shape=(time_steps_1, 1))
 #     lstm1 = LSTM(50, dropout=0.1, recurrent_dropout=0.1)(input1)

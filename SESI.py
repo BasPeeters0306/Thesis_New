@@ -1,55 +1,81 @@
-import numpy as np
 import pandas as pd
-from tqdm.auto import tqdm
-# from tqdm import tqdm
-# from tqdm._tqdm_notebook import tqdm_notebook
-# tqdm_notebook.pandas()
+import numpy as np
+from tqdm import tqdm
+from tqdm._tqdm_notebook import tqdm_notebook
+tqdm_notebook.pandas()
 
 
+# Creates a daily SESI Score from raw RavenPack data. 
+def SESI(df):
 
-
-# This function creates a daily SESI Score from the raw RavenPack data. Change this function!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Same as WAZNI now!!!!!!!!! Do this later!!!!!!!!!!!!!!!!!!!
-def df_SESI(df):
-
-    # Filter columns
-    df = df[(df['EVENT_RELEVANCE'] >= 90) & (df['EVENT_SIMILARITY_DAYS'] >= 90)]
-
-    # Rename column
-    df = df.rename(columns = {'timestamp_tz' : 'TIMESTAMP_TZ'})
-
-    # Cut the timestamp such that it is on a daily frequency
+    # Turn time to a daily frequency
     df['TIMESTAMP_TZ'] = df['TIMESTAMP_TZ'].astype(str).str[:10]
 
-    # First do calculations over all the granular events
-    df['functionColumn1'] = df['EVENT_SENTIMENT'] * ((df['EVENT_RELEVANCE'] / 100)**2) * ((df['EVENT_SIMILARITY_DAYS'] / 365)**2)
-    df['functionColumn2'] = ((df['EVENT_RELEVANCE'] / 100)**2) * ((df['EVENT_SIMILARITY_DAYS'] / 365)**2)
+    # Relevant filters for SESI
+    df = df[(df['EVENT_SENTIMENT'] != 0)]
+    df = df[(df['EVENT_RELEVANCE'] >= 90) & (df['EVENT_SIMILARITY_DAYS'] >= 90)]
 
-    # Make new columns of the sums of the above columns grouped by each day
-    df['SumFunctionColumn1'] = df.groupby(df['TIMESTAMP_TZ'])['functionColumn1'].transform('sum')
-    df['SumFunctionColumn2'] = df.groupby(df['TIMESTAMP_TZ'])['functionColumn2'].transform('sum')
+    # Calculates the daily bias
+    df['F1'] = df['EVENT_SENTIMENT'] * ((df['EVENT_RELEVANCE'] / 100)**2) * ((df['EVENT_SIMILARITY_DAYS'] / 365)**2)
+    df['F2'] = ((df['EVENT_RELEVANCE'] / 100)**2) * ((df['EVENT_SIMILARITY_DAYS'] / 365)**2)
+    df['SumF1'] = df.groupby(df['TIMESTAMP_TZ'])['F1'].transform('sum')
+    df['SumF2'] = df.groupby(df['TIMESTAMP_TZ'])['F2'].transform('sum')
+    df['DAILY_BIAS'] = df['SumF1'] / df['SumF2']
 
-    # Take the difference of the above two columns to get the daily bias
-    df['DAILY_BIAS'] = df['SumFunctionColumn1'] / df['SumFunctionColumn2']
-
-    # Now take the the difference of the ESS and the daily bias 
+    # Subtracts the daily bias and sums over all events on the date for the entity to get SESI
     df['ESS - DAILY_BIAS'] = df['EVENT_SENTIMENT'] - df['DAILY_BIAS']
-
-    # Now take the sum based on the date and the entity to obtain the SESI
     df['SESI'] = df.groupby(['TIMESTAMP_TZ', 'RP_ENTITY_ID'])['ESS - DAILY_BIAS'].transform('sum')
     
-    # Drop duplicates: we only need one SESI per day per entity. Note: this means that the only remaining valid columns are date, entity, and SESI as we drop a lot of rows 
+    # Drop duplicates, only one SESI er day per entity needed
     df['unique'] = df['TIMESTAMP_TZ'] + df['RP_ENTITY_ID']
     df = df.drop_duplicates(subset = ['unique'])
 
     # Drop irrelevant columns
-    df.drop(columns=['functionColumn1', 'functionColumn2', 'SumFunctionColumn1', 'SumFunctionColumn2', 'DAILY_BIAS', "ESS - DAILY_BIAS", "unique"], inplace=True)
+    df.drop(columns=['F1', 'F2', 'SumF1', 'SumF2', 'DAILY_BIAS', "ESS - DAILY_BIAS", "unique"], inplace=True)
 
     return df
 
+# Adds Ticker to df_SESI
+def add_ticker(df_SESI):
+    
+    del df_SESI['Unnamed: 0']
+    df_SESI_ticker = df_SESI.reset_index()
+    df_SESI_ticker['Ticker'] = ""
+
+    # Reads Constituents_SP500 csv file
+    df_constituents =  pd.read_csv('Constituents_SPH')
+
+    # Adds ticker to df_SESI
+    for i in tqdm(range(0,len(df_SESI_ticker))):
+        try:
+            row = df_constituents.index[df_SESI_ticker['RP_ENTITY_ID'].loc[i] == df_constituents['RP_ENTITY_ID']].tolist()
+            df_SESI_ticker.loc[i, 'Ticker'] = df_constituents['Code'].loc[row].tolist()[-1]   
+        except:
+            continue
+
+    return df_SESI_ticker
 
 
+def add_lag(df):
 
+    # Count NaN values per column of df
+    print("Number of NaN values per column = \n", df.isna().sum())
+    # Drop rows with NaN values 
+    df = df.dropna().reset_index(drop=True)
+    print("NaN value dropped")
 
+    # Create lag
+    df["SESI_lagged"] = df.groupby('Ticker')['SESI'].shift(1)
+
+    # Count NaN values per column of df
+    print("Number of NaN values per column = \n", df.isna().sum())
+    # Drop rows with NaN values 
+    df = df.dropna().reset_index(drop=True)
+    print("NaN value dropped")
+
+    return df
+
+    
     
 
 
