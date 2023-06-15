@@ -221,7 +221,7 @@ def LSTM_tune(X_train, y_train, X_val, y_val, grid, b_sentiment_score, n_past_re
                                 # This is different here from the other models
                                 try:
                                     history = model.fit(X_train, y_train, 
-                                                        epochs=2,             # 1000 in Fischer
+                                                        epochs=50,             # 1000 in Fischer
                                                         batch_size=batch_size,             
                                                         validation_data=(X_val, y_val), 
                                                         callbacks=[early_stopping], verbose = 2)
