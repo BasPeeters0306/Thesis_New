@@ -150,7 +150,7 @@ def LSTM_test(best_model, window_size, y_in_sample, X_in_sample, y_test, X_test,
             X_train_window = np.concatenate([X_train_window, X_test[(i-window_size):i]])   #pd.concat
         
         # Fit model
-        model.fit(X_train_window, y_train_window.squeeze(), epochs=best_model["epochs_min_val_loss"].iloc[0], batch_size=best_model["batch_size"].iloc[0], verbose = 2)      #epochs=best_model["epochs_min_val_loss"].iloc[0]
+        model.fit(X_train_window, y_train_window.squeeze(), epochs=best_model["epochs_min_val_loss"].iloc[0], batch_size=best_model["batch_size"].iloc[0], verbose = 0)      #epochs=best_model["epochs_min_val_loss"].iloc[0]
 
         # Get current test target window and feature window
         if (i+window_size <= len(y_test)):
@@ -224,7 +224,7 @@ def LSTM_tune(X_train, y_train, X_val, y_val, grid, b_sentiment_score, n_past_re
                                                         epochs=50,             # 1000 in Fischer
                                                         batch_size=batch_size,             
                                                         validation_data=(X_val, y_val), 
-                                                        callbacks=[early_stopping], verbose = 2)
+                                                        callbacks=[early_stopping], verbose = 0)
                                 except:
                                     print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  Error: fitting failed using grid: dropout = ", dropout, "recurrent_dropout = ", recurrent_dropout, "learning_rate = ", learning_rate, "batch_size = ", batch_size, "optimizer = ", optimizer, "sequence_length = ", sequence_length)
                                      
