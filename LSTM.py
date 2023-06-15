@@ -29,7 +29,7 @@ def data_preparation(X_in_sample, X_test, y_in_sample, y_test, X_train, X_val, y
         seq = []
         if len(stock_df) <= time_steps:
             return seq
-        for i in range(len(stock_df) - time_steps):
+        for i in range(len(stock_df) - time_steps+1):      # +1?
             v = stock_df.iloc[i:(i + time_steps)]
             seq.append(v)
         # print("seq length: ", len(seq))
@@ -49,14 +49,12 @@ def data_preparation(X_in_sample, X_test, y_in_sample, y_test, X_train, X_val, y
     X_train_lstm_grouped = X_train.groupby("Ticker")[X_columns]
     X_val_lstm_grouped = X_val.groupby("Ticker")[X_columns]
 
-    y_in_sample_lstm_grouped = y_in_sample.groupby("Ticker")[["BarDate", "Ticker", "Target"]]
-    y_test_lstm_grouped = y_test.groupby("Ticker")[["BarDate", "Ticker", "Target"]]
-    y_train_lstm_grouped = y_train.groupby("Ticker")[["BarDate", "Ticker", "Target"]]
-    y_val_lstm_grouped = y_val.groupby("Ticker")[["BarDate", "Ticker", "Target"]]
-
+    y_in_sample_lstm_grouped = y_in_sample.groupby("Ticker")            #[["BarDate", "Ticker", "Target"]]
+    y_test_lstm_grouped = y_test.groupby("Ticker")                      #[["BarDate", "Ticker", "Target"]]
+    y_train_lstm_grouped = y_train.groupby("Ticker")                    #[["BarDate", "Ticker", "Target"]]
+    y_val_lstm_grouped = y_val.groupby("Ticker")                        #[["BarDate", "Ticker", "Target"]]
 
     X_in_sample_lstm_seq = [create_lstm_data(group, time_steps) for _, group in X_in_sample_lstm_grouped]
-    print(X_in_sample_lstm_seq)
     X_in_sample_lstm_seq = [seq for seq in X_in_sample_lstm_seq if len(seq) > 0]
     X_in_sample_lstm = pd.concat(X_in_sample_lstm_seq) if X_in_sample_lstm_seq else pd.DataFrame()
     print("first is done")
@@ -75,16 +73,14 @@ def data_preparation(X_in_sample, X_test, y_in_sample, y_test, X_train, X_val, y
     X_val_lstm_seq = [seq for seq in X_val_lstm_seq if len(seq) > 0]
     X_val_lstm = pd.concat(X_val_lstm_seq) if X_val_lstm_seq else pd.DataFrame()
 
-    y_in_sample_lstm_seq = [group[time_steps:] for _, group in y_in_sample_lstm_grouped]
+    y_in_sample_lstm_seq = [group[time_steps-1:] for _, group in y_in_sample_lstm_grouped]
     y_in_sample_lstm = pd.concat(y_in_sample_lstm_seq)
-    y_test_lstm_seq = [group[time_steps:] for _, group in y_test_lstm_grouped]
+    y_test_lstm_seq = [group[time_steps-1:] for _, group in y_test_lstm_grouped]
     y_test_lstm = pd.concat(y_test_lstm_seq)
-    y_train_lstm_seq = [group[time_steps:] for _, group in y_train_lstm_grouped]
+    y_train_lstm_seq = [group[time_steps-1:] for _, group in y_train_lstm_grouped]
     y_train_lstm = pd.concat(y_train_lstm_seq)
-    y_val_lstm_seq = [group[time_steps:] for _, group in y_val_lstm_grouped]
+    y_val_lstm_seq = [group[time_steps-1:] for _, group in y_val_lstm_grouped]
     y_val_lstm = pd.concat(y_val_lstm_seq)
-
-
 
     def to_3d_numpy(df, time_steps, num_features):
         # Convert dataframe to numpy array
