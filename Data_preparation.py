@@ -5,9 +5,9 @@ import matplotlib.pyplot as plt
 
 
 
-def feature_scaling(df, b_MinMaxScaler, b_standardizer, percentage_test_set):
+def feature_scaling(df, b_MinMaxScaler, b_standardizer, percentage_in_sample_set):
 
-    split_number = int(percentage_test_set * len(df))
+    split_number = int(percentage_in_sample_set * len(df))
 
     # Check the distribution of the following columns of features
     print("The distribution of PreviousdayReturn before scaling is: \n")
@@ -128,7 +128,7 @@ def feature_scaling(df, b_MinMaxScaler, b_standardizer, percentage_test_set):
     return df
 
 # Function creates splits and features and target dataframes
-def create_splits(df, percentage_test_set, model, b_sentiment_score):   
+def create_splits(df, percentage_in_sample_set, model, b_sentiment_score):   
 
     if model == "lstm":
         if b_sentiment_score == True:
@@ -155,18 +155,18 @@ def create_splits(df, percentage_test_set, model, b_sentiment_score):
         y = df.loc[:, df.columns.isin(["Target"])] #"BarDate", "Ticker", 
 
     # Creates a in ssample and test set # 60-40 split, this includes fin crisis
-    split_number = int(percentage_test_set * len(df))
+    split_number = int(percentage_in_sample_set * len(df))
 
     X_in_sample = X.iloc[:split_number]
     X_test = X.iloc[split_number:]
     y_in_sample = y.iloc[:split_number]
     y_test = y.iloc[split_number:]
 
-    print("Number of obs in sample set = ", len(X_in_sample))
-    print("Number of obs test set = ", len(X_test))
+    # print("Number of obs in sample set = ", len(X_in_sample))
+    # print("Number of obs test set = ", len(X_test))
 
-    print("Last 5 columns of X_in_sample: \n", X_in_sample.tail().to_string())
-    print("First 5 columns of X_test: \n", X_test.head().to_string())
+    # print("Last 5 columns of X_in_sample: \n", X_in_sample.tail().to_string())
+    # print("First 5 columns of X_test: \n", X_test.head().to_string())
     
     # Creates a train and val set # 80-20 split
     split_number = int(0.8 * len(X_in_sample))
@@ -176,11 +176,11 @@ def create_splits(df, percentage_test_set, model, b_sentiment_score):
     y_train = y_in_sample.iloc[:split_number]
     y_val = y_in_sample.iloc[split_number:]
 
-    print("Number of obs train set = ", len(X_train))
-    print("Number of obs val set = ", len(X_val))
+    # print("Number of obs train set = ", len(X_train))
+    # print("Number of obs val set = ", len(X_val))
 
-    print("Last 5 columns of X_train: \n", X_train.tail().to_string())
-    print("First 5 columns of X_val: \n", X_val.head().to_string())
+    # print("Last 5 columns of X_train: \n", X_train.tail().to_string())
+    # print("First 5 columns of X_val: \n", X_val.head().to_string())
 
     return X_in_sample, X_test, y_in_sample, y_test, X_train, X_val, y_train, y_val
 

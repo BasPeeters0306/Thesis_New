@@ -57,17 +57,18 @@ def data_preparation(X_in_sample, X_test, y_in_sample, y_test, X_train, X_val, y
     X_in_sample_lstm_seq = [create_lstm_data(group, time_steps) for _, group in X_in_sample_lstm_grouped]
     X_in_sample_lstm_seq = [seq for seq in X_in_sample_lstm_seq if len(seq) > 0]
     X_in_sample_lstm = pd.concat(X_in_sample_lstm_seq) if X_in_sample_lstm_seq else pd.DataFrame()
-    print("first is done")
+
 
     X_test_lstm_seq = [create_lstm_data(group, time_steps) for _, group in X_test_lstm_grouped]
     X_test_lstm_seq = [seq for seq in X_test_lstm_seq if len(seq) > 0]
     X_test_lstm = pd.concat(X_test_lstm_seq) if X_test_lstm_seq else pd.DataFrame()
-    print("second is done")
+    print("len(X_test_lstm)", len(X_test_lstm))
+
 
     X_train_lstm_seq = [create_lstm_data(group, time_steps) for _, group in X_train_lstm_grouped]     
     X_train_lstm_seq = [seq for seq in X_train_lstm_seq if len(seq) > 0]
     X_train_lstm = pd.concat(X_train_lstm_seq) if X_train_lstm_seq else pd.DataFrame()
-    print("third is done")
+
 
     X_val_lstm_seq = [create_lstm_data(group, time_steps) for _, group in X_val_lstm_grouped]
     X_val_lstm_seq = [seq for seq in X_val_lstm_seq if len(seq) > 0]
@@ -77,6 +78,7 @@ def data_preparation(X_in_sample, X_test, y_in_sample, y_test, X_train, X_val, y
     y_in_sample_lstm = pd.concat(y_in_sample_lstm_seq)
     y_test_lstm_seq = [group[time_steps-1:] for _, group in y_test_lstm_grouped]
     y_test_lstm = pd.concat(y_test_lstm_seq)
+    print("len(y_test_lstm)", len(y_test_lstm))
     y_train_lstm_seq = [group[time_steps-1:] for _, group in y_train_lstm_grouped]
     y_train_lstm = pd.concat(y_train_lstm_seq)
     y_val_lstm_seq = [group[time_steps-1:] for _, group in y_val_lstm_grouped]
@@ -112,12 +114,14 @@ def data_preparation(X_in_sample, X_test, y_in_sample, y_test, X_train, X_val, y
         X_train_lstm = to_3d_numpy(X_train_lstm[["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3"]], time_steps, 3)
         X_val_lstm = to_3d_numpy(X_val_lstm[["PreviousdayReturn", "PreviousdayReturn_2", "PreviousdayReturn_3"]], time_steps, 3)
 
+    df_y_test_lstm = y_test_lstm.copy() # This one will be used for own accuracy and portfolio
+
     y_in_sample_lstm = y_in_sample_lstm[["Target"]].values
     y_test_lstm = y_test_lstm[["Target"]].values
     y_train_lstm = y_train_lstm[["Target"]].values
     y_val_lstm = y_val_lstm[["Target"]].values
 
-    return X_in_sample_lstm, X_test_lstm, y_in_sample_lstm, y_test_lstm, X_train_lstm, X_val_lstm, y_train_lstm, y_val_lstm 
+    return X_in_sample_lstm, X_test_lstm, y_in_sample_lstm, y_test_lstm, X_train_lstm, X_val_lstm, y_train_lstm, y_val_lstm, df_y_test_lstm
 
 def LSTM_test(best_model, window_size, y_in_sample, X_in_sample, y_test, X_test, b_sentiment_score, n_past_returns, n_nodes, loss_function):
 
@@ -217,7 +221,7 @@ def LSTM_tune(X_train, y_train, X_val, y_val, grid, b_sentiment_score, n_past_re
                                 # This is different here from the other models
                                 try:
                                     history = model.fit(X_train, y_train, 
-                                                        epochs=100,             # 1000 in Fischer
+                                                        epochs=2,             # 1000 in Fischer
                                                         batch_size=batch_size,             
                                                         validation_data=(X_val, y_val), 
                                                         callbacks=[early_stopping], verbose = 2)
