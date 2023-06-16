@@ -180,3 +180,121 @@ def prediction_metrics_single(df_classifications_subset):
     # plt.show()
 
     return metrics
+
+
+
+
+
+
+
+# Import Libraries
+import statistics
+import scipy.stats
+
+# Change part of this code!!!!!!!!!!!!!! from seminar
+# Only thing which needs to be changed (if we want) is that we should only consider the top and bottom predictions !!!!!!!!!!!!!!!!!!!!!!!!!
+def Diebold_Mariano(df_classifications, df_classifications_lstm):  
+
+    # To compare LSTM we must omit some of the first predictions, since they are not based on the same amount of data
+
+
+
+    #df_DM = df_classifications[]
+
+    # add a new column to df_DM which takes on value 0 if Target = classifications, 1 otherwise
+    df_DM["DM"] = np.where(df_DM["Target"] == df_DM["classifications"], 0, 1)
+
+
+    # # Specify y_true and y_pred
+    # y_true = df_DM["Target"]
+    # y_pred = df_DM["classifications"]
+
+
+    def diebold_mariano_variable_gu(predictionErrormodel1, predictionErrormodel2):
+        """
+        Calculates the Diebold Mariano variable d12 at each time t=1, ..., T
+        
+        Parameters
+        ----------
+        predictionErrormodel1 : Series
+            Series of prediction errors for model 1.
+        predictionErrormodel2 : Series
+            Series of prediction errors for model 2.
+        
+        Returns
+        -------
+        d12_t : float
+            Diebold Mariano variable d12 for a given time t
+        """
+        # Perform a Diebold Mariano Test for each time observation across the entire cross section
+        d = predictionErrormodel1 ** 2 - predictionErrormodel2 ** 2
+        # Determine d12 of entire cross section at time t
+        d12_t = statistics.mean(d)
+        return d12_t
+    
+
+    def dmStat(d12vectorTime):
+        """
+        Calculates the Diebold Mariano statistic dm_stat and the corresponding p-value
+
+        Parameters
+        ----------
+        d12vectorTime : Series
+            Series of Diebold Mariano variables d12 for each time t=1, ..., T
+        
+        Returns
+        -------
+        dmStat : float
+            Diebold Mariano statistic dm_stat
+        """
+        
+        dBar = statistics.mean(d12vectorTime) # Check whether mean correctly obtained
+        dStDev = np.std(d12vectorTime, ddof=1) / np.sqrt(np.size(d12vectorTime)) # To compute sample st dev.
+        dmStat = dBar / dStDev
+        pValue = scipy.stats.norm.sf(abs(dmStat))*2 # Two-sided z-test
+        return dmStat
+    
+    # Make list of all models used
+    Models = list(df_DM.columns[2:])                                                                # change this
+
+    # Create table with prediction errors for all Models
+    df_predErrorTable = pd.DataFrame()
+
+    i = 0
+    while i < len(Models):
+        for model in Models:
+            predErrorVector = np.where(df_DM["Target"] == df_DM["classifications"], 0, 1)                        
+            df_predErrorTable[model] = predErrorVector
+            i = i + 1
+
+    df_predErrorTable = df_predErrorTable.assign(Date = df_DM.index )
+    # Create an empty (zeros) Matrix which will collects p-values of DM-Stats across all Models
+    numberColumns = len(Models)
+    dmTable = np.zeros((len(Models), len(Models)))
+
+    # Loop over all models to calculate corresponding p-values and put them in Matrix
+    for i in range(len(Models)):
+        for j in range(len(Models)):
+            # Code that extracts DM-Stat for comparison model 1 and model 2
+            d12Vector = np.empty(shape = 0)
+            for date in df_predErrorTable["Date"].unique():
+                df_day = df_predErrorTable[df_predErrorTable["Date"]== date]
+                predErrors1New = df_day.iloc[:,i] 
+                predErrors2New = df_day.iloc[:,j]
+                d12 = diebold_mariano_variable_gu(predErrors1New, predErrors2New)
+                d12Vector = np.append(d12Vector, d12)
+            
+            dmTable[i,j] = dmStat(d12Vector)
+
+    dmTable = pd.DataFrame(dmTable, index = Models, columns = Models)
+    # dmTable.to_excel("dmTableCrisis.xlsx", sheet_name="DM Stats")
+
+
+    return dmTable
+
+
+
+
+
+
+
