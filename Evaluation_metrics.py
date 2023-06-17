@@ -4,6 +4,9 @@ from sklearn.metrics import (accuracy_score, precision_score, recall_score, f1_s
                              confusion_matrix, roc_auc_score, roc_curve, precision_recall_curve, 
                              cohen_kappa_score)
 import matplotlib as plt
+import statistics
+import scipy.stats
+from tqdm import tqdm
 
 def prediction_metrics(df_classifications, str_model, str_single_metric):
     """
@@ -45,20 +48,12 @@ def prediction_metrics(df_classifications, str_model, str_single_metric):
     
     # Accuracy score for all classifications in test set
 
-    temp = prediction_metrics_single(df_classifications)
-    # print("temp: ", temp)
-    temp2 = temp[str_single_metric]
-    # print("temp2: ", temp2)
-
     classifications_metric.append(prediction_metrics_single(df_classifications)[str_single_metric])
 
-    # print("classifications_metric: ", classifications_metric)
 
     # Group by date
     grouped = df_classifications.groupby("BarDate")
 
-
-    # Test!!!!
     # Select top 10, reset index, calculate str_single_metric of quantile
     quantile = grouped.apply(lambda x: x.sort_values(by='classifications', 
                                                      ascending=False).iloc[: 10])
@@ -182,115 +177,127 @@ def prediction_metrics_single(df_classifications_subset):
     return metrics
 
 
+def Diebold_Mariano(df_classifications, df_predictions, str_dm_type, str_sample):  
 
 
+    df_classifications_predictions = df_classifications.copy()
+    # left join columns predictions_lr, predictions_rf, predictions_gbc, predictions_lstm from df_predictions to df_classifications_temp by BarDate and Ticker
+    df_classifications_predictions = df_classifications_predictions.join(df_predictions.loc[:, df_predictions.columns.isin(["BarDate", "Ticker", "predictions_lr", "predictions_rf", 
+                                                                                                                            "predictions_gbc", "predictions_lstm"])].set_index(["BarDate", "Ticker"]), on=["BarDate", "Ticker"])
 
+    Models = ["lr", "rf", "gbc", "lstm"]
+    dict_quantiles = {}
+    for model in Models:
 
+        # Group by date
+        grouped = df_classifications_predictions[["BarDate", "Ticker", "Target", f"classifications_{model}", f"predictions_{model}"]].groupby("BarDate")
 
-# Import Libraries
-import statistics
-import scipy.stats
+        # Select top 20, reset index, calculate str_single_metric of quantile
+        quantile_top = grouped.apply(lambda x: x.sort_values(by=f"predictions_{model}", 
+                                                            ascending=False).iloc[: 20])
+        quantile_top = quantile_top.reset_index(drop=True)
+        # Select top 20, reset index, calculate str_single_metric of quantile
+        quantile_bottom = grouped.apply(lambda x: x.sort_values(by=f"predictions_{model}", 
+                                                            ascending=False).iloc[int(len(x))-20 : ])
+        quantile_bottom = quantile_bottom.reset_index(drop=True)
+        quantile = pd.concat([quantile_top, quantile_bottom])
+        dict_quantiles[f"quantile_{model}"] = quantile
 
-# Change part of this code!!!!!!!!!!!!!! from seminar
-# Only thing which needs to be changed (if we want) is that we should only consider the top and bottom predictions !!!!!!!!!!!!!!!!!!!!!!!!!
-def Diebold_Mariano(df_classifications, df_classifications_lstm):  
+        # Count the number of 0's and 1's for column classifications_lr in quantile
+        print(dict_quantiles[f"quantile_{model}"][f"classifications_{model}"].value_counts())
 
-    # To compare LSTM we must omit some of the first predictions, since they are not based on the same amount of data
+        dict_quantiles[f"quantile_{model}"][f"error_{model}"] = np.where(dict_quantiles[f"quantile_{model}"]["Target"] == dict_quantiles[f"quantile_{model}"][f"classifications_{model}"], 0, 1)
 
+    print("The number of unique dates per model are equal")
+    for model in Models:
+        print(dict_quantiles[f"quantile_{model}"]["BarDate"].nunique())
 
+    # Create df_errors
+    df_errors = df_classifications[['BarDate', 'Ticker']]
+    df_errors["lr"] = np.where(df_classifications["Target"] == df_classifications["classifications_lr"], 0, 1) 
+    df_errors["rf"] = np.where(df_classifications["Target"] == df_classifications["classifications_rf"], 0, 1) 
+    df_errors["gbc"] = np.where(df_classifications["Target"] == df_classifications["classifications_gbc"], 0, 1) 
+    df_errors["lstm"] = np.where(df_classifications["Target"] == df_classifications["classifications_lstm"], 0, 1) 
 
-    #df_DM = df_classifications[]
-
-    # add a new column to df_DM which takes on value 0 if Target = classifications, 1 otherwise
-    df_DM["DM"] = np.where(df_DM["Target"] == df_DM["classifications"], 0, 1)
-
-
-    # # Specify y_true and y_pred
-    # y_true = df_DM["Target"]
-    # y_pred = df_DM["classifications"]
-
+    def diebold_mariano(predictionErrormodel1, predictionErrormodel2):
+        # Perform a Diebold Mariano Test for each time observation across the entire cross section
+        d = predictionErrormodel1 ** 2 - predictionErrormodel2 ** 2
+        dBar = statistics.mean(d) # Check whether mean correctly obtained
+        dStDev = np.std(d, ddof=1) / np.sqrt(np.size(d)) # To compute sample st dev.
+        dmStat = dBar / dStDev
+        pValue = scipy.stats.norm.sf(abs(dmStat))*2 # Two-sided z-test
+        return dmStat, pValue
 
     def diebold_mariano_variable_gu(predictionErrormodel1, predictionErrormodel2):
-        """
-        Calculates the Diebold Mariano variable d12 at each time t=1, ..., T
-        
-        Parameters
-        ----------
-        predictionErrormodel1 : Series
-            Series of prediction errors for model 1.
-        predictionErrormodel2 : Series
-            Series of prediction errors for model 2.
-        
-        Returns
-        -------
-        d12_t : float
-            Diebold Mariano variable d12 for a given time t
-        """
         # Perform a Diebold Mariano Test for each time observation across the entire cross section
         d = predictionErrormodel1 ** 2 - predictionErrormodel2 ** 2
         # Determine d12 of entire cross section at time t
         d12_t = statistics.mean(d)
         return d12_t
-    
 
     def dmStat(d12vectorTime):
-        """
-        Calculates the Diebold Mariano statistic dm_stat and the corresponding p-value
-
-        Parameters
-        ----------
-        d12vectorTime : Series
-            Series of Diebold Mariano variables d12 for each time t=1, ..., T
-        
-        Returns
-        -------
-        dmStat : float
-            Diebold Mariano statistic dm_stat
-        """
-        
         dBar = statistics.mean(d12vectorTime) # Check whether mean correctly obtained
         dStDev = np.std(d12vectorTime, ddof=1) / np.sqrt(np.size(d12vectorTime)) # To compute sample st dev.
         dmStat = dBar / dStDev
         pValue = scipy.stats.norm.sf(abs(dmStat))*2 # Two-sided z-test
-        return dmStat
-    
+        return dmStat, pValue
+
     # Make list of all models used
-    Models = list(df_DM.columns[2:])                                                                # change this
+    Models = ["lr", "rf", "gbc", "lstm"]                                                              
 
-    # Create table with prediction errors for all Models
-    df_predErrorTable = pd.DataFrame()
-
-    i = 0
-    while i < len(Models):
-        for model in Models:
-            predErrorVector = np.where(df_DM["Target"] == df_DM["classifications"], 0, 1)                        
-            df_predErrorTable[model] = predErrorVector
-            i = i + 1
-
-    df_predErrorTable = df_predErrorTable.assign(Date = df_DM.index )
-    # Create an empty (zeros) Matrix which will collects p-values of DM-Stats across all Models
-    numberColumns = len(Models)
+    # Create an empty (zeros) Matrix which will collect p-values of DM-Stats across all Models
     dmTable = np.zeros((len(Models), len(Models)))
+    pValueTable = np.zeros((len(Models), len(Models)))
 
     # Loop over all models to calculate corresponding p-values and put them in Matrix
-    for i in range(len(Models)):
-        for j in range(len(Models)):
+    for i, model_1 in tqdm(enumerate(Models)):
+        for j, model_2 in enumerate(Models):
             # Code that extracts DM-Stat for comparison model 1 and model 2
             d12Vector = np.empty(shape = 0)
-            for date in df_predErrorTable["Date"].unique():
-                df_day = df_predErrorTable[df_predErrorTable["Date"]== date]
-                predErrors1New = df_day.iloc[:,i] 
-                predErrors2New = df_day.iloc[:,j]
-                d12 = diebold_mariano_variable_gu(predErrors1New, predErrors2New)
-                d12Vector = np.append(d12Vector, d12)
-            
-            dmTable[i,j] = dmStat(d12Vector)
+                
+            if (str_sample == "full"):   
+                if (str_dm_type == "classic"):	
+                    predErrors1New = df_errors[model_1] 
+                    print("predErrors1New: ", predErrors1New)
+                    predErrors2New = df_errors[model_2]
+                    print("predErrors2New: ", predErrors2New)
+                    d12 = diebold_mariano(predErrors1New, predErrors2New)
+                    print("d12: ", d12)
+                    d12Vector = np.append(d12Vector, d12)
+                    print("d12Vector: ", d12Vector)
+
+                    dmTable[i,j], pValueTable[i,j] = dmStat(d12Vector)
+
+                elif (str_dm_type == "adjusted"):
+                    for date in df_errors["BarDate"].unique():
+                        df_day = df_errors[df_errors["BarDate"]== date]
+                        predErrors1New = df_day[model_1] 
+                        predErrors2New = df_day[model_2]
+                        d12 = diebold_mariano_variable_gu(predErrors1New, predErrors2New)
+                        d12Vector = np.append(d12Vector, d12)
+                    
+                    dmTable[i,j], pValueTable[i,j] = dmStat(d12Vector)
+
+            if (str_sample == "Top_bottom_20"):  
+                if (str_dm_type == "classic"):	
+                    print("ERROR: ..........................Applying the top bottom quintile with the classic method is not possible...............................")
+                    break
+
+                elif (str_dm_type == "adjusted"):
+                    for date in dict_quantiles[f"quantile_{model_1}"]["BarDate"].unique():                                          
+                        df_day_model1 = dict_quantiles[f"quantile_{model_1}"][dict_quantiles[f"quantile_{model_1}"]["BarDate"]== date]
+                        df_day_model2 = dict_quantiles[f"quantile_{model_2}"][dict_quantiles[f"quantile_{model_2}"]["BarDate"]== date]
+                        predErrors1New = df_day_model1[f"error_{model_1}"] 
+                        predErrors2New = df_day_model2[f"error_{model_2}"]
+                        d12 = diebold_mariano_variable_gu(predErrors1New, predErrors2New)
+                        d12Vector = np.append(d12Vector, d12)
+                    
+                    dmTable[i,j], pValueTable[i,j] = dmStat(d12Vector)
 
     dmTable = pd.DataFrame(dmTable, index = Models, columns = Models)
-    # dmTable.to_excel("dmTableCrisis.xlsx", sheet_name="DM Stats")
+    pValueTable = pd.DataFrame(pValueTable, index = Models, columns = Models)
 
-
-    return dmTable
+    return dmTable, pValueTable
 
 
 
