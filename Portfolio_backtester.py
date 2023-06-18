@@ -78,17 +78,23 @@ def backtest(df_predictions,n_long,n_short, backtest_model, weighting_method, df
 
     return(df_predictions, df_returns_portfolio, str_returns_portfolio_cum, str_logreturns_portfolio_cum, weightMatrix)
 
-def metrics(df_returns_portfolio, backtest_model, df_metrics, df_stockindex_returns, returnsMatrix, weightMatrix): 
+def metrics(df_returns_portfolio, backtest_model, df_metrics, df_stockindex_returns, returnsMatrix, weightMatrix, rf_rate_and_factors): 
 
     # Specify some naming based on model used
     str_returns_portfolio = "returns_" + backtest_model + "_portfolio"
     portfolio_returns = df_returns_portfolio[str_returns_portfolio]
-    total_return = portfolio_returns.sum()
+
+    # Select all rows from rf_rate_and_factors where BarDate is in df_returns_portfolio
+    rf_rate_and_factors = rf_rate_and_factors[rf_rate_and_factors['BarDate'].isin(df_returns_portfolio['BarDate'])]
+
+    # total_return = portfolio_returns.sum() # returns are not additive so we cannot sum them
     mean_return = portfolio_returns.mean()
     std_dev = portfolio_returns.std()
 
     # Information ratio
-    information_ratio = (portfolio_returns.mean()) / std_dev
+    information_ratio = np.sqrt(252) * ((portfolio_returns.mean()) / std_dev)
+    # Sharpe ratio
+    sharpe_ratio = np.sqrt(252) * (((portfolio_returns - rf_rate_and_factors["RF"]).mean())  / std_dev)
 
     if df_stockindex_returns == None:
         appraisal_ratio = None
@@ -127,7 +133,7 @@ def metrics(df_returns_portfolio, backtest_model, df_metrics, df_stockindex_retu
     # averagedaylyTurnover = (1/T) * totalTurnover
     averagedaylyTurnover = None
 
-    df_metrics[backtest_model] = [total_return, mean_return, std_dev, information_ratio, appraisal_ratio, 
+    df_metrics[backtest_model] = [mean_return, std_dev, information_ratio, sharpe_ratio, appraisal_ratio, 
                                   max_drawdown, max_1_day_loss, max_1_year_loss, averagedaylyTurnover]
 
     return df_metrics
