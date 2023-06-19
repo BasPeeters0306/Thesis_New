@@ -36,8 +36,8 @@ def prediction_metrics(df_classifications, str_model, str_single_metric):
         df_classifications["classifications"] = df_classifications["classifications_rf"]
     if (str_model == "gbc"):
         df_classifications["classifications"] = df_classifications["classifications_gbc"]
-    if (str_model == "nn"):
-        df_classifications["classifications"] = df_classifications["classifications_nn"]
+    if (str_model == "rnn"):
+        df_classifications["classifications"] = df_classifications["classifications_rnn"]
     if (str_model == "lstm"):
         df_classifications["classifications"] = df_classifications["classifications_lstm"]
 
@@ -178,14 +178,14 @@ def prediction_metrics_single(df_classifications_subset):
 
 
 def Diebold_Mariano(df_classifications, df_predictions, str_dm_type, str_sample):  
-
+    
+    Models = ["lr", "rf", "gbc", "rnn", "lstm"]
 
     df_classifications_predictions = df_classifications.copy()
     # left join columns predictions_lr, predictions_rf, predictions_gbc, predictions_lstm from df_predictions to df_classifications_temp by BarDate and Ticker
     df_classifications_predictions = df_classifications_predictions.join(df_predictions.loc[:, df_predictions.columns.isin(["BarDate", "Ticker", "predictions_lr", "predictions_rf", 
-                                                                                                                            "predictions_gbc", "predictions_lstm"])].set_index(["BarDate", "Ticker"]), on=["BarDate", "Ticker"])
-
-    Models = ["lr", "rf", "gbc", "lstm"]
+                                                                                                                            "predictions_gbc", "predictions_rnn" "predictions_lstm"])].set_index(["BarDate", "Ticker"]), on=["BarDate", "Ticker"])
+    
     dict_quantiles = {}
     for model in Models:
 
@@ -217,6 +217,7 @@ def Diebold_Mariano(df_classifications, df_predictions, str_dm_type, str_sample)
     df_errors["lr"] = np.where(df_classifications["Target"] == df_classifications["classifications_lr"], 0, 1) 
     df_errors["rf"] = np.where(df_classifications["Target"] == df_classifications["classifications_rf"], 0, 1) 
     df_errors["gbc"] = np.where(df_classifications["Target"] == df_classifications["classifications_gbc"], 0, 1) 
+    df_errors["rnn"] = np.where(df_classifications["Target"] == df_classifications["classifications_rnn"], 0, 1) 
     df_errors["lstm"] = np.where(df_classifications["Target"] == df_classifications["classifications_lstm"], 0, 1) 
 
     def diebold_mariano(predictionErrormodel1, predictionErrormodel2):
@@ -241,9 +242,6 @@ def Diebold_Mariano(df_classifications, df_predictions, str_dm_type, str_sample)
         dmStat = dBar / dStDev
         pValue = scipy.stats.norm.sf(abs(dmStat))*2 # Two-sided z-test
         return dmStat, pValue
-
-    # Make list of all models used
-    Models = ["lr", "rf", "gbc", "lstm"]                                                              
 
     # Create an empty (zeros) Matrix which will collect p-values of DM-Stats across all Models
     dmTable = np.zeros((len(Models), len(Models)))
