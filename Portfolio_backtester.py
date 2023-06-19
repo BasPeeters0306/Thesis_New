@@ -113,8 +113,8 @@ def metrics(df_returns_portfolio, backtest_model, df_metrics, df_stockindex_retu
     # Maximum 1 day loss, equal to minimum returns
     max_1_day_loss = portfolio_returns.min()
 
-    # Maximum 1 year loss, 52 days in a year
-    max_1_year_loss = portfolio_returns.rolling(window=52).min().min()
+    # # Maximum 1 year loss, 52 days in a year
+    # max_1_year_loss = portfolio_returns.rolling(window=52).min().min() # Always equal to max 1 day loss
 
     # Calculates the average dayly turnover
     # T = weightMatrix.shape[0]
@@ -134,7 +134,7 @@ def metrics(df_returns_portfolio, backtest_model, df_metrics, df_stockindex_retu
     averagedaylyTurnover = None
 
     df_metrics[backtest_model] = [mean_return, std_dev, information_ratio, sharpe_ratio, appraisal_ratio, 
-                                  max_drawdown, max_1_day_loss, max_1_year_loss, averagedaylyTurnover]
+                                  max_drawdown, max_1_day_loss, averagedaylyTurnover]
 
     return df_metrics
 
