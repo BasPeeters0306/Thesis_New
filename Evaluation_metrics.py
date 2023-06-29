@@ -51,8 +51,33 @@ def prediction_metrics(df_classifications, str_model, str_single_metric):
     classifications_metric.append(prediction_metrics_single(df_classifications)[str_single_metric])
 
 
+
+
+
+    df_accuracy = pd.DataFrame({}, index=["All", "Both 10", "Both 20", "Both 50", "Top 10", "Top 20", "Top 50", "Bottom 10", "Bottom 20", "Bottom 50"])
+
+
+
+
+
     # Group by date
     grouped = df_classifications.groupby("BarDate")
+
+
+
+    # Select both 10, reset index, calculate str_single_metric of quantile
+    quantile = grouped.apply(lambda x: x.sort_values(by='classifications', 
+                                                     ascending=False).iloc[int(len(x))-10 : 10])
+    
+    # Select both 20, reset index, calculate str_single_metric of quantile
+    quantile = grouped.apply(lambda x: x.sort_values(by='classifications', 
+                                                     ascending=False).iloc[int(len(x))-20 : 20])
+    
+    # Select both 50, reset index, calculate str_single_metric of quantile
+    quantile = grouped.apply(lambda x: x.sort_values(by='classifications', 
+                                                     ascending=False).iloc[int(len(x))-50 : 50])
+
+
 
     # Select top 10, reset index, calculate str_single_metric of quantile
     quantile = grouped.apply(lambda x: x.sort_values(by='classifications', 
@@ -66,44 +91,54 @@ def prediction_metrics(df_classifications, str_model, str_single_metric):
     quantile = quantile.reset_index(drop=True)
     classifications_metric.append(prediction_metrics_single(quantile)[str_single_metric])
     
-    # Select top decile, reset index, calculate str_single_metric of quantile
+    # Select top 50, reset index, calculate str_single_metric of quantile
     quantile = grouped.apply(lambda x: x.sort_values(by='classifications', 
-                                                     ascending=False).iloc[: int(len(x)*0.1)])
+                                                     ascending=False).iloc[: 50])
     quantile = quantile.reset_index(drop=True)
     classifications_metric.append(prediction_metrics_single(quantile)[str_single_metric])
 
-    # Select first quantile, reset index, calculate str_single_metric of quantile
-    quantile = grouped.apply(lambda x: x.sort_values(by='classifications', ascending=False).iloc[ :int(len(x)*0.2)])
-    quantile = quantile.reset_index(drop=True)
-    classifications_metric.append(prediction_metrics_single(quantile)[str_single_metric])
-    
-    # Select second quantile, reset index, calculate str_single_metric of quantile
-    quantile = grouped.apply(lambda x: x.sort_values(by='classifications', 
-                                                     ascending=False).iloc[int(len(x)*0.2) :int(len(x)*0.4)])
-    quantile = quantile.reset_index(drop=True)
-    classifications_metric.append(prediction_metrics_single(quantile)[str_single_metric])
-    
-    # Select third quantile, reset index, calculate str_single_metric of quantile
-    quantile = grouped.apply(lambda x: x.sort_values(by='classifications', 
-                                                     ascending=False).iloc[int(len(x)*0.4) :int(len(x)*0.6)])
-    quantile = quantile.reset_index(drop=True)
-    classifications_metric.append(prediction_metrics_single(quantile)[str_single_metric])
-    
-    # Select fourth quantile, reset index, calculate str_single_metric of quantile
-    quantile = grouped.apply(lambda x: x.sort_values(by='classifications', 
-                                                     ascending=False).iloc[int(len(x)*0.6) :int(len(x)*0.8)])
-    quantile = quantile.reset_index(drop=True)
-    classifications_metric.append(prediction_metrics_single(quantile)[str_single_metric])
-    
-    # Select fifth quantile, reset index, calculate str_single_metric of quantile
-    quantile = grouped.apply(lambda x: x.sort_values(by='classifications', 
-                                                     ascending=False).iloc[int(len(x)*0.8) : ])
-    quantile = quantile.reset_index(drop=True)
-    classifications_metric.append(prediction_metrics_single(quantile)[str_single_metric])
 
-    # Select bottom decile, reset index, calculate str_single_metric of quantile
+
+    # # Select top decile, reset index, calculate str_single_metric of quantile
+    # quantile = grouped.apply(lambda x: x.sort_values(by='classifications', 
+    #                                                  ascending=False).iloc[: int(len(x)*0.1)])
+    # quantile = quantile.reset_index(drop=True)
+    # classifications_metric.append(prediction_metrics_single(quantile)[str_single_metric])
+    # # Select first quantile, reset index, calculate str_single_metric of quantile
+    # quantile = grouped.apply(lambda x: x.sort_values(by='classifications', ascending=False).iloc[ :int(len(x)*0.2)])
+    # quantile = quantile.reset_index(drop=True)
+    # classifications_metric.append(prediction_metrics_single(quantile)[str_single_metric]) 
+    # # Select second quantile, reset index, calculate str_single_metric of quantile
+    # quantile = grouped.apply(lambda x: x.sort_values(by='classifications', 
+    #                                                  ascending=False).iloc[int(len(x)*0.2) :int(len(x)*0.4)])
+    # quantile = quantile.reset_index(drop=True)
+    # classifications_metric.append(prediction_metrics_single(quantile)[str_single_metric])
+    # # Select third quantile, reset index, calculate str_single_metric of quantile
+    # quantile = grouped.apply(lambda x: x.sort_values(by='classifications', 
+    #                                                  ascending=False).iloc[int(len(x)*0.4) :int(len(x)*0.6)])
+    # quantile = quantile.reset_index(drop=True)
+    # classifications_metric.append(prediction_metrics_single(quantile)[str_single_metric])
+    # # Select fourth quantile, reset index, calculate str_single_metric of quantile
+    # quantile = grouped.apply(lambda x: x.sort_values(by='classifications', 
+    #                                                  ascending=False).iloc[int(len(x)*0.6) :int(len(x)*0.8)])
+    # quantile = quantile.reset_index(drop=True)
+    # classifications_metric.append(prediction_metrics_single(quantile)[str_single_metric])
+    # # Select fifth quantile, reset index, calculate str_single_metric of quantile
+    # quantile = grouped.apply(lambda x: x.sort_values(by='classifications', 
+    #                                                  ascending=False).iloc[int(len(x)*0.8) : ])
+    # quantile = quantile.reset_index(drop=True)
+    # classifications_metric.append(prediction_metrics_single(quantile)[str_single_metric])
+    # # Select bottom decile, reset index, calculate str_single_metric of quantile
+    # quantile = grouped.apply(lambda x: x.sort_values(by='classifications', 
+    #                                                  ascending=False).iloc[int(len(x)*0.9):])
+    # quantile = quantile.reset_index(drop=True)
+    # classifications_metric.append(prediction_metrics_single(quantile)[str_single_metric])
+
+
+
+    # Select bottom 10, reset index, calculate str_single_metric of quantile
     quantile = grouped.apply(lambda x: x.sort_values(by='classifications', 
-                                                     ascending=False).iloc[int(len(x)*0.9):])
+                                                     ascending=False).iloc[int(len(x))-10 : ])
     quantile = quantile.reset_index(drop=True)
     classifications_metric.append(prediction_metrics_single(quantile)[str_single_metric])
 
@@ -113,11 +148,12 @@ def prediction_metrics(df_classifications, str_model, str_single_metric):
     quantile = quantile.reset_index(drop=True)
     classifications_metric.append(prediction_metrics_single(quantile)[str_single_metric])
 
-    # Select bottom 10, reset index, calculate str_single_metric of quantile
+    # Select bottom 50, reset index, calculate str_single_metric of quantile
     quantile = grouped.apply(lambda x: x.sort_values(by='classifications', 
-                                                     ascending=False).iloc[int(len(x))-10 : ])
+                                                     ascending=False).iloc[int(len(x))-50: ])
     quantile = quantile.reset_index(drop=True)
     classifications_metric.append(prediction_metrics_single(quantile)[str_single_metric])
+
 
     return(classifications_metric)
 
