@@ -54,7 +54,6 @@ def prediction_metrics(df_classifications, str_model, str_single_metric):
 
 
 
-    df_accuracy = pd.DataFrame({}, index=["All", "Both 10", "Both 20", "Both 50", "Top 10", "Top 20", "Top 50", "Bottom 10", "Bottom 20", "Bottom 50"])
 
 
 
