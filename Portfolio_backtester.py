@@ -117,20 +117,20 @@ def metrics(df_returns_portfolio, backtest_model, df_metrics, df_stockindex_retu
     # max_1_year_loss = portfolio_returns.rolling(window=52).min().min() # Always equal to max 1 day loss
 
     # Calculates the average dayly turnover
-    # T = weightMatrix.shape[0]
-    # totalTurnover = 0
-    # for t in range(0,T-1):
-    #     cumTurnover = 0
-    #     for i in range(0, weightMatrix.shape[1] - 1):
-    #         cumTurnoverDenom = 1
-    #         for j in range(0, weightMatrix.shape[1] - 1):
-    #             cumTurnoverDenom = cumTurnoverDenom + (weightMatrix.iloc[t,j] * returnsMatrix.iloc[t+1,j])
+    T = weightMatrix.shape[0]
+    totalTurnover = 0
+    for t in range(0,T-1):
+        cumTurnover = 0
+        for i in range(0, weightMatrix.shape[1] - 1):
+            cumTurnoverDenom = 1
+            for j in range(0, weightMatrix.shape[1] - 1):
+                cumTurnoverDenom = cumTurnoverDenom + (weightMatrix.iloc[t,j] * returnsMatrix.iloc[t+1,j])
         
-    #         cumTurnover = cumTurnover + abs(weightMatrix.iloc[(t + 1), i] - (weightMatrix.iloc[t, i] * 
-    #                                                             (1 + returnsMatrix.iloc[(t+1),i])) / 
-    #                                                             cumTurnoverDenom)
-    #     totalTurnover = totalTurnover + cumTurnover
-    # averagedaylyTurnover = (1/T) * totalTurnover
+            cumTurnover = cumTurnover + abs(weightMatrix.iloc[(t + 1), i] - (weightMatrix.iloc[t, i] * 
+                                                                (1 + returnsMatrix.iloc[(t+1),i])) / 
+                                                                cumTurnoverDenom)
+        totalTurnover = totalTurnover + cumTurnover
+    averagedaylyTurnover = (1/T) * totalTurnover
     averagedaylyTurnover = None
 
     df_metrics[backtest_model] = [mean_return, std_dev, information_ratio, sharpe_ratio, appraisal_ratio, 
