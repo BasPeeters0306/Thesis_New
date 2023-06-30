@@ -152,9 +152,17 @@ def prediction_metrics_single(df_classifications_subset):
     y_true = df_classifications_subset["Target"]
     y_pred = df_classifications_subset["classifications"]
 
+    def calculate_accuracy(y_true, y_pred):
+        correct = 0
+        for i in range(len(y_true)):
+            if y_true[i] == y_pred[i]:
+                correct += 1
+        return correct / len(y_true)
+    
     # Calculate evaluation metrics
     metrics = {
-        "Accuracy": accuracy_score(y_true, y_pred),
+        "Accuracy": calculate_accuracy(y_true, y_pred),
+        # "Accuracy": accuracy_score(y_true, y_pred),
         # "Precision": precision_score(y_true, y_pred),
         # "Recall": recall_score(y_true, y_pred),
         # "F1 Score": f1_score(y_true, y_pred),
@@ -189,15 +197,32 @@ def prediction_metrics_single(df_classifications_subset):
     return metrics
 
 
-def Diebold_Mariano(df_classifications, df_predictions, str_dm_type, str_sample):  
+def Diebold_Mariano(df_classifications, df_predictions, str_dm_type, str_sample, b_compare_SESI_to_no_SESI):  
     
-    Models = ["lr", "rf", "gbc", "rnn", "lstm"]
+    if b_compare_SESI_to_no_SESI:
+        Models = ["lr", "rf", "gbc", "rnn", "lstm", "lr_SESI", "rf_SESI", "gbc_SESI", "rnn_SESI", "lstm_SESI"]
+    else:
+        Models = ["lr", "rf", "gbc", "rnn", "lstm"]
 
     df_classifications_predictions = df_classifications.copy()
     # left join columns predictions_lr, predictions_rf, predictions_gbc, predictions_lstm from df_predictions to df_classifications_temp by BarDate and Ticker
-    df_classifications_predictions = df_classifications_predictions.join(df_predictions.loc[:, df_predictions.columns.isin(["BarDate", "Ticker", "predictions_lr", "predictions_rf", 
-                                                                                                                            "predictions_gbc", "predictions_rnn" "predictions_lstm"])].set_index(["BarDate", "Ticker"]), on=["BarDate", "Ticker"])
+
+    if b_compare_SESI_to_no_SESI:
+        df_classifications_predictions = df_classifications_predictions.join(df_predictions.loc[:, df_predictions.columns.isin(["BarDate", "Ticker", "predictions_lr", "predictions_rf", 
+                                                                                                                                "predictions_gbc", "predictions_rnn", "predictions_lstm", 
+                                                                                                                                "predictions_lr_SESI", "predictions_rf_SESI", "predictions_gbc_SESI", 
+                                                                                                                                "predictions_rnn_SESI", "predictions_lstm_SESI"])].set_index(["BarDate", "Ticker"]), on=["BarDate", "Ticker"])
+    else:
+        df_classifications_predictions = df_classifications_predictions.join(df_predictions.loc[:, df_predictions.columns.isin(["BarDate", "Ticker", "predictions_lr", "predictions_rf", "predictions_gbc", "predictions_rnn", "predictions_lstm"])].set_index(["BarDate", "Ticker"]), on=["BarDate", "Ticker"])
     
+
+    if str_sample == "Top_bottom_10":
+        n_cutoff = 10
+    if str_sample == "Top_bottom_20":
+        n_cutoff = 20
+    if str_sample == "Top_bottom_50":
+        n_cutoff = 50
+
     dict_quantiles = {}
     for model in Models:
 
@@ -205,14 +230,13 @@ def Diebold_Mariano(df_classifications, df_predictions, str_dm_type, str_sample)
         grouped = df_classifications_predictions[["BarDate", "Ticker", "Target", f"classifications_{model}", f"predictions_{model}"]].groupby("BarDate")
 
         # Select top 20, reset index, calculate str_single_metric of quantile
-        quantile_top = grouped.apply(lambda x: x.sort_values(by=f"predictions_{model}", 
-                                                            ascending=False).iloc[: 20])
+        quantile_top = grouped.apply(lambda x: x.sort_values(by=f"predictions_{model}", ascending=False).iloc[: n_cutoff])
         quantile_top = quantile_top.reset_index(drop=True)
         # Select top 20, reset index, calculate str_single_metric of quantile
-        quantile_bottom = grouped.apply(lambda x: x.sort_values(by=f"predictions_{model}", 
-                                                            ascending=False).iloc[int(len(x))-20 : ])
+        quantile_bottom = grouped.apply(lambda x: x.sort_values(by=f"predictions_{model}", ascending=False).iloc[int(len(x))-n_cutoff : ])
         quantile_bottom = quantile_bottom.reset_index(drop=True)
         quantile = pd.concat([quantile_top, quantile_bottom])
+
         dict_quantiles[f"quantile_{model}"] = quantile
 
         # Count the number of 0's and 1's for column classifications_lr in quantile
@@ -231,6 +255,13 @@ def Diebold_Mariano(df_classifications, df_predictions, str_dm_type, str_sample)
     df_errors["gbc"] = np.where(df_classifications["Target"] == df_classifications["classifications_gbc"], 0, 1) 
     df_errors["rnn"] = np.where(df_classifications["Target"] == df_classifications["classifications_rnn"], 0, 1) 
     df_errors["lstm"] = np.where(df_classifications["Target"] == df_classifications["classifications_lstm"], 0, 1) 
+    if b_compare_SESI_to_no_SESI:
+        df_errors["lr_SESI"] = np.where(df_classifications["Target"] == df_classifications["classifications_lr_SESI"], 0, 1) 
+        df_errors["rf_SESI"] = np.where(df_classifications["Target"] == df_classifications["classifications_rf_SESI"], 0, 1)
+        df_errors["gbc_SESI"] = np.where(df_classifications["Target"] == df_classifications["classifications_gbc_SESI"], 0, 1)
+        df_errors["rnn_SESI"] = np.where(df_classifications["Target"] == df_classifications["classifications_rnn_SESI"], 0, 1)
+        df_errors["lstm_SESI"] = np.where(df_classifications["Target"] == df_classifications["classifications_lstm_SESI"], 0, 1)
+        
 
     def diebold_mariano(predictionErrormodel1, predictionErrormodel2):
         # Perform a Diebold Mariano Test for each time observation across the entire cross section
@@ -251,8 +282,12 @@ def Diebold_Mariano(df_classifications, df_predictions, str_dm_type, str_sample)
     def dmStat(d12vectorTime):
         dBar = statistics.mean(d12vectorTime) # Check whether mean correctly obtained
         dStDev = np.std(d12vectorTime, ddof=1) / np.sqrt(np.size(d12vectorTime)) # To compute sample st dev.
+        print("dBar: ", dBar)
+        print("dStDev: ", dStDev)
         dmStat = dBar / dStDev
+        print("dmStat: ", dmStat)
         pValue = scipy.stats.norm.sf(abs(dmStat))*2 # Two-sided z-test
+        print("pValue: ", pValue)
         return dmStat, pValue
 
     # Create an empty (zeros) Matrix which will collect p-values of DM-Stats across all Models
@@ -288,7 +323,7 @@ def Diebold_Mariano(df_classifications, df_predictions, str_dm_type, str_sample)
                     
                     dmTable[i,j], pValueTable[i,j] = dmStat(d12Vector)
 
-            if (str_sample == "Top_bottom_20"):  
+            if (str_sample == "Top_bottom_20" or str_sample == "Top_bottom_10" or str_sample == "Top_bottom_50"):  
                 if (str_dm_type == "classic"):	
                     print("ERROR: ..........................Applying the top bottom quintile with the classic method is not possible...............................")
                     break
