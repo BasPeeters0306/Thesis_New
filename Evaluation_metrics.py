@@ -41,8 +41,6 @@ def prediction_metrics(df_classifications, str_model, str_single_metric):
     if (str_model == "lstm"):
         df_classifications["classifications"] = df_classifications["classifications_lstm"]
 
-    # print("df_classifications: ", df_classifications)
-
     # Initialize array to be filled with accuracy scores for this model
     classifications_metric = []
     
@@ -50,53 +48,38 @@ def prediction_metrics(df_classifications, str_model, str_single_metric):
 
     classifications_metric.append(prediction_metrics_single(df_classifications)[str_single_metric])
 
-
-
-
-
-
-
-
-
-
     # Group by date
     grouped = df_classifications.groupby("BarDate")
 
-
-
     # Select both 10, reset index, calculate str_single_metric of quantile
-    quantile = grouped.apply(lambda x: x.sort_values(by='classifications', 
-                                                     ascending=False).iloc[int(len(x))-10 : 10])
-    
+    quantile = grouped.apply(lambda x: x.sort_values(by='classifications', ascending=False).iloc[np.r_[0:min(10, len(x)), -min(10, len(x)):0]] if len(x) > 0 else x)
+    quantile = quantile.reset_index(drop=True)
+    classifications_metric.append(prediction_metrics_single(quantile)[str_single_metric])
+
     # Select both 20, reset index, calculate str_single_metric of quantile
-    quantile = grouped.apply(lambda x: x.sort_values(by='classifications', 
-                                                     ascending=False).iloc[int(len(x))-20 : 20])
-    
+    quantile = grouped.apply(lambda x: x.sort_values(by='classifications', ascending=False).iloc[np.r_[0:min(20, len(x)), -min(20, len(x)):0]] if len(x) > 0 else x)
+    quantile = quantile.reset_index(drop=True)
+    classifications_metric.append(prediction_metrics_single(quantile)[str_single_metric])
+
     # Select both 50, reset index, calculate str_single_metric of quantile
-    quantile = grouped.apply(lambda x: x.sort_values(by='classifications', 
-                                                     ascending=False).iloc[int(len(x))-50 : 50])
-
-
+    quantile = grouped.apply(lambda x: x.sort_values(by='classifications', ascending=False).iloc[np.r_[0:min(50, len(x)), -min(50, len(x)):0]] if len(x) > 0 else x)
+    quantile = quantile.reset_index(drop=True)
+    classifications_metric.append(prediction_metrics_single(quantile)[str_single_metric])
 
     # Select top 10, reset index, calculate str_single_metric of quantile
-    quantile = grouped.apply(lambda x: x.sort_values(by='classifications', 
-                                                     ascending=False).iloc[: 10])
+    quantile = grouped.apply(lambda x: x.sort_values(by='classifications', ascending=False).iloc[: 10])
     quantile = quantile.reset_index(drop=True)
     classifications_metric.append(prediction_metrics_single(quantile)[str_single_metric])
 
     # Select top 20, reset index, calculate str_single_metric of quantile
-    quantile = grouped.apply(lambda x: x.sort_values(by='classifications', 
-                                                     ascending=False).iloc[: 20])
+    quantile = grouped.apply(lambda x: x.sort_values(by='classifications', ascending=False).iloc[: 20])
     quantile = quantile.reset_index(drop=True)
     classifications_metric.append(prediction_metrics_single(quantile)[str_single_metric])
     
     # Select top 50, reset index, calculate str_single_metric of quantile
-    quantile = grouped.apply(lambda x: x.sort_values(by='classifications', 
-                                                     ascending=False).iloc[: 50])
+    quantile = grouped.apply(lambda x: x.sort_values(by='classifications', ascending=False).iloc[: 50])
     quantile = quantile.reset_index(drop=True)
     classifications_metric.append(prediction_metrics_single(quantile)[str_single_metric])
-
-
 
     # # Select top decile, reset index, calculate str_single_metric of quantile
     # quantile = grouped.apply(lambda x: x.sort_values(by='classifications', 
@@ -133,26 +116,20 @@ def prediction_metrics(df_classifications, str_model, str_single_metric):
     # quantile = quantile.reset_index(drop=True)
     # classifications_metric.append(prediction_metrics_single(quantile)[str_single_metric])
 
-
-
     # Select bottom 10, reset index, calculate str_single_metric of quantile
-    quantile = grouped.apply(lambda x: x.sort_values(by='classifications', 
-                                                     ascending=False).iloc[int(len(x))-10 : ])
+    quantile = grouped.apply(lambda x: x.sort_values(by='classifications', ascending=False).iloc[int(len(x))-10 : ])
     quantile = quantile.reset_index(drop=True)
     classifications_metric.append(prediction_metrics_single(quantile)[str_single_metric])
 
     # Select bottom 20, reset index, calculate str_single_metric of quantile
-    quantile = grouped.apply(lambda x: x.sort_values(by='classifications', 
-                                                     ascending=False).iloc[int(len(x))-20: ])
+    quantile = grouped.apply(lambda x: x.sort_values(by='classifications', ascending=False).iloc[int(len(x))-20: ])
     quantile = quantile.reset_index(drop=True)
     classifications_metric.append(prediction_metrics_single(quantile)[str_single_metric])
 
     # Select bottom 50, reset index, calculate str_single_metric of quantile
-    quantile = grouped.apply(lambda x: x.sort_values(by='classifications', 
-                                                     ascending=False).iloc[int(len(x))-50: ])
+    quantile = grouped.apply(lambda x: x.sort_values(by='classifications', ascending=False).iloc[int(len(x))-50: ])
     quantile = quantile.reset_index(drop=True)
     classifications_metric.append(prediction_metrics_single(quantile)[str_single_metric])
-
 
     return(classifications_metric)
 
@@ -178,12 +155,12 @@ def prediction_metrics_single(df_classifications_subset):
     # Calculate evaluation metrics
     metrics = {
         "Accuracy": accuracy_score(y_true, y_pred),
-        "Precision": precision_score(y_true, y_pred),
-        "Recall": recall_score(y_true, y_pred),
-        "F1 Score": f1_score(y_true, y_pred),
-        "Confusion Matrix": confusion_matrix(y_true, y_pred),
-        "ROC AUC Score": roc_auc_score(y_true, y_pred),
-        "Cohen's Kappa": cohen_kappa_score(y_true, y_pred)
+        # "Precision": precision_score(y_true, y_pred),
+        # "Recall": recall_score(y_true, y_pred),
+        # "F1 Score": f1_score(y_true, y_pred),
+        # "Confusion Matrix": confusion_matrix(y_true, y_pred),
+        # "ROC AUC Score": roc_auc_score(y_true, y_pred),
+        # "Cohen's Kappa": cohen_kappa_score(y_true, y_pred)
     }
 
     # # Print evaluation metrics
