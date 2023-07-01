@@ -117,6 +117,12 @@ def metrics(df_returns_portfolio, backtest_model, df_metrics, df_stockindex_retu
     # # Maximum 1 year loss, 52 days in a year
     # max_1_year_loss = portfolio_returns.rolling(window=52).min().min() # Always equal to max 1 day loss
 
+
+    print("weightMatrix.dtypes", weightMatrix.dtypes)
+
+
+    # Change dtypes of weightMatrix to float
+    weightMatrix = weightMatrix.astype(float)
     # Calculates the average dayly turnover
     T = weightMatrix.shape[0]
     totalTurnover = 0
