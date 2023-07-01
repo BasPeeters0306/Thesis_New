@@ -161,8 +161,8 @@ def prediction_metrics_single(df_classifications_subset):
     
     # Calculate evaluation metrics
     metrics = {
-        "Accuracy": calculate_accuracy(y_true, y_pred),
-        # "Accuracy": accuracy_score(y_true, y_pred),
+        # "Accuracy": calculate_accuracy(y_true, y_pred),
+        "Accuracy": accuracy_score(y_true, y_pred),
         # "Precision": precision_score(y_true, y_pred),
         # "Recall": recall_score(y_true, y_pred),
         # "F1 Score": f1_score(y_true, y_pred),
