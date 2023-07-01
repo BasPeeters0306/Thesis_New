@@ -147,3 +147,52 @@ def metrics(df_returns_portfolio, backtest_model, df_metrics, df_stockindex_retu
 
 
 
+def regression(df_returns_portfolio_Equal_10_long_short, df_returns_portfolio_Equal_10_long_short_SESI, rf_rate_and_factors, str_returns_reg_models):
+
+    df_returns_portfolio_Equal_10_long_short = df_returns_portfolio_Equal_10_long_short[['BarDate', 'returns_lr_portfolio', 'returns_rf_portfolio', 'returns_gbc_portfolio', 'returns_rnn_portfolio', 'returns_lstm_portfolio']]	
+    df_returns_portfolio_Equal_10_long_short_SESI = df_returns_portfolio_Equal_10_long_short_SESI[['BarDate', 'returns_lr_portfolio', 'returns_rf_portfolio', 'returns_gbc_portfolio', 'returns_rnn_portfolio', 'returns_lstm_portfolio']]
+    # Rename columns 'returns_lr_portfolio', 'returns_rf_portfolio', 'returns_gbc_portfolio', 'returns_rnn_portfolio', 'returns_lstm_portfolio' of df_returns_portfolio_Equal_10_long_short_SESI to 'returns_lr_portfolio_SESI', 'returns_rf_portfolio_SESI', 'returns_gbc_portfolio_SESI', 'returns_rnn_portfolio_SESI', 'returns_lstm_portfolio_SESI'
+    df_returns_portfolio_Equal_10_long_short_SESI = df_returns_portfolio_Equal_10_long_short_SESI.rename(columns={'returns_lr_portfolio': 'returns_lr_portfolio_SESI', 'returns_rf_portfolio': 'returns_rf_portfolio_SESI', 'returns_gbc_portfolio': 'returns_gbc_portfolio_SESI', 'returns_rnn_portfolio': 'returns_rnn_portfolio_SESI', 'returns_lstm_portfolio': 'returns_lstm_portfolio_SESI'})
+    # # Join the columns classifications_lr, classifications_rf and classifications_gb from df_classifications to df_classifications_10 by BarDate and Ticker
+    df_portfolio_RFactors = df_returns_portfolio_Equal_10_long_short.merge(df_returns_portfolio_Equal_10_long_short_SESI[["BarDate", 'returns_lr_portfolio_SESI', 'returns_rf_portfolio_SESI', 'returns_gbc_portfolio_SESI', 'returns_rnn_portfolio_SESI', 'returns_lstm_portfolio_SESI']], how = "left", on = ["BarDate"])
+    df_portfolio_RFactors = df_portfolio_RFactors.merge(rf_rate_and_factors[["BarDate", 'Mkt_min_RF', 'SMB', 'HML', 'ST_Rev', 'LT_Rev', 'Mom']], how = "left", on = ["BarDate"])
+    df_portfolio_RFactors.drop(columns=['returns_lr_portfolio', "returns_rf_portfolio", "returns_gbc_portfolio", "returns_rnn_portfolio"], inplace=True)
+
+    dict_regression_results = {}
+    for str_returns_reg_model in str_returns_reg_models:
+        # Regress returns_lstm_portfolio on Mkt_min_RF, SMB, HML, RF, ST_Rev, LT_Rev, Mom and an intercept
+        X = df_portfolio_RFactors[['Mkt_min_RF', 'SMB', 'HML', 'ST_Rev', 'LT_Rev', 'Mom']]
+        y = df_portfolio_RFactors[str_returns_reg_model]
+        X = sm.add_constant(X)
+        model = sm.OLS(y, X).fit()
+        predictions = model.predict(X) # make the predictions by the model
+        # Print out the statistics
+        print(model.summary())
+
+        # Get coefficients of the regression model
+        params = model.params
+
+        # Get the p-values of the coefficients
+        p_values = model.pvalues
+
+        # Get the R-squared value and the adjusted R-squared value
+        r2 = model.rsquared
+        r2_adj = model.rsquared_adj
+
+        # Get the number of observations
+        n_obs = model.nobs
+
+        # Get the rmse
+        rmse = np.sqrt(model.mse_resid)
+
+        # Create a series with params, p_values, r2, r2_adj, n_obs and rmse
+        df_regression_results = pd.concat([params, p_values], axis=1)
+        df_regression_results.columns = ["params", "p_values"]
+        df_regression_results.loc["r2"] = r2
+        df_regression_results.loc["r2_adj"] = r2_adj
+        df_regression_results.loc["n_obs"] = n_obs
+        df_regression_results.loc["rmse"] = rmse
+
+        dict_regression_results[str_returns_reg_model] = df_regression_results
+
+    return dict_regression_results
