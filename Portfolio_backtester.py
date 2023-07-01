@@ -174,6 +174,8 @@ def regression(df_returns_portfolio_Equal_10_long_short, df_returns_portfolio_Eq
 
         # Get the p-values of the coefficients
         p_values = model.pvalues
+        # Get the standard errors of the coefficients
+        std_err = model.bse
 
         # Get the R-squared value and the adjusted R-squared value
         r2 = model.rsquared
@@ -186,8 +188,8 @@ def regression(df_returns_portfolio_Equal_10_long_short, df_returns_portfolio_Eq
         rmse = np.sqrt(model.mse_resid)
 
         # Create a series with params, p_values, r2, r2_adj, n_obs and rmse
-        df_regression_results = pd.concat([params, p_values], axis=1)
-        df_regression_results.columns = ["params", "p_values"]
+        df_regression_results = pd.concat([params, p_values, std_err], axis=1)
+        df_regression_results.columns = ["params", "p_values", "std_err"]
         df_regression_results.loc["r2"] = r2
         df_regression_results.loc["r2_adj"] = r2_adj
         df_regression_results.loc["n_obs"] = n_obs
