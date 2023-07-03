@@ -2,9 +2,10 @@ import pandas as pd
 import numpy as np
 import statsmodels.api as sm
 import math 
+from scipy import stats
 
 def backtest(df_predictions,n_long,n_short, backtest_model, weighting_method, df_returns_portfolio, 
-             returnsMatrix, long_only, short_only): 
+             returnsMatrix, long_only, short_only, b_tradingcosts): 
 
     # Specify some naming based on model used
     predictions = "predictions_" + backtest_model
@@ -39,9 +40,9 @@ def backtest(df_predictions,n_long,n_short, backtest_model, weighting_method, df
         if(weighting_method == "Equal"):
             
             # Weights for long and short positions
-            pts_day_top["Weight"] = 1/n_long
+            pts_day_top["Weight"] = 1/(2*n_long)             
             if not n_short == 0:
-                pts_day_bottom["Weight"] = -1/n_short
+                pts_day_bottom["Weight"] = -1/(2*n_short)
 
         elif(weighting_method == "RankBased"):
             # Weights for long positions
@@ -61,13 +62,14 @@ def backtest(df_predictions,n_long,n_short, backtest_model, weighting_method, df
         # Fill weight matrix
         weightMatrix.loc[day, pts_day_top["Ticker"]] = pts_day_top[["Ticker", "Weight"]].set_index('Ticker').squeeze()
         weightMatrix.loc[day, pts_day_bottom["Ticker"]] = pts_day_bottom[["Ticker", "Weight"]].set_index('Ticker').squeeze()
-
+        
         # Calculates actual returns of the weighted chosen long and short positions
         returns_long_actual = pts_day_top["NextdayReturn"]*pts_day_top["Weight"]
         returns_short_actual = pts_day_bottom["NextdayReturn"]*pts_day_bottom["Weight"]
-        
+
         # Portfolio_returns
         returns_portfolio = returns_long_actual.sum() + returns_short_actual.sum()
+
         df_returns_portfolio.loc[df_returns_portfolio["BarDate"] == day, str_returns_portfolio] = returns_portfolio
 
         # Cumulative product of the returns
@@ -75,6 +77,36 @@ def backtest(df_predictions,n_long,n_short, backtest_model, weighting_method, df
 
         # Cumulative log returns
         df_returns_portfolio[str_logreturns_portfolio_cum] = np.log(1 + df_returns_portfolio[str_returns_portfolio]).cumsum()
+
+
+    print("weightMatrix: ", weightMatrix)
+    
+
+    if b_tradingcosts == True:
+
+  
+        # Change dtypes of weightMatrix to float
+        weightMatrix = weightMatrix.astype(float)
+        # Calculate the daily changes in weights
+        daily_changes = np.abs(weightMatrix - (weightMatrix.shift(1) * (1 + returnsMatrix))) # returnsMatrix is already t+1# Sum across assets for each day  
+        dailyTurnover = np.sum(daily_changes, axis=1)
+        # Drop first row of dailyTurnover
+        dailyTurnover = dailyTurnover[1:]
+        # Add a new first row to dailyTurnover with value 0, should be 1
+        dailyTurnover = np.insert(dailyTurnover, 0, 0)
+
+        print("dailyTurnover: ", dailyTurnover)
+
+
+        df_returns_portfolio[str_returns_portfolio] = df_returns_portfolio[str_returns_portfolio] * (1 - (0.0005 * dailyTurnover))          
+
+        # Cumulative product of the returns
+        df_returns_portfolio[str_returns_portfolio_cum] = (1 + df_returns_portfolio[str_returns_portfolio]).cumprod() - 1
+
+        # Cumulative log returns
+        df_returns_portfolio[str_logreturns_portfolio_cum] = np.log(1 + df_returns_portfolio[str_returns_portfolio]).cumsum()
+
+        
 
     return(df_predictions, df_returns_portfolio, str_returns_portfolio_cum, str_logreturns_portfolio_cum, weightMatrix)
 
@@ -90,6 +122,10 @@ def metrics(df_returns_portfolio, backtest_model, df_metrics, df_stockindex_retu
     # total_return = portfolio_returns.sum() # returns are not additive so we cannot sum them
     mean_return = portfolio_returns.mean()
     std_dev = portfolio_returns.std()
+
+    # calculate two-tailed p-value
+    t_stat = mean_return / (std_dev / np.sqrt(len(portfolio_returns)))
+    p_value = stats.t.sf(np.abs(t_stat), len(portfolio_returns)-1)*2
 
     # Information ratio
     # information_ratio = np.sqrt(252) * ((portfolio_returns.mean()) / std_dev)
@@ -117,38 +153,22 @@ def metrics(df_returns_portfolio, backtest_model, df_metrics, df_stockindex_retu
     # # Maximum 1 year loss, 52 days in a year
     # max_1_year_loss = portfolio_returns.rolling(window=52).min().min() # Always equal to max 1 day loss
 
+    ## Calculates the average daily turnover
+
     # Change dtypes of weightMatrix to float
     weightMatrix = weightMatrix.astype(float)
-    ## Calculates the average daily turnover
-    weightMatrix = weightMatrix*0.5                 ################################################################################## REMOVE WHEN ADJUSTING THE WEIGHTS EARLIER ON
-    
-    # totalTurnover = 0
-    # for t in range(0,T-1):
-    #     cumTurnover = 0
-    #     cumTurnoverDenom = 1                 ############ Adjusted
-    #     for i in range(0, weightMatrix.shape[1] - 1):
-    #         # cumTurnoverDenom = 1
-    #         for j in range(0, weightMatrix.shape[1] - 1):
-    #             cumTurnoverDenom = cumTurnoverDenom + (weightMatrix.iloc[t,j] * returnsMatrix.iloc[t+1,j])
-        
-    #         cumTurnover = cumTurnover + abs(weightMatrix.iloc[(t + 1), i] - (weightMatrix.iloc[t, i] * 
-    #                                                             (1 + returnsMatrix.iloc[(t+1),i])) / 
-    #                                                             cumTurnoverDenom)
-    #     totalTurnover = totalTurnover + cumTurnover
-    # averagedailyTurnover = (1/T) * totalTurnover
-
-
     # Calculate the daily changes in weights
     daily_changes = np.abs(weightMatrix - (weightMatrix.shift(1) * (1 + returnsMatrix))) # returnsMatrix is already t+1# Sum across assets for each day  
     dailyTurnover = np.sum(daily_changes, axis=1)
-    # Drop first and last row of dailyTurnover
+    # Drop first row of dailyTurnover
     dailyTurnover = dailyTurnover[1:]
+    # Add a new first row to dailyTurnover with value 0, should be 1
+    dailyTurnover = np.insert(dailyTurnover, 0, 0)
+
     # Average daily turnover
     averagedailyTurnover = np.mean(dailyTurnover)
 
-    # averagedailyTurnover = None
-
-    df_metrics[backtest_model] = [mean_return, std_dev, information_ratio, sharpe_ratio, appraisal_ratio, 
+    df_metrics[backtest_model] = [mean_return, std_dev, t_stat, p_value, information_ratio, sharpe_ratio, appraisal_ratio, 
                                   max_drawdown, max_1_day_loss, averagedailyTurnover]
     return df_metrics
 
