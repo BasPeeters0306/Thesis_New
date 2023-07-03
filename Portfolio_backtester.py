@@ -78,10 +78,6 @@ def backtest(df_predictions,n_long,n_short, backtest_model, weighting_method, df
         # Cumulative log returns
         df_returns_portfolio[str_logreturns_portfolio_cum] = np.log(1 + df_returns_portfolio[str_returns_portfolio]).cumsum()
 
-
-    print("weightMatrix: ", weightMatrix)
-    
-
     if b_tradingcosts == True:
 
   
@@ -95,9 +91,6 @@ def backtest(df_predictions,n_long,n_short, backtest_model, weighting_method, df
         # Add a new first row to dailyTurnover with value 0, should be 1
         dailyTurnover = np.insert(dailyTurnover, 0, 0)
 
-        print("dailyTurnover: ", dailyTurnover)
-
-
         df_returns_portfolio[str_returns_portfolio] = df_returns_portfolio[str_returns_portfolio] * (1 - (0.0005 * dailyTurnover))          
 
         # Cumulative product of the returns
@@ -105,8 +98,6 @@ def backtest(df_predictions,n_long,n_short, backtest_model, weighting_method, df
 
         # Cumulative log returns
         df_returns_portfolio[str_logreturns_portfolio_cum] = np.log(1 + df_returns_portfolio[str_returns_portfolio]).cumsum()
-
-        
 
     return(df_predictions, df_returns_portfolio, str_returns_portfolio_cum, str_logreturns_portfolio_cum, weightMatrix)
 
@@ -129,12 +120,12 @@ def metrics(df_returns_portfolio, backtest_model, df_metrics, df_stockindex_retu
 
     # Information ratio
     # information_ratio = np.sqrt(252) * ((portfolio_returns.mean()) / std_dev)
-    information_ratio = None
+    # information_ratio = None
     # Sharpe ratio
     sharpe_ratio = np.sqrt(252) * (((portfolio_returns - rf_rate_and_factors["RF"]).mean())  / std_dev)
 
-    if df_stockindex_returns == None:
-        appraisal_ratio = None
+    # if df_stockindex_returns == None:
+    #     appraisal_ratio = None
     # else:
     # `   # Initialize lin reg model
     #     X_OLS = sm.add_constant(df_stockindex_returns["Return"])
@@ -168,7 +159,7 @@ def metrics(df_returns_portfolio, backtest_model, df_metrics, df_stockindex_retu
     # Average daily turnover
     averagedailyTurnover = np.mean(dailyTurnover)
 
-    df_metrics[backtest_model] = [mean_return, std_dev, t_stat, p_value, information_ratio, sharpe_ratio, appraisal_ratio, 
+    df_metrics[backtest_model] = [mean_return, std_dev, t_stat, p_value, sharpe_ratio, 
                                   max_drawdown, max_1_day_loss, averagedailyTurnover]
     return df_metrics
 
