@@ -118,14 +118,16 @@ def metrics(df_returns_portfolio, backtest_model, df_metrics, df_stockindex_retu
     # max_1_year_loss = portfolio_returns.rolling(window=52).min().min() # Always equal to max 1 day loss
 
     # Change dtypes of weightMatrix to float
-    # weightMatrix = weightMatrix.astype(float)
-    ## Calculates the average dayly turnover
-    # T = weightMatrix.shape[0]
+    weightMatrix = weightMatrix.astype(float)
+    ## Calculates the average daily turnover
+    weightMatrix = weightMatrix*0.5                 ################################################################################## REMOVE WHEN ADJUSTING THE WEIGHTS EARLIER ON
+    
     # totalTurnover = 0
     # for t in range(0,T-1):
     #     cumTurnover = 0
+    #     cumTurnoverDenom = 1                 ############ Adjusted
     #     for i in range(0, weightMatrix.shape[1] - 1):
-    #         cumTurnoverDenom = 1
+    #         # cumTurnoverDenom = 1
     #         for j in range(0, weightMatrix.shape[1] - 1):
     #             cumTurnoverDenom = cumTurnoverDenom + (weightMatrix.iloc[t,j] * returnsMatrix.iloc[t+1,j])
         
@@ -133,11 +135,21 @@ def metrics(df_returns_portfolio, backtest_model, df_metrics, df_stockindex_retu
     #                                                             (1 + returnsMatrix.iloc[(t+1),i])) / 
     #                                                             cumTurnoverDenom)
     #     totalTurnover = totalTurnover + cumTurnover
-    # averagedaylyTurnover = (1/T) * totalTurnover
-    averagedaylyTurnover = None
+    # averagedailyTurnover = (1/T) * totalTurnover
+
+
+    # Calculate the daily changes in weights
+    daily_changes = np.abs(weightMatrix - (weightMatrix.shift(1) * (1 + returnsMatrix))) # returnsMatrix is already t+1# Sum across assets for each day  
+    dailyTurnover = np.sum(daily_changes, axis=1)
+    # Drop first and last row of dailyTurnover
+    dailyTurnover = dailyTurnover[1:]
+    # Average daily turnover
+    averagedailyTurnover = np.mean(dailyTurnover)
+
+    # averagedailyTurnover = None
 
     df_metrics[backtest_model] = [mean_return, std_dev, information_ratio, sharpe_ratio, appraisal_ratio, 
-                                  max_drawdown, max_1_day_loss, averagedaylyTurnover]
+                                  max_drawdown, max_1_day_loss, averagedailyTurnover]
     return df_metrics
 
 
