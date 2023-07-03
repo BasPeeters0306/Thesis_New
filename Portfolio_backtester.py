@@ -146,18 +146,18 @@ def metrics(df_returns_portfolio, backtest_model, df_metrics, df_stockindex_retu
 
     ## Calculates the average daily turnover
 
-    # Change dtypes of weightMatrix to float
-    weightMatrix = weightMatrix.astype(float)
-    # Calculate the daily changes in weights
-    daily_changes = np.abs(weightMatrix - (weightMatrix.shift(1) * (1 + returnsMatrix))) # returnsMatrix is already t+1# Sum across assets for each day  
-    dailyTurnover = np.sum(daily_changes, axis=1)
-    # Drop first row of dailyTurnover
-    dailyTurnover = dailyTurnover[1:]
-    # Add a new first row to dailyTurnover with value 0, should be 1
-    dailyTurnover = np.insert(dailyTurnover, 0, 0)
-
-    # Average daily turnover
-    averagedailyTurnover = np.mean(dailyTurnover)
+    # # Change dtypes of weightMatrix to float
+    # weightMatrix = weightMatrix.astype(float)
+    # # Calculate the daily changes in weights
+    # daily_changes = np.abs(weightMatrix - (weightMatrix.shift(1) * (1 + returnsMatrix))) # returnsMatrix is already t+1# Sum across assets for each day  
+    # dailyTurnover = np.sum(daily_changes, axis=1)
+    # # Drop first row of dailyTurnover
+    # dailyTurnover = dailyTurnover[1:]
+    # # Add a new first row to dailyTurnover with value 0, should be 1
+    # dailyTurnover = np.insert(dailyTurnover, 0, 0)
+    # # Average daily turnover
+    # averagedailyTurnover = np.mean(dailyTurnover)
+    averagedailyTurnover = None
 
     df_metrics[backtest_model] = [mean_return, std_dev, t_stat, p_value, sharpe_ratio, 
                                   max_drawdown, max_1_day_loss, averagedailyTurnover]
