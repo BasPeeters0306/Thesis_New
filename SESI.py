@@ -3,11 +3,19 @@ import numpy as np
 from tqdm import tqdm
 from tqdm._tqdm_notebook import tqdm_notebook
 tqdm_notebook.pandas()
+import datetime
 
 
 # Creates a daily SESI Score from raw RavenPack data. 
-def SESI(df):
+def SESI(df, b_adjusted_SESI):
     df = df.copy()	
+
+    if b_adjusted_SESI == True:
+        # Transform TIMESTAMP_TZ to datetime
+        df['TIMESTAMP_TZ'] = pd.to_datetime(df['TIMESTAMP_TZ'])
+
+        # Remove all rows with TIMESTAMP_TZ before 23:45:00 for each individual day
+        df = df[(df['TIMESTAMP_TZ'].dt.time < datetime.time(23, 45, 0))]
 
     # Turn time to a daily frequency
     df['TIMESTAMP_TZ'] = df['TIMESTAMP_TZ'].astype(str).str[:10]

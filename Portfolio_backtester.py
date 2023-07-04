@@ -72,11 +72,16 @@ def backtest(df_predictions,n_long,n_short, backtest_model, weighting_method, df
 
         df_returns_portfolio.loc[df_returns_portfolio["BarDate"] == day, str_returns_portfolio] = returns_portfolio
 
+    if b_tradingcosts == False: ##################################### DEZE is nu 1 naar achter geplaatst
+
         # Cumulative product of the returns
         df_returns_portfolio[str_returns_portfolio_cum] = (1 + df_returns_portfolio[str_returns_portfolio]).cumprod() - 1
 
         # Cumulative log returns
         df_returns_portfolio[str_logreturns_portfolio_cum] = np.log(1 + df_returns_portfolio[str_returns_portfolio]).cumsum()
+
+
+
 
     if b_tradingcosts == True:
 
@@ -88,14 +93,11 @@ def backtest(df_predictions,n_long,n_short, backtest_model, weighting_method, df
         dailyTurnover = np.sum(daily_changes, axis=1)
         # Drop first row of dailyTurnover
         dailyTurnover = dailyTurnover[1:]
-        # Add a new first row to dailyTurnover with value 0, should be 1
-        dailyTurnover = np.insert(dailyTurnover, 0, 0)
-
-        df_returns_portfolio[str_returns_portfolio] = df_returns_portfolio[str_returns_portfolio] * (1 - (0.0005 * dailyTurnover))          
-
+        # Add a new first row to dailyTurnover with value 1
+        dailyTurnover = np.insert(dailyTurnover, 0, 1)
+        df_returns_portfolio[str_returns_portfolio] = df_returns_portfolio[str_returns_portfolio] - (0.0005 * dailyTurnover)       
         # Cumulative product of the returns
         df_returns_portfolio[str_returns_portfolio_cum] = (1 + df_returns_portfolio[str_returns_portfolio]).cumprod() - 1
-
         # Cumulative log returns
         df_returns_portfolio[str_logreturns_portfolio_cum] = np.log(1 + df_returns_portfolio[str_returns_portfolio]).cumsum()
 
