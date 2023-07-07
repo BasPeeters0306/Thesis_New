@@ -71,7 +71,7 @@ def create_historical_SP_Index_deliver(df):
     print("len(df) = ", len(df))
     df = df.copy()
     print("len(df) = ", len(df))
-    df.drop(columns=['open', 'high', 'low', 'close', 'volume'], inplace=True)
+    df.drop(columns=['open', 'high', 'low', 'close'], inplace=True)          #, 'volume' is kept
     print("len(df) = ", len(df))
 
     # Creates string with the URL of the API
@@ -342,7 +342,7 @@ def create_historical_SP_Index():
 
     df = load_EOD(ar_index)
     print("Loading df worked, delete this line if it worked")
-    del df[["open", "high", "low", "volume"]]
+    # del df[["open", "high", "low"]]
 
     # Creates string with the URL of the API
     str_url = "https://eodhistoricaldata.com/api/fundamentals/GSPC.INDX?api_token=5ffd9842655256.72432671&historical=1"
