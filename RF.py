@@ -9,7 +9,7 @@ import Evaluation_metrics
 importlib.reload(Evaluation_metrics)
 import matplotlib as plt
 
-def RF_test(best_model, window_size, y_in_sample, X_in_sample, y_test, X_test):
+def RF_test(best_model, window_size, y_in_sample, X_in_sample, y_test, X_test, b_ALE_plot):
     """
     Function which performs a Random Forest classification and returns the predictions and the model.
 
@@ -55,14 +55,21 @@ def RF_test(best_model, window_size, y_in_sample, X_in_sample, y_test, X_test):
  
     i = 0
     while i <= len(y_test):
-        # Get current training target window and feature window
-        if (i==0):
-            y_train_window = y_in_sample
-            X_train_window = X_in_sample
-        else:
-            y_train_window = pd.concat([y_train_window, y_test[(i-window_size):i]])   
-            X_train_window = pd.concat([X_train_window, X_test[(i-window_size):i]])  
-        
+
+        if(b_ALE_plot == True):
+            i += window_size*5
+            print("i: ", i)
+            print("window_size*5: ", window_size*5)
+            y_train_window = pd.concat([y_in_sample, y_test[(i-window_size*5):i]])   
+            X_train_window = pd.concat([X_in_sample, X_test[(i-window_size*5):i]])   
+        else: 
+            if (i==0):
+                y_train_window = y_in_sample
+                X_train_window = X_in_sample
+            else:
+                y_train_window = pd.concat([y_train_window, y_test[(i-window_size):i]])   
+                X_train_window = pd.concat([X_train_window, X_test[(i-window_size):i]]) 
+
         # Fit model
         model.fit(X_train_window, y_train_window.squeeze())
 
@@ -96,7 +103,9 @@ def RF_test(best_model, window_size, y_in_sample, X_in_sample, y_test, X_test):
     # Close the progress bar
     progress_bar.close()    
 
-    return ar_classifications, ar_predictions, model
+
+    X_train_window_final = X_train_window
+    return ar_classifications, ar_predictions, model, X_train_window_final
 
 def RF_tune(X_train, y_train, X_val, y_val, grid):
 

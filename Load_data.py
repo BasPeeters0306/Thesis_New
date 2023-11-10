@@ -3,25 +3,26 @@ import numpy as np
 import pandas as pd
 
 from itertools import chain
-from ravenpackapi import RPApi
-from ravenpackapi import Dataset
+# from ravenpackapi import RPApi
+# from ravenpackapi import Dataset
+import sklearn
 from sklearn.decomposition import TruncatedSVD
 from tqdm import tqdm
 import glob
 import os
 import pytz
 import datetime
-import pyodbc
+# import pyodbc
 
-# Packages used for RavenPack
-from ravenpackapi import RPApi
-from ravenpackapi import Dataset
-from ravenpackapi.util import time_intervals, SPLIT_WEEKLY, SPLIT_YEARLY
+# # Packages used for RavenPack
+# from ravenpackapi import RPApi
+# from ravenpackapi import Dataset
+# from ravenpackapi.util import time_intervals, SPLIT_WEEKLY, SPLIT_YEARLY
 
-# Packages used for connection SQL
-import sqlalchemy
-from sqlalchemy import engine
-from sqlalchemy.engine import URL
+# # Packages used for connection SQL
+# import sqlalchemy
+# from sqlalchemy import engine
+# from sqlalchemy.engine import URL
 
 from joblib import load
 
@@ -292,7 +293,8 @@ def cap_outliers(df, str_column_name):
 # This function loads a dataframe from a csv file
 def load_csv(file_name):
 
-    directory = r"C:\Users\BasPeeters\OneDrive - FactorOrange.capital\Master Thesis\Dataframes and output"
+    # directory = r"C:\Users\BasPeeters\OneDrive - FactorOrange.capital\Master Thesis\Dataframes and output" # Windows
+    directory = r"/Users/baspeeters/Library/CloudStorage/OneDrive-FactorOrange.capital/Master Thesis/Dataframes and output" # Macbook
     full_path = os.path.join(directory, f"{file_name}.csv")
 
     # load csv file

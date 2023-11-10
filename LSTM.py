@@ -123,7 +123,7 @@ def data_preparation(X_in_sample, X_test, y_in_sample, y_test, X_train, X_val, y
 
     return X_in_sample_lstm, X_test_lstm, y_in_sample_lstm, y_test_lstm, X_train_lstm, X_val_lstm, y_train_lstm, y_val_lstm, df_y_test_lstm
 
-def LSTM_test(best_model, window_size, y_in_sample, X_in_sample, y_test, X_test, b_sentiment_score, n_past_returns, loss_function, str_nn_type):
+def LSTM_test(best_model, window_size, y_in_sample, X_in_sample, y_test, X_test, b_sentiment_score, n_past_returns, loss_function, str_nn_type, b_ALE_plot):
 
     # Initialize model, choose best hyperparameters from tuned model
     model = LSTM_model_1(dropout = best_model["dropout"].iloc[0], 
@@ -139,15 +139,22 @@ def LSTM_test(best_model, window_size, y_in_sample, X_in_sample, y_test, X_test,
     # Create a progress bar using tqdm
     progress_bar = tqdm(total=int(np.ceil(len(y_test)/window_size)), unit='iteration')        
 
-    i = 0
+    i=0
     while i <= len(y_test):
         # Get current training target window and feature window
-        if (i==0):
-            y_train_window = y_in_sample
-            X_train_window = X_in_sample
-        else:
-            y_train_window = np.concatenate([y_train_window, y_test[(i-window_size):i]])        #pd.concat
-            X_train_window = np.concatenate([X_train_window, X_test[(i-window_size):i]])   #pd.concat
+        if(b_ALE_plot == True):
+            i += window_size*5
+            print("i: ", i)
+            print("window_size*5: ", window_size*5)
+            y_train_window = np.concatenate([y_in_sample, y_test[(i-window_size*5):i]])   
+            X_train_window = np.concatenate([X_in_sample, X_test[(i-window_size*5):i]])   
+        else: 
+            if (i==0):
+                y_train_window = y_in_sample
+                X_train_window = X_in_sample
+            else:
+                y_train_window = np.concatenate([y_train_window, y_test[(i-window_size):i]])   #pd.concat
+                X_train_window = np.concatenate([X_train_window, X_test[(i-window_size):i]])   #pd.concat
         
         # Fit model
         model.fit(X_train_window, y_train_window.squeeze(), epochs=best_model["epochs_min_val_loss"].iloc[0], batch_size=best_model["batch_size"].iloc[0], verbose = 0)      #epochs=best_model["epochs_min_val_loss"].iloc[0]
@@ -177,7 +184,8 @@ def LSTM_test(best_model, window_size, y_in_sample, X_in_sample, y_test, X_test,
     # Classify every value in ar_predictions_lstm as 1 or 0
     ar_classifications = np.where(ar_predictions > 0.5, 1, 0)
 
-    return ar_predictions, ar_classifications, model
+    X_train_window_final = X_train_window
+    return ar_predictions, ar_classifications, model, X_train_window_final
 
 def LSTM_tune(X_train, y_train, X_val, y_val, grid, b_sentiment_score, n_past_returns, loss_function, str_nn_type):
     """

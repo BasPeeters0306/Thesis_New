@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
 
-def logistic_regression(window_size, y_in_sample, X_in_sample, y_test, X_test):
+def logistic_regression(window_size, y_in_sample, X_in_sample, y_test, X_test, b_ALE_plot):
     """
     Function which performs a logistic regression and returns the predictions and the model.
 
@@ -41,20 +41,26 @@ def logistic_regression(window_size, y_in_sample, X_in_sample, y_test, X_test):
     i = 0
     while i <= len(y_test):
         # Get current training target window and feature window
-        if (i==0):
-            y_train_window = y_in_sample
-            X_train_window = X_in_sample
-        else:
-            y_train_window = pd.concat([y_train_window, y_test[(i-window_size):i]])   
-            X_train_window = pd.concat([X_train_window, X_test[(i-window_size):i]])  
-        
+        if(b_ALE_plot == True):
+            i += window_size*5
+            print("i: ", i)
+            print("window_size*5: ", window_size*5)
+            y_train_window = pd.concat([y_in_sample, y_test[(i-window_size*5):i]])   
+            X_train_window = pd.concat([X_in_sample, X_test[(i-window_size*5):i]])   
+        else: 
+            if (i==0):
+                y_train_window = y_in_sample
+                X_train_window = X_in_sample
+            else:
+                y_train_window = pd.concat([y_train_window, y_test[(i-window_size):i]])   
+                X_train_window = pd.concat([X_train_window, X_test[(i-window_size):i]])  
+
         # Fit model
         model.fit(X_train_window, y_train_window)
 
         # Get current test target window and feature window
         if (i+window_size <= len(y_test)):
-            X_test_window = X_test[i:i+window_size]
-            
+            X_test_window = X_test[i:i+window_size]   
         else:
             X_test_window = X_test[i:]
 
@@ -75,5 +81,5 @@ def logistic_regression(window_size, y_in_sample, X_in_sample, y_test, X_test):
         # Update i
         i += window_size
  
-
-    return ar_classifications, ar_predictions, model
+    X_train_window_final = X_train_window
+    return ar_classifications, ar_predictions, model, X_train_window_final
