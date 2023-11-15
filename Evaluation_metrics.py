@@ -300,33 +300,33 @@ def Diebold_Mariano(df_classifications, df_predictions, str_dm_type, str_sample,
             # Code that extracts DM-Stat for comparison model 1 and model 2
             d12Vector = np.empty(shape = 0)
                 
-            if (str_sample == "full"):   
-                if (str_dm_type == "classic"):	
-                    predErrors1New = df_errors[model_1] 
-                    print("predErrors1New: ", predErrors1New)
-                    predErrors2New = df_errors[model_2]
-                    print("predErrors2New: ", predErrors2New)
-                    d12 = diebold_mariano(predErrors1New, predErrors2New)
-                    print("d12: ", d12)
-                    d12Vector = np.append(d12Vector, d12)
-                    print("d12Vector: ", d12Vector)
+            # if (str_sample == "full"):   
+            #     if (str_dm_type == "classic"):	
+            #         predErrors1New = df_errors[model_1] 
+            #         print("predErrors1New: ", predErrors1New)
+            #         predErrors2New = df_errors[model_2]
+            #         print("predErrors2New: ", predErrors2New)
+            #         d12 = diebold_mariano(predErrors1New, predErrors2New)
+            #         print("d12: ", d12)
+            #         d12Vector = np.append(d12Vector, d12)
+            #         print("d12Vector: ", d12Vector)
 
-                    dmTable[i,j], pValueTable[i,j] = dmStat(d12Vector)
+            #         dmTable[i,j], pValueTable[i,j] = dmStat(d12Vector)
 
-                elif (str_dm_type == "adjusted"):
-                    for date in df_errors["BarDate"].unique():
-                        df_day = df_errors[df_errors["BarDate"]== date]
-                        predErrors1New = df_day[model_1] 
-                        predErrors2New = df_day[model_2]
-                        d12 = diebold_mariano_variable_gu(predErrors1New, predErrors2New)
-                        d12Vector = np.append(d12Vector, d12)
+            #     elif (str_dm_type == "adjusted"):
+            #         for date in df_errors["BarDate"].unique():
+            #             df_day = df_errors[df_errors["BarDate"]== date]
+            #             predErrors1New = df_day[model_1] 
+            #             predErrors2New = df_day[model_2]
+            #             d12 = diebold_mariano_variable_gu(predErrors1New, predErrors2New)
+            #             d12Vector = np.append(d12Vector, d12)
                     
-                    dmTable[i,j], pValueTable[i,j] = dmStat(d12Vector)
+            #         dmTable[i,j], pValueTable[i,j] = dmStat(d12Vector)
 
             if (str_sample == "Top_bottom_20" or str_sample == "Top_bottom_10" or str_sample == "Top_bottom_50"):  
-                if (str_dm_type == "classic"):	
-                    print("ERROR: ..........................Applying the top bottom quintile with the classic method is not possible...............................")
-                    break
+                # if (str_dm_type == "classic"):	
+                #     print("ERROR: ..........................Applying the top bottom quintile with the classic method is not possible...............................")
+                #     break
 
                 elif (str_dm_type == "adjusted"):
                     for date in dict_quantiles[f"quantile_{model_1}"]["BarDate"].unique():                                          
@@ -344,6 +344,55 @@ def Diebold_Mariano(df_classifications, df_predictions, str_dm_type, str_sample,
 
     return dmTable, pValueTable
 
+def Loss_series_for_MCS(df_classifications, df_predictions, str_dm_type, str_sample, b_compare_SESI_to_no_SESI):  
+    
+    if b_compare_SESI_to_no_SESI:
+        Models = ["lr", "rf", "gbc", "rnn", "lstm", "lr_SESI", "rf_SESI", "gbc_SESI", "rnn_SESI", "lstm_SESI"]
+    else:
+        Models = ["lr", "rf", "gbc", "rnn", "lstm"]
+
+    df_classifications_predictions = df_classifications.copy()
+    # left join columns predictions_lr, predictions_rf, predictions_gbc, predictions_lstm from df_predictions to df_classifications_temp by BarDate and Ticker
+
+    if b_compare_SESI_to_no_SESI:
+        df_classifications_predictions = df_classifications_predictions.join(df_predictions.loc[:, df_predictions.columns.isin(["BarDate", "Ticker", "predictions_lr", "predictions_rf", 
+                                                                                                                                "predictions_gbc", "predictions_rnn", "predictions_lstm", 
+                                                                                                                                "predictions_lr_SESI", "predictions_rf_SESI", "predictions_gbc_SESI", 
+                                                                                                                                "predictions_rnn_SESI", "predictions_lstm_SESI"])].set_index(["BarDate", "Ticker"]), on=["BarDate", "Ticker"])
+    else:
+        df_classifications_predictions = df_classifications_predictions.join(df_predictions.loc[:, df_predictions.columns.isin(["BarDate", "Ticker", "predictions_lr", "predictions_rf", "predictions_gbc", "predictions_rnn", "predictions_lstm"])].set_index(["BarDate", "Ticker"]), on=["BarDate", "Ticker"])
+    
+
+    if str_sample == "Top_bottom_10":
+        n_cutoff = 10
+    if str_sample == "Top_bottom_20":
+        n_cutoff = 20
+    if str_sample == "Top_bottom_50":
+        n_cutoff = 50
+
+    dict_quantiles = {}
+    for model in Models:
+
+        # Group by date
+        grouped = df_classifications_predictions[["BarDate", "Ticker", "Target", f"classifications_{model}", f"predictions_{model}"]].groupby("BarDate")
+
+        # Select top 20, reset index, calculate str_single_metric of quantile
+        quantile_top = grouped.apply(lambda x: x.sort_values(by=f"predictions_{model}", ascending=False).iloc[: n_cutoff])
+        quantile_top = quantile_top.reset_index(drop=True)
+        # Select top 20, reset index, calculate str_single_metric of quantile
+        quantile_bottom = grouped.apply(lambda x: x.sort_values(by=f"predictions_{model}", ascending=False).iloc[int(len(x))-n_cutoff : ])
+        quantile_bottom = quantile_bottom.reset_index(drop=True)
+        quantile = pd.concat([quantile_top, quantile_bottom])
+
+        dict_quantiles[f"quantile_{model}"] = quantile
+
+        # Count the number of 0's and 1's for column classifications_lr in quantile
+        print(dict_quantiles[f"quantile_{model}"][f"classifications_{model}"].value_counts())
+
+        dict_quantiles[f"quantile_{model}"][f"error_{model}"] = np.where(dict_quantiles[f"quantile_{model}"]["Target"] == dict_quantiles[f"quantile_{model}"][f"classifications_{model}"], 0, 1)
+
+    
+    return dict_quantiles
 
 
 
